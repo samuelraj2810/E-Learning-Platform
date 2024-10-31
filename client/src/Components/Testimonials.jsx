@@ -23,13 +23,13 @@ const testimonials = [
   ];
   return (
     <div className="bg-gray-100 py-12 ">
-      <div className="w-[80%] mx-auto px-4">
+      <div className="w-[90%] mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8 md:mb-20">What Our Students Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-2">
+        <div className="flex flex-row flex-wrap justify-center gap-8 md:gap-20">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center"
+              className="bg-white shadow-lg rounded-lg max-w-[480px] p-6 flex flex-col items-center text-center"
             >
               <img
                 src={testimonial.image}

@@ -1,14 +1,23 @@
 import React from 'react'
-import "./Banner.css"
+import { Carousel } from 'antd';
+import image1 from "../Assets/wallpaperflare.com_wallpaper (1).jpg"
+import image2 from "../Assets/wallpaperflare.com_wallpaper (2).jpg"
+import image3 from "../Assets/wallpaperflare.com_wallpaper (3).jpg"
 function Banner() {
+  const bannerdata = [ image1
+,image2,image3  ];
 
   return (
-    <div>
-        <div className='Banner '>
-
-        </div>
+    <div className='mb-20 w-full '>
+      <Carousel autoplay>
+        {bannerdata.map((a, i) => (
+          <div>
+          <img src={a} alt={`image ${i}`} key={i} className='w-full object-cover md:h-[700px]' />
+          </div>
+        ))}
+      </Carousel>
     </div>
-  )
+  );
 }
 
-export default Banner
+export default Banner;
