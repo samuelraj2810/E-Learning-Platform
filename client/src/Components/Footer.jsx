@@ -1,15 +1,16 @@
+import { FacebookFilled, InstagramFilled, TwitterCircleFilled } from "@ant-design/icons";
 import React from "react";
 
 function Footer() {
   return (
     <footer className="w-full">
-      <div className="flex flex-wrap pl-10 pt-5  ">
-        <div className="md:max-w-[400px] flex flex-col gap-5">
+      <div className="flex flex-wrap pl-10 pt-5 pr-5">
+        <div className="w-[350px] md:[500px] flex flex-col gap-5">
           <img src=""></img>
           <p className="text-sm font-semibold">
             <a>elearning.com</a>
           </p>
-          <span className="text-sm font-light opacity-70 flex flex-col gap-5">
+          <span className=" font-light text-xs opacity-70 flex flex-col md:text-sm gap-5">
             <p>No.1 and most visited website for Placements in India.</p>
             <p>
               We help students to prepare for placements with the best study
@@ -20,8 +21,20 @@ function Footer() {
             <p>© 2024 elearning</p>
             </span>
         </div>
+        <div className="w-[250px] mb-5 flex flex-col gap-5 md:ml-auto mt-5 md:items-center">
+          <p className="text-sm md:text-xl font-semibold">
+            <a>Follow us on </a>
+          </p>
+          <div className="flex gap-5 md:text-xl">
+          <FacebookFilled/>
+          <TwitterCircleFilled/>
+          <InstagramFilled />
+          </div>
+          
+
+        </div>
       </div>
-      <div className="flex w-full justify-center md:text-xl font-semibold bg-gray-800 text-zinc-300 h-10 items-center">
+      <div className="flex w-full justify-center text-sm md:text-xl font-semibold bg-gray-800 text-zinc-300 h-10 items-center">
         <p>| Copyright © 2024 E-Learning </p>
       </div>
     </footer>

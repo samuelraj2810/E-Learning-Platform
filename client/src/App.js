@@ -5,17 +5,19 @@ import Subscriptions from "./Components/Subscriptions";
 import Testimonial from "./Components/Testimonials";
 import Nav from "./Components/Nav";
 import Mentors from "./Components/Mentors";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
     <main className="font-Poppins">
       <Nav/>
       <div>
-      {/* <Banner/>
+      <Banner/>
       <Course/>
-      <Subscriptions/> */}
+      <Subscriptions/>
       <Mentors/>
-      {/* <Testimonial/> */}
+      <Testimonial/>
+      <Footer/>
       </div>
     </main>
   );
