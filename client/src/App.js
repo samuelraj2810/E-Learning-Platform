@@ -3,16 +3,19 @@ import './App.css';
 import Course from "./Components/Course";
 import Subscriptions from "./Components/Subscriptions";
 import Testimonial from "./Components/Testimonials";
+import Nav from "./Components/Nav";
 
 function App() {
   return (
-    <div className="App font-Poppins">
+    <main className="font-Poppins">
       <Nav/>
+      <div>
       <Banner/>
       <Course/>
       <Subscriptions/>
       <Testimonial/>
-    </div>
+      </div>
+    </main>
   );
 }
 
