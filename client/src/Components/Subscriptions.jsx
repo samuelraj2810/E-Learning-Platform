@@ -32,7 +32,7 @@ function Subscriptions() {
           subscriptions.map((value, index) => (
             <div
               key={index}
-              className="md:w-[310px] rounded-lg shadow-md md:shadow-lg p-6"
+              className="md:w-[310px] rounded-lg shadow-md md:shadow-lg p-6 scale-100 transition-all duration-500"
             >
               <p className="md:text-3xl font-bold md:my-4">
                 {value.cost}

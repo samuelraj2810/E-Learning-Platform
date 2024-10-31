@@ -29,7 +29,7 @@ const testimonials = [
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-lg max-w-[480px] p-6 flex flex-col items-center text-center"
+              className="bg-white shadow-lg rounded-lg max-w-[480px] p-6 flex flex-col items-center text-center scale-100 transition-all duration-500"
             >
               <img
                 src={testimonial.image}
