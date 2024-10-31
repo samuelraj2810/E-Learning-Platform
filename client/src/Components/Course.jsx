@@ -45,7 +45,7 @@ function Course() {
           CourseDetails.map((value, index) => (
             <div
               key={index}
-              className="p-5 text-sm border shadow-lg rounded-lg md:text-base mx-auto"
+              className="p-5 text-sm border shadow-lg rounded-lg md:text-base mx-auto scale-100 transition-all duration-500"
             >
               <div>
               <div className="w-56 h-36 mb-4 rounded-md md:mb-6 md:w-[250px] md:h-[170px] border overflow-hidden">
