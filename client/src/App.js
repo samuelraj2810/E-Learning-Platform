@@ -1,10 +1,16 @@
-
+import Banner from"./Components/Banner"
 import './App.css';
+import Course from "./Components/Course";
+import Subscriptions from "./Components/Subscriptions";
+import Testimonial from "./Components/Testimonials";
 
 function App() {
   return (
-    <div className="App">
-    
+    <div className="App font-Poppins">
+      <Banner/>
+      <Course/>
+      <Subscriptions/>
+      <Testimonial/>
     </div>
   );
 }
