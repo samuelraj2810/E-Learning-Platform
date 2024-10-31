@@ -4,6 +4,7 @@ import Course from "./Components/Course";
 import Subscriptions from "./Components/Subscriptions";
 import Testimonial from "./Components/Testimonials";
 import Nav from "./Components/Nav";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Course/>
       <Subscriptions/>
       <Testimonial/>
+      <Footer/>
       </div>
     </main>
   );
