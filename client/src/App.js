@@ -7,6 +7,7 @@ import Testimonial from "./Components/Testimonials";
 function App() {
   return (
     <div className="App font-Poppins">
+      <Nav/>
       <Banner/>
       <Course/>
       <Subscriptions/>
