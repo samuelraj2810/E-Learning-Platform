@@ -34,7 +34,7 @@ const Home = () => {
   };
 
   return (
-    <nav className="sticky bg-white top-0 font-poppins font-semibold flex h-[10vh] shadow-md px-2">
+    <nav className="sticky bg-white top-0 font-poppins font-semibold flex h-[10vh] shadow-md px-2 z-40">
       <div className="md:w-3/5 p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4"}>

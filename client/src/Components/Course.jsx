@@ -38,19 +38,20 @@ function Course() {
 
 
   return (
-    <div className="w-[90%] m-auto mb-10 flex flex-col gap-5 md:gap-14 ">
-      <h1 className="text-2xl font-semibold md:text-[26px] md:text-3xl">Popular Courses</h1>
-      <div className="grid grid-col-1 gap-10 md:grid-cols-4 md:gap-28 mx-auto ">
+    <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
+      <h1 className="text-2xl font-semibold md:text-3xl">Popular Courses</h1>
+      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-28 mx-auto ">
         {CourseDetails.length >= 1 ? (
           CourseDetails.map((value, index) => (
             <div
               key={index}
-              className="p-2 text-sm border shadow-lg rounded-lg md:text-base"
+              className="p-5 text-sm border shadow-lg rounded-lg md:text-base mx-auto"
             >
               <div>
-                <div className="w-56 h-36 mb-4 rounded-md md:mb-6 md:w-[250px] md:h-[170px] border">
-                  <img src={value.image} className=" w-full h-full rounded-md"></img>
+              <div className="w-56 h-36 mb-4 rounded-md md:mb-6 md:w-[250px] md:h-[170px] border overflow-hidden">
+                  <img src={value.image} className="rounded-md w-full h-full object-cover"></img>
                 </div>
+
                 <h1>
                   Course :{" "}
                   <span className="font-light">{value.courseName}</span>

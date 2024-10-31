@@ -27,7 +27,7 @@ function Subscriptions() {
   return (
     <div className="w-[90%] m-auto flex flex-col gap-5 mb-10 md:gap-14 md:mt-20 md:mb-20 ">
       <h1 className="text-2xl font-semibold md:text-[28px] md:text-3xl">Plans</h1>
-      <div className="grid grid-col-1 gap-8 p-5 w-[90%] mx-auto items-center justify-center md:grid-cols-4 md:gap-20">
+      <div className="flex flex-row flex-wrap gap-8 p-5 w-[90%] mx-auto items-center justify-center md:gap-20">
         {subscriptions.length >= 1 ? (
           subscriptions.map((value, index) => (
             <div
