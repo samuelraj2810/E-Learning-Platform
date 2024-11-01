@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const {v4} = require("uuid")
 
 const RegSch = new mongoose.Schema({
-   name:String,
+   username:String,
    number:Number,
    email:String,
    password:String,
