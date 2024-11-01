@@ -5,10 +5,14 @@ import Subscriptions from "./Subscriptions";
 import Mentors from "./Mentors";
 import Testimonial from "./Testimonials";
 import Footer from "./Footer";
+import Nav from "./Nav";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
     <>
+      <Nav/>
+      <Outlet/>
       <Banner />
       <Course />
       <Subscriptions />

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import {Link} from "react-router-dom"
 
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const navList = [
-    { id: 1, to: "", title: "home" },
-    { id: 2, to: "", title: "courses" },
-    { id: 3, to: "", title: "about" },
-    { id: 4, to: "", title: "contact" },
-    { id: 5, to: "", title: "login" },
+    { id: 1, to: "/", title: "Home" },
+    { id: 2, to: "/courses", title: "Courses" },
+    { id: 3, to: "/about", title: "About" },
+    { id: 4, to: "/contact", title: "Contact" },
+    { id: 5, to: "/login", title: "Login" },
   ];
 
   const menuVariants = {
@@ -50,7 +51,7 @@ const Nav = () => {
         className={`capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden`}
       >
         {navList.map((each) => (
-          <h1 key={each.id} className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500">{each.title}</h1>
+          <Link to={each.to} key={each.id} className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500">{each.title}</Link>
         ))}
       </div>
       <motion.div
@@ -65,7 +66,7 @@ const Nav = () => {
         </h1>
         <div className="flex gap-4 p-4 border-t flex-col w-full">
           {navList.map((each) => (
-            <h1
+            <Link to={each.to}
               key={each.id}
               className={
                 isMenu
@@ -74,7 +75,7 @@ const Nav = () => {
               }
             >
               {each.title}
-            </h1>
+            </Link>
           ))}
         </div>
       </motion.div>
