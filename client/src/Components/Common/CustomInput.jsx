@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 
 const CustomInput = ({
   type="text",
@@ -8,11 +8,26 @@ const CustomInput = ({
   status = "",
   prefix,
   title,
+  name,
+  value,
   variant,
   disabled,
   required,
   onChange,
 }) => {
+  const [errorMessage, setErrorMessage] = useState(false);
+
+  const handleChange = (e) => {
+    const inputValue = e.target.value;
+    onChange(e);
+
+    // Validate the input and set the error message
+    if (required && !inputValue) {
+      setErrorMessage(true);
+    } else {
+      setErrorMessage(false);
+    }
+  };
   return (
     <div>
       <p className={"text-base font-normal capitalize mb-4 text-gray-700"}>
@@ -27,20 +42,24 @@ const CustomInput = ({
         className={`${className}`}
         variant={variant}
         placeholder={placeholder}
-        status={status}
+        status={errorMessage ? "error" : status}
+        name={name}
+        value={value}
         prefix={prefix}
         disabled={disabled}
-        onChange={onChange}
+        onChange={handleChange}
       />
       :
       <Input.Password
       className={`${className}`}
       variant={variant}
       placeholder={placeholder}
-      status={status}
+      status={errorMessage ? "error" : status}
+      name={name}
+      value={value}
       prefix={prefix}
       disabled={disabled}
-      onChange={onChange}
+      onChange={handleChange}
     />}
     </div>
   );

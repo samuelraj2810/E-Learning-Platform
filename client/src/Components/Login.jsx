@@ -9,12 +9,14 @@ const Login = () => {
     password:""
   })
   const handleReset = () => {
-    setLoginData({username:" ",password:" "})
+    setLoginData({username:"",password:""})
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prevData) => ({ ...prevData, [name]: value }));
-  };
+    setLoginData((prevData) => ({ [name]: value }));
+  }
+
+  console.log(loginData)
   return (
     <div className="font-Poppins flex h-screen tracking-wider ">
       <div className="h-full w-1/2 md:w-2/5 lg:w-1/2 bg-gray-400 hidden md:block">
@@ -26,7 +28,7 @@ const Login = () => {
           alt="NoImage"
           className="absolute object-cover h-full w-full top-0"
         />
-        <div className="h-[80vh] w-4/5 flex justify-center flex-col gap-10 drop-shadow-lg z-40 bg-gradient-to-t from-white to-gray-50 md:p-10">
+        <form className="md:h-[80vh] w-full md:w-4/5 flex p-4 justify-center flex-col gap-10 border z-40 bg-gradient-to-t from-white to-gray-50 md:p-10">
           <h1 className="lg:text-[60px] h-1/5 text-[40px] text-center md:text-left p-4 md:p-0 relative">
             Login
             <img src={LoginIcon} className="h-10 absolute top-0 right-0" />
@@ -36,8 +38,9 @@ const Login = () => {
             variant="filled"
             type="text"
             title="username/Email"
+            name="username"
+            value={loginData.username}
             onChange={handleChange}
-            status=""
             placeholder="Enter Email or Username"
             required={true}
           />
@@ -47,7 +50,8 @@ const Login = () => {
             type="password"
             title="password"
             onChange={handleChange}
-            status=""
+            name="password"
+            value={loginData.password}
             placeholder="Enter Password"
             required={true}
           />
@@ -59,7 +63,7 @@ const Login = () => {
           <CustomButton title="login" className="py-1" color="primary" size="large"/>
           <CustomButton title="signup" className="py-1 ml-4" variant="filled" size="large"/>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
