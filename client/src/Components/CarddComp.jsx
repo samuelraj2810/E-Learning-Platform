@@ -1,35 +1,52 @@
-import React from 'react'
+import React from "react";
 
-function CarddComp(props) {
+function CarddComp({courseName, instructorName,image,index, duration, rating}) {
+
+    let data = [{
+        head:"Course",
+        value:courseName
+    },
+    {
+        head:"Instructor",
+        value:instructorName
+    },
+    {
+        head:"Duration",
+        value:duration
+    },
+    {
+        head:"Rating",
+        value:rating
+    },
+]
   return (
-    
-            <div
-              key={props.index}
-              className="p-5 text-sm border shadow-lg rounded-lg md:text-base mx-auto scale-100 transition-all duration-500"
-            >
-              <div>
-              <div className="w-56 h-36 mb-4 rounded-md md:mb-6 md:w-[250px] md:h-[170px] border overflow-hidden">
-                  <img src={props.image} className="rounded-md w-full h-full object-cover"></img>
-                </div>
-
-                <h1>
-                  Course :{" "}
-                  <span className="font-light">{props.courseName}</span>
-                </h1>
-                <h1>
-                  Instructor :{" "}
-                  <span className="font-light">{props.instructorName}</span>
-                </h1>
-                <h1>
-                  Duration :{" "}
-                  <span className="font-light">{props.duration}</span>
-                </h1>
-                <h1>
-                  Rating : <span className="font-light">{props.rating}</span>
-                </h1>
-              </div>
-            </div>
-  )
+    <div
+      key={index}
+      className={`p-2 text-sm border shadow-lg rounded-lg md:text-base mx-auto scale-100 transition-all duration-500`}
+    >
+      <div>
+        <div className="w-56 h-36 mb-4 rounded-md md:mb-3 md:w-[280px] md:h-[190px] border overflow-hidden">
+          <img
+            src={image}
+            className="rounded-md w-full h-full object-fill"
+          ></img>
+        </div>
+        <div className="p-5 font-semibold">
+          <table>
+            {data.length>0?data.map((a,id) => (
+            <tr>
+              <td>{a.head}</td>
+              <td>:</td>
+              <td>
+                <span className="font-normal">{a.value}</span>
+              </td>
+            </tr>)):
+            <h1>data not found</h1>}
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default CarddComp
+export default CarddComp;

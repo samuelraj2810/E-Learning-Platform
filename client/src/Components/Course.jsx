@@ -40,7 +40,7 @@ function Course() {
   return (
     <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
       <h1 className="text-2xl font-semibold md:text-3xl">Popular Courses</h1>
-      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-22 mx-auto ">
+      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-[90px] mx-auto ">
         {CourseDetails.length >= 1 ? (
           CourseDetails.map((value, index) => (
             <CarddComp
