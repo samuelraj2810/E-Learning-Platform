@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt")
 const register = require("../models/Register.model")
 const {tokenGen} = require("../middleware/authToken")
+const otpgen = require("../utils/otpGen")
 const regPost = async(req,res) =>{
     try {
         console.log(req.body);
@@ -19,7 +20,7 @@ const regPost = async(req,res) =>{
         const userdata = await register.create(data)
         res.json({
             userdata,
-            message:"Sign up Successfull"
+            message:"Successfull"
         })
 
         
@@ -55,7 +56,27 @@ const loginPost = async(req,res) => {
     }
 }
 
+const otpLogin = async(req,res) => {
+    try {
+        const {number} = req.body
+        const checknum = await register.findOne({number})
+        if(!checknum){return res.status(404).json({message:"Invalid Number"})}
+
+        const otp = otpgen()
+        res.json({
+            otp
+        })
+
+    } catch (error) {
+        res.json(error.message)
+        
+    }
+}
+
+
+
 module.exports = {
     regPost,
-    loginPost
+    loginPost,
+    otpLogin
 }

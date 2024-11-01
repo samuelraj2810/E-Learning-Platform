@@ -7,9 +7,9 @@ const Nav = () => {
   const navList = [
     { id: 1, to: "", title: "home" },
     { id: 2, to: "", title: "courses" },
-    { id: 2, to: "", title: "about" },
-    { id: 2, to: "", title: "contact" },
-    { id: 2, to: "", title: "login" },
+    { id: 3, to: "", title: "about" },
+    { id: 4, to: "", title: "contact" },
+    { id: 5, to: "", title: "login" },
   ];
 
   const menuVariants = {
