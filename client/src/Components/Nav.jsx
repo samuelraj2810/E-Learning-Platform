@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 
-const Home = () => {
+const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const navList = [
     { id: 1, to: "", title: "home" },
@@ -39,18 +39,18 @@ const Home = () => {
   };
 
   return (
-    <nav className="sticky bg-white top-0 font-poppins font-semibold flex h-[10vh] shadow-md px-2 z-40">
-      <div className="md:w-3/5 p-2 flex items-center w-full">
+    <nav className="sticky lg:text-xl text-gray-700 bg-white top-0 font-poppins flex h-[10vh] shadow-md px-2 z-40">
+      <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
           <MenuOutlined onClick={handleMenuClick} className={`md:hidden `} />
         </span>
       </div>
       <div
-        className={`lg:w-2/5 capitalize w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden`}
+        className={`capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden`}
       >
         {navList.map((each) => (
-          <h1 key={each.id}>{each.title}</h1>
+          <h1 key={each.id} className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500">{each.title}</h1>
         ))}
       </div>
       <motion.div
@@ -69,7 +69,7 @@ const Home = () => {
               key={each.id}
               className={
                 isMenu
-                  ? "block capitalize py-2 tracking-wider w-full text-gray-700 bg-gray-50 rounded-lg"
+                  ? "block capitalize py-2 tracking-wider font-light w-full text-gray-700 bg-gray-50 rounded-lg"
                   : "hidden"
               }
             >
@@ -82,4 +82,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Nav;
