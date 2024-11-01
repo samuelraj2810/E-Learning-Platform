@@ -28,10 +28,10 @@ const Login = () => {
           alt="NoImage"
           className="absolute object-cover h-full w-full top-0"
         />
-        <form className="md:h-[80vh] w-full md:w-4/5 flex p-4 justify-center flex-col gap-10 border z-40 bg-gradient-to-t from-white to-gray-50 md:p-10">
-          <h1 className="lg:text-[60px] h-1/5 text-[40px] text-center md:text-left p-4 md:p-0 relative">
+        <form className="md:h-[80vh] p-4 w-full md:w-4/5 flex flex-col gap-10 border z-40 bg-gradient-to-t from-white to-gray-50 md:p-10">
+          <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 relative w-full text-center">
             Login
-            <img src={LoginIcon} className="h-10 absolute top-0 right-0" />
+            <img src={LoginIcon} className="hidden md:block md:h-20 absolute top-0 right-0" />
           </h1>
           <CustomInput
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
