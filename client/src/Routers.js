@@ -2,16 +2,21 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Nav from "./Components/Nav";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
 
 const Routers = () => {
-  const routeList = [{ path: "/", element: <Home /> , menuId:1 }];
   return (
     <main className="font-Poppins">
-      <Nav />
       <Routes>
-        {routeList.map((each) => (
-          <Route path={each.path} element={each.element} />
-        ))}
+        <Route path="/" element={<Home />}>
+          <Route path="" element={""}/>
+          <Route path="" element={""}/>
+          <Route path="" element={""}/>
+          <Route path="" element={""}/>
+        </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
       </Routes>
     </main>
   );
