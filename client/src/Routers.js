@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
+import ResetPassword from "./Components/ResetPass";
+import ForgotPassword from "./Components/Forgotpass";
 
 const Routers = () => {
   return (
@@ -16,6 +18,8 @@ const Routers = () => {
         </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgotpass" element={<ForgotPassword />} />
+          <Route path="/resetpass/:token" element={<ResetPassword />} />
       </Routes>
     </main>
   );
