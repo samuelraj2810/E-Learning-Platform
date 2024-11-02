@@ -69,7 +69,7 @@ const loginPost = async(req,res) => {
 
 const getData = async(req,res) =>{
     try{
-        const data = register.find()
+        const data = await register.find()
         if(data.length === 0){
             return res.status(404).json({message:"data not found"})
         }

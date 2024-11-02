@@ -6,15 +6,17 @@ import { GET } from "./Components/ApiFunction/ApiFunction";
 
 function App() {
   const [data, setDatas] = useState([]);
-  useEffect(()=>{
-    const result = GET("http://localhost:3000/getData")
-    setDatas(result.data)
-  },[])
-  console.log(data)
+  const fetch = async () => {
+    const result = await GET("http://localhost:3000/getData");
+    setDatas(result.data);
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
+  console.log(data);
   return (
     <MessageProvider>
-      {/* {data.length === 0 ? <Routers /> : <LoadingPage />} */}
-      <Routers />
+      {data?.length > 0 ? <Routers /> : <LoadingPage />}
     </MessageProvider>
   );
 }

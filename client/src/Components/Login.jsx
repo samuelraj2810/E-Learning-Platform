@@ -55,7 +55,6 @@ const Login = () => {
           </div>
           <div className="mt-4 flex items-center">
           <CustomButton title="login" className="py-1" color="primary" size="large" onClick={handleSubmit}/>
-          <small className="text-base ml-auto">Create Account</small>
           <Link to="/signup"><CustomButton title="signup" className="py-1 ml-4 text-Primary" variant="text" size="large"/></Link>
           </div>
         </form>

@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
-import {Link} from "react-router-dom"
-
-const Nav = ({signout}) => {
+import { Link } from "react-router-dom";
+import CustomDropdown from "./Common/CustomDropdown";
+const Nav = ({ signout }) => {
   const [isMenu, setIsMenu] = useState(false);
-  const [signOut, setSignOut] = useState(signout || false);
+  const [signOut, setSignOut] = useState(false);
+  useEffect(()=>{
+    setSignOut(signout)
+  },[])
   const navList = [
     { id: 1, to: "/", title: "Home" },
     { id: 2, to: "/courses", title: "Courses" },
     { id: 3, to: "/about", title: "About" },
     { id: 4, to: "/contact", title: "Contact" },
-    signOut === true ?
-    { id: 5, to: null, title: "profile" }
-    :
-    { id: 6, to: "/login", title: "Login" },
+    { id: 7, to: "/login", title: "Login" },
+    { id: 5, to: "/details", title: "Details" },
+    { id: 6, to: "/login", title: "signout" },
   ];
-
+  const filteredMenus = navList.filter(
+    (menu) => menu.id === 5 || menu.id === 6
+  );
   const menuVariants = {
     open: {
       opacity: 1,
@@ -54,9 +58,22 @@ const Nav = ({signout}) => {
       <div
         className={`capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden`}
       >
-        {navList.map((each) => (
-          <Link to={each.to} key={each.id} className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500">{each.title}</Link>
+        {navList.slice(0, 5).map((each) => (
+          <Link
+            to={each.to}
+            key={each.id}
+            className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500"
+          >
+            {each.title}
+          </Link>
         ))}
+        {signOut === true && (
+          <CustomDropdown
+            title="profile"
+            className="p-4"
+            menus={filteredMenus}
+          />
+        )}
       </div>
       <motion.div
         className={`flex fixed z-10 top-0 right-0 flex-col items-end md:hidden`}
@@ -68,15 +85,12 @@ const Nav = ({signout}) => {
           <span className="text-indigo-600">Menu</span>
           <CloseOutlined onClick={handleMenuClick} className="md:hidden" />
         </h1>
-        <div className="flex gap-4 p-4 border-t flex-col w-full">
+        <div className="flex justify-center gap-4 p-4 border-t flex-col w-full">
           {navList.map((each) => (
-            <Link to={each.to}
+            <Link
+              to={each.to}
               key={each.id}
-              className={
-                isMenu
-                  ? "block capitalize py-2 tracking-wider font-light w-full text-gray-700 bg-gray-50 rounded-lg"
-                  : "hidden"
-              }
+              className={`${isMenu ? "text-gray-700 block capitalize py-2 tracking-wider font-light w-full bg-gray-50 rounded-lg":"hidden"}`}
             >
               {each.title}
             </Link>
