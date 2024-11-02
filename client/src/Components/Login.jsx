@@ -16,7 +16,8 @@ const Login = () => {
     e.preventDefault()
    const result = await POST("http://localhost:3000/login",{email,password})
    if(result.status === 200){
-     navigate("/",{state:true})
+     localStorage.setItem("token",true)
+     navigate("/")
     }
   }
   return (

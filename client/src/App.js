@@ -3,6 +3,7 @@ import { MessageProvider } from "./Components/Common/CustomMessage";
 import LoadingPage from "./Components/LoadingPage";
 import { useEffect, useState } from "react";
 import { GET } from "./Components/ApiFunction/ApiFunction";
+import ForgotPassword from "./Components/Forgotpass";
 
 function App() {
   const [data, setDatas] = useState([]);
@@ -13,10 +14,10 @@ function App() {
   useEffect(() => {
     fetch();
   }, []);
-  console.log(data);
   return (
     <MessageProvider>
-      {data?.length > 0 ? <Routers /> : <LoadingPage />}
+      {/* {data?.length > 0 ? <Routers /> : <LoadingPage />} */}
+      <ForgotPassword/>
     </MessageProvider>
   );
 }

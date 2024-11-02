@@ -5,16 +5,13 @@ import { Link } from "react-router-dom";
 import CustomDropdown from "./Common/CustomDropdown";
 const Nav = ({ signout }) => {
   const [isMenu, setIsMenu] = useState(false);
-  const [signOut, setSignOut] = useState(false);
-  useEffect(()=>{
-    setSignOut(signout)
-  },[])
+  const [signOut, setSignOut] = useState(localStorage.getItem("token") || false);
   const navList = [
     { id: 1, to: "/", title: "Home" },
     { id: 2, to: "/courses", title: "Courses" },
     { id: 3, to: "/about", title: "About" },
     { id: 4, to: "/contact", title: "Contact" },
-    { id: 7, to: "/login", title: "Login" },
+    signOut === false &&{ id: 7, to: "/login", title: "Login" },
     { id: 5, to: "/details", title: "Details" },
     { id: 6, to: "/login", title: "signout" },
   ];
@@ -67,7 +64,7 @@ const Nav = ({ signout }) => {
             {each.title}
           </Link>
         ))}
-        {signOut === true && (
+        {localStorage.getItem("token") && (
           <CustomDropdown
             title="profile"
             className="p-4"

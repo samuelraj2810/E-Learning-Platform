@@ -14,6 +14,8 @@ const CustomInput = ({
   disabled,
   required,
   onChange,
+  titleClassName,
+  containerClassName
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,8 +24,8 @@ const CustomInput = ({
   };
 
   return (
-    <span>
-      <p className={"text-base font-normal capitalize mb-4 text-gray-700"}>
+    <span className={containerClassName}>
+      <p className={`text-base font-normal capitalize mb-4 text-gray-700 ${titleClassName}`}>
         {title}
         {required && (
             <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">required</span>
