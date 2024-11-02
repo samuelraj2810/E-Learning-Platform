@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate()
   const [loginData,setLoginData] = useState({
     email:null,
+    email:null,
     password:null,
   })
   const handleChange = (e) => {
@@ -60,7 +61,7 @@ const Login = () => {
             placeholder="Enter Password"
           />
           <div className="flex">
-          <CustomButton title="forgot password" className={`py-1`} color="danger" variant="link" size="small"/>
+          <Link to="/forgotpass"><CustomButton title="forgot password" className={`py-1`} color="danger" variant="link" size="small"/></Link>
           </div>
           <div className="mt-4 flex items-center">
           <CustomButton title="login" className="py-1" color="primary" size="large" onClick={handleSubmit}/>
