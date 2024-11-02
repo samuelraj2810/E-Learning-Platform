@@ -9,7 +9,7 @@ import axios from "axios";
 const Login = () => {
   const navigate = useNavigate()
   const [loginData,setLoginData] = useState({
-    username:null,
+    email:null,
     password:null,
   })
   const handleChange = (e) => {
@@ -46,10 +46,10 @@ const Login = () => {
           <CustomInput
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
             variant="filled"
-            type="text"
-            title="username/Email"
-            name="username"
-            value={loginData.username}
+            type="email"
+            title="Email"
+            name="email"
+            value={loginData.email}
             onChange={handleChange}
             placeholder="Enter Email or Username"
           />
@@ -64,7 +64,7 @@ const Login = () => {
             placeholder="Enter Password"
           />
           <div className="flex">
-          <CustomButton title="forgot password" className={`py-1`} color="danger" variant="link" size="small"/>
+          <Link to="/forgotpass"><CustomButton title="forgot password" className={`py-1`} color="danger" variant="link" size="small"/></Link>
           </div>
           <div className="mt-4 flex items-center">
           <CustomButton title="login" className="py-1" color="primary" size="large" onClick={handleSubmit}/>

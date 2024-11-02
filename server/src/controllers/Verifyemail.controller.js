@@ -14,7 +14,7 @@ const verifyEmail = async (req, res) => {
         user.isVerified = true;
         await user.save();
 
-        res.json({ message: "Email verified successfully" });
+        res.json("Email verified successfully . Go to login page");
     } catch (error) {
         res.status(400).json({ error: "Invalid or expired token" });
     }
