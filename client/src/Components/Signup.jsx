@@ -33,6 +33,7 @@ function Signup() {
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);
+        navigate("/login")
       } else if (result.status === 409) {
         showMessage("warning", result.data.message);
       }
@@ -47,7 +48,6 @@ function Signup() {
         className="object-cover absolute bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 lg:w-9/12 top-0 left-0"
       />
       <form
-        onSubmit={handleSubmit}
         className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 lg:w-3/12  w-full p-4"
       >
         <h1 className="text-center font-extrabold tracking-wider md:text-left md:text-3xl text-xl">
@@ -114,7 +114,7 @@ function Signup() {
           }
         />
         <div>
-          <CustomButton title="submit" color="solid" />
+          <CustomButton title="submit" color="solid" type="submit" onClick={handleSubmit}/>
           <Link to="/login"><CustomButton title="Back" className="mx-4 text-Primary tracking-wider" variant="link" color="solid" /></Link>
         </div>
       </form>

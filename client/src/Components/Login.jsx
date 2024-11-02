@@ -4,8 +4,10 @@ import CustomInput from "./Common/CustomInput";
 import LoginIcon from "../Assets/Icons/login.gif";
 import CustomButton from "./Common/CustomButton";
 import loginLeftImage from "../Assets/Images/loginbg.jpg"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 const Login = () => {
+  const navigate = useNavigate()
   const [loginData,setLoginData] = useState({
     username:null,
     password:null,
@@ -13,6 +15,17 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({ [name]: value }));
+  }
+  const handleSubmit = async(e) =>{
+    e.preventDefault()
+    const result = await axios.post("http://localhost:3000/login",loginData)
+    try{
+      if(result.status === 200){
+        navigate("/")
+      }
+    }catch(e){
+      console.log(e)
+    }
   }
   console.log(loginData)
   return (
@@ -54,7 +67,7 @@ const Login = () => {
           <CustomButton title="forgot password" className={`py-1`} color="danger" variant="link" size="small"/>
           </div>
           <div className="mt-4 flex items-center">
-          <CustomButton title="login" className="py-1" color="primary" size="large"/>
+          <CustomButton title="login" className="py-1" color="primary" size="large" onClick={handleSubmit}/>
           <small className="text-base ml-auto">Create Account</small>
           <Link to="/signup"><CustomButton title="signup" className="py-1 ml-4 text-Primary" variant="text" size="large"/></Link>
           </div>
