@@ -3,12 +3,15 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
-      // cursor: {
-      //   Custom: ['url(../../src/Assets/Icons/cursor.png)', 'auto'], // Adjust path accordingly
-      // },
-      fontFamily:{
-        Poppins:["Poppins", "serif"]
-      }
+      colors: {
+        Primary: "#4338ca",
+      },
+      backgroundColor:{
+        Primary: "#4338ca",
+      },
+      fontFamily: {
+        Poppins: ["Poppins", "serif"],
+      },
     },
   },
   plugins: [],

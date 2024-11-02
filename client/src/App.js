@@ -1,10 +1,13 @@
-import Login from "./Components/Login";
 import Routers from "./Routers";
+import { MessageProvider } from "./Components/Common/CustomMessage";
+import LoadingPage from "./Components/LoadingPage";
 
 function App() {
   return (
-    // <Routers/>
-    <Login/>
+    <MessageProvider>
+      {/* <LoadingPage/> */}
+      <Routers />
+    </MessageProvider>
   );
 }
 

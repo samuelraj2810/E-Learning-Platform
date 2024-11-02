@@ -1,88 +1,124 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import CustomInput from "./Common/CustomInput";
+import { useMessageContext } from "./Common/CustomMessage";
+import CustomButton from "./Common/CustomButton";
+import signUpImg from "../Assets/Images/signup.png";
+import signUpLogo from "../Assets/Icons/signupLogo.gif";
 function Signup() {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [password, setPassword] = useState("");
-  const [cnfpassword, setCnfpassword] = useState("");
-
+  const showMessage = useMessageContext();
+  const [registerData, setRegisterData] = useState({
+    username: "",
+    number: "",
+    email: "",
+    designation: "",
+    password: "",
+    cnfpassword: "",
+  });
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (number.length !== 10) {
-      return alert("enter 10 digits");
-    }
-    if (password !== cnfpassword) {
+    if (registerData.password !== registerData.cnfpassword) {
       alert("password do not match");
       return;
     }
-
-    await axios
-      .post("http://localhost:3000/register", {
-        name,
-        number,
-        email,
-        password,
-        designation,
-      })
-      .then((result) => {
-        console.log(result.data.message);
-        if (result.data.message === "Successfull") {
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (registerData.number.length < 10) {
+      return showMessage("warning", result.message);
+    }
+    const result = await axios.post(
+      "http://localhost:3000/register",
+      registerData
+    );
+    try {
+      if (result.status === 200) {
+        showMessage("success", result.data.message);
+      } else if (result.status === 409) {
+        showMessage("warning", result.data.message);
+      }
+    } catch (e) {
+      showMessage("error", result.data.message);
+    }
   };
   return (
-    <div className="flex justify-center mt-20">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-10 w-[300px]">
-        <input
-          className="border 2"
+    <div className="flex flex-col md:flex-row items-center justify-end h-screen relative w-full md:p-10">
+      <img
+        src={signUpImg}
+        className="object-cover absolute bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 lg:w-9/12 top-0 left-0"
+      />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 lg:w-3/12  w-full p-4"
+      >
+        <h1 className="text-center font-extrabold tracking-wider md:text-left md:text-3xl text-xl">
+          <span className="text-3xl md:text-[50px] text-Primary">s</span>ign up
+        </h1>
+        <CustomInput
+          className="p-2"
+          title="Name"
+          required={true}
           type="text"
           placeholder="enter your name"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, username: e.target.value }))
+          }
         />
-        <input
-          className="border 2"
+        <CustomInput
+          className="p-2"
+          title="Phone number"
+          required={true}
           type="number"
           placeholder="enter your number"
-          onChange={(e) => setNumber(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, number: parseInt(e.target.value) }))
+          }
         />
-        <input
-          className="border 2"
+        <CustomInput
+          className="p-2"
+          title="Email"
+          required={true}
           type="email"
           placeholder="enter your mail"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, email: e.target.value }))
+          }
         />
-        <input
-          className="border 2"
+        <CustomInput
+          className="p-2"
+          title="Create password"
+          required={true}
           type="password"
           placeholder="enter your password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, password: e.target.value }))
+          }
         />
-        <input
-          className="border 2"
+        <CustomInput
+          className="p-2"
+          title="Confirm password"
+          required={true}
           type="password"
           placeholder="Confirm password"
-          onChange={(e) => setCnfpassword(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, cnfpassword: e.target.value }))
+          }
         />
-        <input
-          className="border 2"
+        <CustomInput
+          className="p-2"
+          title="Designation"
+          required={true}
           type="text"
           placeholder="desg - srudent,professiional,fresher"
-          onChange={(e) => setDesignation(e.target.value)}
+          onChange={(e) =>
+            setRegisterData((p) => ({ ...p, designation: e.target.value }))
+          }
         />
-        <button type="submit">Submit</button>
+        <div>
+          <CustomButton title="submit" color="solid" />
+          <Link to="/login"><CustomButton title="Back" className="mx-4 text-Primary tracking-wider" variant="link" color="solid" /></Link>
+        </div>
       </form>
     </div>
   );
 }
-
 export default Signup;
