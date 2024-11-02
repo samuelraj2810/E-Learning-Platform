@@ -114,7 +114,7 @@ function Signup() {
           }
         />
         <div>
-          <CustomButton title="submit" color="solid" type="submit" onClick={handleSubmit}/>
+          <CustomButton title="submit" color="solid" onClick={handleSubmit}/>
           <Link to="/login"><CustomButton title="Back" className="mx-4 text-Primary tracking-wider" variant="link" color="solid" /></Link>
         </div>
       </form>

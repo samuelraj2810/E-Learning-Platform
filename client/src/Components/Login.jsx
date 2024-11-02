@@ -6,28 +6,24 @@ import CustomButton from "./Common/CustomButton";
 import loginLeftImage from "../Assets/Images/loginbg.jpg"
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { POST } from "./ApiFunction/ApiFunction";
 const Login = () => {
   const navigate = useNavigate()
   const [loginData,setLoginData] = useState({
-    username:null,
+    email:null,
     password:null,
   })
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prevData) => ({ [name]: value }));
+    setLoginData((prevData) => ({...prevData, [name]: value }));
   }
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const result = await axios.post("http://localhost:3000/login",loginData)
-    try{
-      if(result.status === 200){
-        navigate("/")
-      }
-    }catch(e){
-      console.log(e)
-    }
+   const result = await POST("http://localhost:3000/login",loginData)
+   if(result.status === 200){
+    navigate("/")
+   }
   }
-  console.log(loginData)
   return (
     <div className="font-Poppins flex h-screen tracking-wider ">
       <div className="h-full w-1/2 md:w-2/5 lg:w-1/2 bg-gray-400 hidden md:block">
@@ -47,11 +43,11 @@ const Login = () => {
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
             variant="filled"
             type="text"
-            title="username/Email"
-            name="username"
-            value={loginData.username}
+            title="Email"
+            name="email"
+            value={loginData.email}
             onChange={handleChange}
-            placeholder="Enter Email or Username"
+            placeholder="Enter Email"
           />
           <CustomInput
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
