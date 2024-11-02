@@ -67,7 +67,18 @@ const loginPost = async(req,res) => {
     }
 }
 
-
+const getData = async(req,res) =>{
+    try{
+        const data = register.find()
+        if(data.length === 0){
+            return res.status(404).json({message:"data not found"})
+        }
+        res.json(data)
+    }
+    catch(error){
+        res.json(error.message)
+    }
+}
 
 
 const otpLogin = async(req,res) => {
@@ -92,5 +103,6 @@ const otpLogin = async(req,res) => {
 module.exports = {
     regPost,
     loginPost,
-    otpLogin
+    otpLogin,
+    getData
 }

@@ -9,21 +9,15 @@ import axios from "axios";
 import { POST } from "./ApiFunction/ApiFunction";
 const Login = () => {
   const navigate = useNavigate()
-  const [loginData,setLoginData] = useState({
-    email:null,
-    email:null,
-    password:null,
-  })
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData((prevData) => ({...prevData, [name]: value }));
-  }
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+
   const handleSubmit = async(e) =>{
     e.preventDefault()
-   const result = await POST("http://localhost:3000/login",loginData)
+   const result = await POST("http://localhost:3000/login",{email,password})
    if(result.status === 200){
-    navigate("/")
-   }
+     navigate("/",{state:true})
+    }
   }
   return (
     <div className="font-Poppins flex h-screen tracking-wider ">
@@ -36,7 +30,7 @@ const Login = () => {
           alt="NoImage"
           className="absolute object-cover h-full rotate-180 w-full top-0"
         />
-        <form className="md:h-[80vh] bg-gradient-to-b from-transparent to-white p-4 w-full md:w-4/5 flex flex-col gap-10 z-40  md:p-10" autoComplete={false}>
+        <form className="md:h-[80vh] bg-gradient-to-b from-transparent to-white p-4 w-full md:w-4/5 flex flex-col gap-10 z-40  md:p-10" >
           <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 relative w-full text-center">
             Login
           </h1>
@@ -45,9 +39,7 @@ const Login = () => {
             variant="filled"
             type="text"
             title="Email"
-            name="email"
-            value={loginData.email}
-            onChange={handleChange}
+            onChange={(e)=>setEmail(e.target.value)}
             placeholder="Enter Email"
           />
           <CustomInput
@@ -55,9 +47,7 @@ const Login = () => {
             variant="filled"
             type="password"
             title="password"
-            onChange={handleChange}
-            name="password"
-            value={loginData.password}
+            onChange={(e)=>setPassword(e.target.value)}
             placeholder="Enter Password"
           />
           <div className="flex">

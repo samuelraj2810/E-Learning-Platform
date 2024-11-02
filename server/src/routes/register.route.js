@@ -4,6 +4,8 @@ const registerCtrl = require("../controllers/register.controller")
 const verifyEmail = require("../controllers/Verifyemail.controller")
 const {forgotPassword,resetPassword} = require("../controllers/ForgotPassword.controller")
 
+router.get("/getData",registerCtrl.getData)
+
 router.post("/register",registerCtrl.regPost)
 router.post("/login",registerCtrl.loginPost)
 router.post("/otplogin",registerCtrl.otpLogin)

@@ -5,7 +5,8 @@ import CustomInput from "./Common/CustomInput";
 import { useMessageContext } from "./Common/CustomMessage";
 import CustomButton from "./Common/CustomButton";
 import signUpImg from "../Assets/Images/signup.png";
-import signUpLogo from "../Assets/Icons/signupLogo.gif";
+import { POST } from "./ApiFunction/ApiFunction";
+
 function Signup() {
   const showMessage = useMessageContext();
   const [registerData, setRegisterData] = useState({
@@ -26,7 +27,7 @@ function Signup() {
     if (registerData.number.length < 10) {
       return showMessage("warning", result.message);
     }
-    const result = await axios.post(
+    const result = await POST(
       "http://localhost:3000/register",
       registerData
     );

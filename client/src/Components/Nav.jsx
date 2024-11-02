@@ -3,14 +3,18 @@ import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import {Link} from "react-router-dom"
 
-const Nav = () => {
+const Nav = ({signout}) => {
   const [isMenu, setIsMenu] = useState(false);
+  const [signOut, setSignOut] = useState(signout || false);
   const navList = [
     { id: 1, to: "/", title: "Home" },
     { id: 2, to: "/courses", title: "Courses" },
     { id: 3, to: "/about", title: "About" },
     { id: 4, to: "/contact", title: "Contact" },
-    { id: 5, to: "/login", title: "Login" },
+    signOut === true ?
+    { id: 5, to: null, title: "profile" }
+    :
+    { id: 6, to: "/login", title: "Login" },
   ];
 
   const menuVariants = {

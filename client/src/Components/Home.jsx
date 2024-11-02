@@ -6,12 +6,14 @@ import Mentors from "./Mentors";
 import Testimonial from "./Testimonials";
 import Footer from "./Footer";
 import Nav from "./Nav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Home = () => {
+  const location = useLocation()
+
   return (
     <>
-      <Nav/>
+      <Nav signout={location.state} />
       <Outlet/>
       <Banner />
       <Course />
