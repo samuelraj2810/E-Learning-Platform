@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [designation, setDesignation] = useState("");
@@ -24,15 +24,15 @@ function Signup() {
 
     await axios
       .post("http://localhost:3000/register", {
-        name,
+        username,
         number,
         email,
         password,
         designation,
       })
       .then((result) => {
-        console.log(result.data.message);
-        if (result.data.message === "Successfull") {
+        console.log(result.message);
+        if (result.status===200) {
           navigate("/login");
         }
       })

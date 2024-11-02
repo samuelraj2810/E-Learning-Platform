@@ -15,7 +15,6 @@ const Login = () => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({ [name]: value }));
   }
-
   console.log(loginData)
   return (
     <div className="font-Poppins flex h-screen tracking-wider ">
