@@ -7,15 +7,16 @@ import ResetPassword from "./Components/ResetPass";
 import ForgotPassword from "./Components/Forgotpass";
 import VericicationPage from "./Components/VericicationPage";
 import ProfileDetails from "./Components/ProfileDetails";
+import MainLayout from "./Components/MainLayout";
 
 const Routers = () => {
   return (
     <main className="font-Poppins">
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/courses" element={""}/>
           <Route path="/profiledetails" element={<ProfileDetails/>}/>
-          <Route path="" element={""}/>
-          <Route path="" element={""}/>
           <Route path="" element={""}/>
         </Route>
           <Route path="/signup" element={<Signup />} />
