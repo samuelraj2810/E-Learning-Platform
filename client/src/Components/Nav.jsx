@@ -6,7 +6,7 @@ import CustomDropdown from "./Common/CustomDropdown";
 
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
-  const [signOut, setSignOut] = useState(!localStorage.getItem("token"));
+  const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
 
   const navList = [
     { id: 1, to: "/", title: "Home" },
