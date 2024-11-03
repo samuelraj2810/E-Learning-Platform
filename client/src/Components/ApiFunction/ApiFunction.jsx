@@ -12,6 +12,7 @@ export const POST = async(action,params) => {
     }
 
 }
+
 export const GET = async(action) => {
     try{
         const result = await axios.get(action);

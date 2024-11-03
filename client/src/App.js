@@ -7,15 +7,16 @@ import axios from "axios";
 
 function App() {
   const [data, setDatas] = useState([]);
-  useEffect(()=>{
-    axios.get("http://localhost:3000/getData")
-    .then(result => setDatas(result.data))
-  },[])
-  console.log(data)
+  const fetch = async () => {
+    const result = await GET("http://localhost:3000/getData");
+    setDatas(result.data);
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
   return (
     <MessageProvider>
-      {/* {data.length === 0 ? <Routers /> : <LoadingPage />} */}
-      <Routers />
+      {data?.length > 0 ? <Routers /> : <LoadingPage />}
     </MessageProvider>
   );
 }

@@ -12,10 +12,11 @@ const CustomButton = ({
   title="",
   onClick,
   className="",
+  loading,
 }) => {
   return (
       <Button
-      className={`capitalize w-fit ${className}`}
+      className={`uppercase w-fit ${className}`}
         type={type}
         color={color}
         variant={variant}
@@ -23,6 +24,7 @@ const CustomButton = ({
         size={size}
         icon={icon}
         shape={shape}
+        loading={loading}
         onClick={onClick}
       >
         {title}
