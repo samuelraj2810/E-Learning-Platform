@@ -17,7 +17,7 @@ const sendVerificationEmail = async (email, token,name) => {
             subject: "Verify Your Email",
             html: `<h2>Hi ${name} Click <a href="${verificationUrl}">here</a> to verify your email.</h2>`,
         });
-        console.log("mail sent Successfull")
+        console.log("mail sent Successfull ")
     } catch (error) {
         console.log(error)
     }
