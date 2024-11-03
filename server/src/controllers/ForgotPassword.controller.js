@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt");
 const register = require("../models/Register.model")
 const {forgotPassEmail} = require("../utils/verifyemail")
+
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;

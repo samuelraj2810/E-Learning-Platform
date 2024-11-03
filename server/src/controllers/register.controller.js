@@ -57,7 +57,7 @@ const loginPost = async(req,res) => {
         console.log(token)
 
         res.json({
-            message:"Login Successfully",
+            message:"Logged in Successfully",
             token
         })
 
@@ -81,22 +81,22 @@ const getData = async(req,res) =>{
 }
 
 
-const otpLogin = async(req,res) => {
-    try {
-        const {number} = req.body
-        const checknum = await register.findOne({number})
-        if(!checknum){return res.status(404).json({message:"Invalid Number"})}
+// const otpLogin = async(req,res) => {
+//     try {
+//         const {number} = req.body
+//         const checknum = await register.findOne({number})
+//         if(!checknum){return res.status(404).json({message:"Invalid Number"})}
 
-        const otp = otpgen()
-        res.json({
-            otp
-        })
+//         const otp = otpgen()
+//         res.json({
+//             otp
+//         })
 
-    } catch (error) {
-        res.json(error.message)
+//     } catch (error) {
+//         res.json(error.message)
         
-    }
-}
+//     }
+// }
 
 
 

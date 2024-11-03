@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const register = require("../models/Register.model")
 const jwt = require("jsonwebtoken")
+
 const verifyEmail = async (req, res) => {
     try {
         const { token } = req.params;
