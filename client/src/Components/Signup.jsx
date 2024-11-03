@@ -43,12 +43,10 @@ function Signup() {
         showMessage("success", result.data.message);
         navigate("/login");
       } else {
-        console.log(result.message)
-        // showMessage("warning", result.message);
+        showMessage("error", "Email already exists");
       }
     } catch (e) {
-      console.log(result.message)
-      // showMessage("error", result.data.message);
+      showMessage("error", "Email already exists");
     }
   };
   return (

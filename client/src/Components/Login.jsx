@@ -39,13 +39,12 @@ const Login = () => {
         localStorage.setItem("token", result?.data?.token);
         showMessage("success", result?.data?.message);
         navigate("/");
-      } else if (result?.status === 403) {
-        showMessage("error", "Invalid Email Id");
+      } else {
+        showMessage("error", "Something went wrong");
       }
     } catch (error) {
       setLoading(false);
-      const errorMessage = error.response ? error.response.data.message : "Something went wrong";
-      showMessage("error", errorMessage);
+      showMessage("error", "Something went wrong");
     }
   };
 
@@ -56,8 +55,8 @@ const Login = () => {
       </div>
       <div className="text-3xl font-bold w-full md:w-4/5 lg:w-1/2 h-[100vh] flex items-center gap-4 justify-center relative">
         <img src={loginImg} alt="Login" className="absolute object-cover h-full rotate-180 w-full top-0" />
-        <form autoComplete="off" onSubmit={handleSubmit} className="md:h-[80vh] bg-gradient-to-b from-transparent to-white p-4 w-full md:w-4/5 flex flex-col gap-10 z-40 md:p-10">
-          <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 relative w-full text-center">Login</h1>
+        <form autoComplete="off" onSubmit={handleSubmit} className=" md:h-[80vh] bg-gradient-to-b from-transparent to-white p-4 w-full md:w-4/5 flex flex-col gap-10 z-40 md:p-10">
+          <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 flex items-center gap-4 justify-center w-full text-center">Login  <Link to="/" className="text-xs p-2 bg-Primary rounded text-white">home</Link></h1>
           <CustomInput
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
             variant="filled"

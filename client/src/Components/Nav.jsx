@@ -15,8 +15,12 @@ const Nav = () => {
     { id: 4, to: "/contact", title: "Contact" },
     { id: 5, to: "/details", title: "Details" },
   ];
+  const updatedNavList = [...navList.slice(0, 4)];
 
-  if (!signOut) {
+  if (signOut) {
+      updatedNavList.push({ id: 7, to: "/login", title: "Login" });
+  }
+  if (!signOut ) {
     navList.push({ id: 6, to: "/login", title: "Sign out" });
   } else {
     navList.push({ id: 7, to: "/login", title: "Login" });
@@ -64,7 +68,7 @@ const Nav = () => {
         </span>
       </div>
       <div className="capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden">
-        {navList.slice(0, 4).map((each) => (
+        {updatedNavList.map((each) => (
           <Link
             to={each.to}
             key={each.id}
@@ -77,7 +81,7 @@ const Nav = () => {
           <CustomDropdown
             title="Profile"
             className="p-4"
-            menus={navList.filter((menu) => menu.id === 5 || menu.id === 6)}
+            menus={navList.filter((menu) =>menu.id === 5 || menu.id === 6)}
           />
         )}
       </div>
@@ -100,9 +104,7 @@ const Nav = () => {
                 className={`${
                   isMenu
                     ? `block capitalize py-2 tracking-wider font-light w-full rounded-lg ${
-                        each.id === 6
-                          ? "text-red-500"
-                          : "text-gray-700 bg-gray-50"
+                        each.id === 6 ? 'text-red-500' : 'text-gray-700 bg-gray-50'
                       }`
                     : "hidden"
                 }`}
