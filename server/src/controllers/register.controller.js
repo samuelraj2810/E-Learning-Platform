@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 
 const regPost = async(req,res) =>{
     try {
-        const{email , password}=req.body
+        const{email , password,username}=req.body
         const checkmail = await register.findOne({email})
         if(checkmail){
             return res.status(409).json({message:"email already exist"})
@@ -25,7 +25,7 @@ const regPost = async(req,res) =>{
             { expiresIn: "1d" }
         );
 
-        await sendVerificationEmail(email, verificationToken);
+        await sendVerificationEmail(email, verificationToken,username);
 
         res.json({
             message: "Registration successful. Please check your email to verify your account.",
