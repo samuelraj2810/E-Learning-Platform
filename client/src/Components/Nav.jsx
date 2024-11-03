@@ -18,12 +18,12 @@ const Nav = () => {
   const updatedNavList = [...navList.slice(0, 4)];
 
   if (signOut) {
-      updatedNavList.push({ id: 7, to: "/login", title: "Login" });
+      updatedNavList.push({ id: 7, to: "/login/:token", title: "Login" });
   }
   if (!signOut ) {
-    navList.push({ id: 6, to: "/login", title: "Sign out" });
+    navList.push({ id: 6, to: "/login/:token", title: "Sign out" });
   } else {
-    navList.push({ id: 7, to: "/login", title: "Login" });
+    navList.push({ id: 7, to: "/login/:token", title: "Login" });
   }
 
   const menuVariants = {

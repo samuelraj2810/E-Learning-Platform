@@ -9,7 +9,6 @@ import { POST } from "./ApiFunction/ApiFunction";
 
 const Login = () => {
   const navigate = useNavigate();
-  const {token} = useParams()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +33,7 @@ const Login = () => {
     
     setLoading(true);
     try {
-      const result = await POST(`http://localhost:3000/login/${token}`, { email, password });
+      const result = await POST(`http://localhost:3000/login`, { email, password });
       setLoading(false);
       if (result?.status === 200) {
         localStorage.setItem("token", result?.data?.token);
@@ -57,7 +56,7 @@ const Login = () => {
       <div className="text-3xl font-bold w-full md:w-4/5 lg:w-1/2 h-[100vh] flex items-center gap-4 justify-center relative">
         <img src={loginImg} alt="Login" className="absolute object-cover h-full rotate-180 w-full top-0" />
         <form autoComplete="off" onSubmit={handleSubmit} className=" md:h-[80vh] bg-gradient-to-b from-transparent to-white p-4 w-full md:w-4/5 flex flex-col gap-10 z-40 md:p-10">
-          <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 flex items-center gap-4 justify-center w-full text-center">Login  <Link to="/" className="text-xs p-2 bg-Primary rounded text-white">home</Link></h1>
+          <h1 className="lg:text-[60px] h-1/5 text-[40px] md:text-left p-4 md:p-0 flex items-center gap-4 justify-center w-full text-center">Login  <Link to="/" className="text-xs p-2 bg-Primary rounded rounded-r-full text-white">Go to home</Link></h1>
           <CustomInput
             className="w-4/5 md:w-11/12 lg:w-4/5 mx-auto p-2"
             variant="filled"
@@ -84,7 +83,7 @@ const Login = () => {
             <Link to="/forgotpass">
               <CustomButton
                 title="Forgot Password"
-                className="py-1"
+                className="py-1 text-xs "
                 color="danger"
                 variant="link"
                 size="small"
