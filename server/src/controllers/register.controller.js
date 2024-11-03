@@ -56,7 +56,7 @@ const loginPost = async(req,res) => {
         console.log(token)
 
         res.json({
-            message:"Logged in Successfully",
+            message:"Login Successfully",
             token
         })
 
