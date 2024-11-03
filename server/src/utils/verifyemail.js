@@ -8,15 +8,14 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendVerificationEmail = async (email, token,name) => {
+const sendVerificationEmail = async (email, token) => {
     try {
-        const verificationUrl = `http://localhost:3001/login/${token}`;
+        const verificationUrl = `http://localhost:3000/verify-email/${token}`;
         await transporter.sendMail({
             from: process.env.USER_MAIL,
             to: email,
             subject: "Verify Your Email",
-            html: `<h1>HI ${name} ,Welcome to our website .To continue please verify tour mail</p><br><br>
-                    <h2>Click <a href="${verificationUrl}">click here</a> to verify your email.</h2>`,
+            html: `<h2>Click <a href="${verificationUrl}">click here</a> to verify your email.</h2>`,
         });
         console.log("mail sent Successfull")
     } catch (error) {

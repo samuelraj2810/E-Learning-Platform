@@ -1,8 +1,7 @@
 const mongoose = require("mongoose")
 const register = require("../models/Register.model")
 const jwt = require("jsonwebtoken")
-
-const verifyEmail = async (req, res,next) => {
+const verifyEmail = async (req, res) => {
     try {
         const { token } = req.params;
         
@@ -16,7 +15,6 @@ const verifyEmail = async (req, res,next) => {
         await user.save();
 
         res.json("Email verified successfully . Go to login page");
-        next()
     } catch (error) {
         res.status(400).json({ error: "Invalid or expired token" });
     }
