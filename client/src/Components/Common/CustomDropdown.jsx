@@ -6,7 +6,7 @@ const CustomDropdown = ({ menus, onClick, title,className,placement="bottom" }) 
   const styledMenus = menus.map(menu => ({
     key: menu.id,
     label: (
-      <span className={`lg:text-xl lg:py-2 text-gray-700 font-Poppins ${menu.title === "signout" && ("text-red-500")}`}>
+      <span className={`lg:text-xl lg:py-2 text-gray-700 font-Poppins ${menu.id === 6 && ("text-red-500")}`}>
         <Link to={menu.to}>{menu.title}</Link>
       </span>
     ),
@@ -15,9 +15,7 @@ const CustomDropdown = ({ menus, onClick, title,className,placement="bottom" }) 
   return (
     <>
       <Dropdown menu={{ items: styledMenus }} placement={placement} className={`tracking-wider capitalize ${className}`}>
-        <a onClick={onClick} className="">
           <Space>{title}</Space>
-        </a>
       </Dropdown>
     </>
   );

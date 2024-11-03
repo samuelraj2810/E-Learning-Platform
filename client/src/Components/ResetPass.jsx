@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useMessageContext } from "./Common/CustomMessage";
+import { useCustomMessage } from "./Common/CustomMessage";
 import CustomInput from "./Common/CustomInput";
 import CustomButton from "./Common/CustomButton";
 
@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { token } = useParams(); // Get token from URL
   const navigate = useNavigate();
-  const showMessage = useMessageContext();
+  const showMessage = useCustomMessage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

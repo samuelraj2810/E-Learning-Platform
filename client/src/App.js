@@ -1,22 +1,32 @@
+import { useEffect, useState } from "react";
 import Routers from "./Routers";
 import { MessageProvider } from "./Components/Common/CustomMessage";
 import LoadingPage from "./Components/LoadingPage";
-import { useEffect, useState } from "react";
 import { GET } from "./Components/ApiFunction/ApiFunction";
 import axios from "axios";
 
 function App() {
-  const [data, setDatas] = useState([]);
-  const fetch = async () => {
-    const result = await GET("http://localhost:3000/getData");
-    setDatas(result.data);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const result = await GET("http://localhost:3000/getData");
+      setData(result?.data || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   useEffect(() => {
-    fetch();
+    fetchData();
   }, []);
+
   return (
     <MessageProvider>
-      {data?.length > 0 ? <Routers /> : <LoadingPage />}
+      {isLoading ? <LoadingPage /> : <Routers data={data} />} {/* Pass data to Routers if needed */}
     </MessageProvider>
   );
 }
