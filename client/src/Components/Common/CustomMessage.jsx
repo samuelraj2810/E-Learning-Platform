@@ -4,7 +4,7 @@ import { message } from "antd";
 
 const MessageContext = createContext();
 
-export const useMessageContext = () => {
+export const useCustomMessage = () => {
   return useContext(MessageContext);
 };
 

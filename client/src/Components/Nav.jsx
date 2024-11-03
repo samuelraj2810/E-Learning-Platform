@@ -3,21 +3,25 @@ import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import CustomDropdown from "./Common/CustomDropdown";
-const Nav = ({ signout }) => {
+
+const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
-  const [signOut, setSignOut] = useState(localStorage.getItem("token") || false);
+  const [signOut, setSignOut] = useState(!localStorage.getItem("token"));
+
   const navList = [
     { id: 1, to: "/", title: "Home" },
     { id: 2, to: "/courses", title: "Courses" },
     { id: 3, to: "/about", title: "About" },
     { id: 4, to: "/contact", title: "Contact" },
-    signOut === false &&{ id: 7, to: "/login", title: "Login" },
     { id: 5, to: "/details", title: "Details" },
-    { id: 6, to: "/login", title: "signout" },
   ];
-  const filteredMenus = navList.filter(
-    (menu) => menu.id === 5 || menu.id === 6
-  );
+
+  if (!signOut) {
+    navList.push({ id: 6, to: "/login", title: "Sign out" });
+  } else {
+    navList.push({ id: 7, to: "/login", title: "Login" });
+  }
+
   const menuVariants = {
     open: {
       opacity: 1,
@@ -34,14 +38,21 @@ const Nav = ({ signout }) => {
       height: 0,
       width: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.3,
         type: "linear",
       },
     },
   };
 
   const handleMenuClick = () => {
-    setIsMenu((p) => !p);
+    setIsMenu((prev) => !prev);
+  };
+
+  const handleToken = (id) => {
+    if (id === 6) {
+      localStorage.removeItem("token");
+      setSignOut(true);
+    }
   };
 
   return (
@@ -49,13 +60,11 @@ const Nav = ({ signout }) => {
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
-          <MenuOutlined onClick={handleMenuClick} className={`md:hidden `} />
+          <MenuOutlined onClick={handleMenuClick} className={`md:hidden`} />
         </span>
       </div>
-      <div
-        className={`capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden`}
-      >
-        {navList.slice(0, 5).map((each) => (
+      <div className="capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden">
+        {navList.slice(0, 4).map((each) => (
           <Link
             to={each.to}
             key={each.id}
@@ -64,35 +73,45 @@ const Nav = ({ signout }) => {
             {each.title}
           </Link>
         ))}
-        {localStorage.getItem("token") && (
+        {!signOut && (
           <CustomDropdown
-            title="profile"
+            title="Profile"
             className="p-4"
-            menus={filteredMenus}
+            menus={navList.filter((menu) => menu.id === 5 || menu.id === 6)}
           />
         )}
       </div>
       <motion.div
         className={`flex fixed z-10 top-0 right-0 flex-col items-end md:hidden`}
         initial="closed"
-        animate={isMenu ? "open" : "closed "}
+        animate={isMenu ? "open" : "closed"}
         variants={menuVariants}
       >
-        <h1 className={"flex items-center justify-between text-lg p-4 w-full"}>
+        <h1 className="flex items-center justify-between text-lg p-4 w-full">
           <span className="text-indigo-600">Menu</span>
           <CloseOutlined onClick={handleMenuClick} className="md:hidden" />
         </h1>
-        <div className="flex justify-center gap-4 p-4 border-t flex-col w-full">
+        <ul className="flex justify-center gap-4 p-4 border-t flex-col w-full">
           {navList.map((each) => (
-            <Link
-              to={each.to}
-              key={each.id}
-              className={`${isMenu ? "text-gray-700 block capitalize py-2 tracking-wider font-light w-full bg-gray-50 rounded-lg":"hidden"}`}
-            >
-              {each.title}
-            </Link>
+            <li key={each.id}>
+              <Link
+                onClick={() => handleToken(each.id)}
+                to={each.to}
+                className={`${
+                  isMenu
+                    ? `block capitalize py-2 tracking-wider font-light w-full rounded-lg ${
+                        each.id === 6
+                          ? "text-red-500"
+                          : "text-gray-700 bg-gray-50"
+                      }`
+                    : "hidden"
+                }`}
+              >
+                {each.title}
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </motion.div>
     </nav>
   );

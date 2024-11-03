@@ -15,7 +15,8 @@ const CustomInput = ({
   required,
   onChange,
   titleClassName,
-  containerClassName
+  containerClassName,
+  autoComplete,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -43,6 +44,7 @@ const CustomInput = ({
         prefix={prefix}
         disabled={disabled}
         onChange={handleChange}
+        autoComplete={autoComplete}
       />
       :type === "number" ?
       <Input
@@ -56,6 +58,7 @@ const CustomInput = ({
       prefix={prefix}
       disabled={disabled}
       onChange={handleChange}
+      autoComplete={autoComplete}
     />:
       <Input.Password
       className={`${className}`}
@@ -67,6 +70,7 @@ const CustomInput = ({
       prefix={prefix}
       disabled={disabled}
       onChange={handleChange}
+      autoComplete={autoComplete}
     />}
     </span>
   );

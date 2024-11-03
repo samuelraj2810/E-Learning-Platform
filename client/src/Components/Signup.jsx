@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "./Common/CustomInput";
-import { useMessageContext } from "./Common/CustomMessage";
+import { useCustomMessage } from "./Common/CustomMessage";
 import CustomButton from "./Common/CustomButton";
 import signUpImg from "../Assets/Images/signup.png";
 import { POST } from "./ApiFunction/ApiFunction";
 
 function Signup() {
-  const showMessage = useMessageContext();
+  const showMessage = useCustomMessage();
   const [registerData, setRegisterData] = useState({
     username: "",
     number: "",
@@ -20,26 +20,35 @@ function Signup() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      !registerData.username ||
+      !registerData.number ||
+      !registerData.email ||
+      !registerData.designation ||
+      !registerData.password ||
+      !registerData.cnfpassword
+    ) {
+      return showMessage("warning", "please enter all the fields");
+    }
     if (registerData.password !== registerData.cnfpassword) {
       alert("password do not match");
       return;
     }
     if (registerData.number.length < 10) {
-      return showMessage("warning", result.message);
+      return showMessage("warning", "please enter 10 digit number");
     }
-    const result = await POST(
-      "http://localhost:3000/register",
-      registerData
-    );
+    const result = await POST("http://localhost:3000/register", registerData);
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);
-        navigate("/login")
-      } else if (result.status === 409) {
-        showMessage("warning", result.data.message);
+        navigate("/login");
+      } else {
+        console.log(result.message)
+        // showMessage("warning", result.message);
       }
     } catch (e) {
-      showMessage("error", result.data.message);
+      console.log(result.message)
+      // showMessage("error", result.data.message);
     }
   };
   return (
@@ -48,9 +57,7 @@ function Signup() {
         src={signUpImg}
         className="object-cover absolute bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 lg:w-9/12 top-0 left-0"
       />
-      <form
-        className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 lg:w-3/12  w-full p-4"
-      >
+      <form className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 lg:w-3/12  w-full p-4">
         <h1 className="text-center font-extrabold tracking-wider md:text-left md:text-3xl text-xl">
           <span className="text-3xl md:text-[50px] text-Primary">s</span>ign up
         </h1>
@@ -115,8 +122,15 @@ function Signup() {
           }
         />
         <div>
-          <CustomButton title="submit" color="solid" onClick={handleSubmit}/>
-          <Link to="/login"><CustomButton title="Back" className="mx-4 text-Primary tracking-wider" variant="link" color="solid" /></Link>
+          <CustomButton title="submit" color="solid" onClick={handleSubmit} />
+          <Link to="/login">
+            <CustomButton
+              title="Back"
+              className="mx-4 text-Primary tracking-wider"
+              variant="link"
+              color="solid"
+            />
+          </Link>
         </div>
       </form>
     </div>

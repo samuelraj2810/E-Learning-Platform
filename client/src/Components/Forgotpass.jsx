@@ -3,12 +3,12 @@ import axios from 'axios';
 import {useNavigate } from 'react-router-dom';
 import CustomButton from './Common/CustomButton';
 import CustomInput from './Common/CustomInput';
-import { useMessageContext } from './Common/CustomMessage';
+import { useCustomMessage } from './Common/CustomMessage';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [loading,setLoading] = useState(false);
-    const showMessage = useMessageContext()
+    const showMessage = useCustomMessage()
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
         setLoading(true)
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
             const response = await axios.post('http://localhost:3000/forgotpassword', { email });
             if(response.status === 200){
                 setLoading(false)
-                showMessage("success",response.data.message)
+                showMessage("success",response?.data?.message)
                 navigate("/resetpass/:token")
             }
         } catch (err) {
