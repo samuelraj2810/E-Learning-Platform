@@ -6,13 +6,14 @@ import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPass";
 import ForgotPassword from "./Components/Forgotpass";
 import VericicationPage from "./Components/VericicationPage";
+import ProfileDetails from "./Components/ProfileDetails";
 
 const Routers = () => {
   return (
     <main className="font-Poppins">
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="" element={""}/>
+          <Route path="/profiledetails" element={<ProfileDetails/>}/>
           <Route path="" element={""}/>
           <Route path="" element={""}/>
           <Route path="" element={""}/>

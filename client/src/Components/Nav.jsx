@@ -13,7 +13,7 @@ const Nav = () => {
     { id: 2, to: "/courses", title: "Courses" },
     { id: 3, to: "/about", title: "About" },
     { id: 4, to: "/contact", title: "Contact" },
-    { id: 5, to: "/details", title: "Details" },
+    { id: 5, to: "/profiledetails", title: "Details" },
   ];
   const updatedNavList = [...navList.slice(0, 4)];
 
@@ -53,6 +53,7 @@ const Nav = () => {
   };
 
   const handleToken = (id) => {
+    handleMenuClick()
     if (id === 6) {
       localStorage.removeItem("token");
       setSignOut(true);
