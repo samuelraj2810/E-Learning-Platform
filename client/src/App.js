@@ -3,7 +3,6 @@ import Routers from "./Routers";
 import { MessageProvider } from "./Components/Common/CustomMessage";
 import LoadingPage from "./Components/LoadingPage";
 import { GET } from "./Components/ApiFunction/ApiFunction";
-import axios from "axios";
 
 function App() {
   const [data, setData] = useState([]);
@@ -26,7 +25,7 @@ function App() {
 
   return (
     <MessageProvider>
-      {isLoading ? <LoadingPage /> : <Routers data={data} />} {/* Pass data to Routers if needed */}
+      {isLoading ? <LoadingPage /> : <Routers data={data} />}
     </MessageProvider>
   );
 }

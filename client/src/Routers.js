@@ -5,6 +5,7 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPass";
 import ForgotPassword from "./Components/Forgotpass";
+import VericicationPage from "./Components/VericicationPage";
 
 const Routers = () => {
   return (
@@ -20,6 +21,7 @@ const Routers = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/forgotpass" element={<ForgotPassword />} />
           <Route path="/resetpass/:token" element={<ResetPassword />} />
+          <Route path="/verify" element={<VericicationPage/>} />
       </Routes>
     </main>
   );
