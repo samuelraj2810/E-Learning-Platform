@@ -36,7 +36,7 @@ const Login = () => {
       const result = await POST(`http://localhost:3000/login`, { email, password });
       setLoading(false);
       if (result?.status === 200) {
-        localStorage.setItem("token", result?.data?.token);
+        sessionStorage.setItem("token", result?.data?.token);
         showMessage("success", result?.data?.message);
         navigate("/");
       } else {
