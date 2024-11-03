@@ -19,19 +19,6 @@ const Login = () => {
     setPassword("");
   }, []);
 
-  useEffect(() => {
-    const handleUnload = () => {
-      setEmail("");
-      setPassword("");
-    };
-  
-    window.addEventListener("beforeunload", handleUnload);
-  
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, []); 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {

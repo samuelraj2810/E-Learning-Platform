@@ -1,5 +1,5 @@
-import { Input, InputNumber } from "antd";
-import React, { useState } from "react";
+import { Input } from "antd";
+import React from "react";
 
 const CustomInput = ({
   type="text",
@@ -18,8 +18,6 @@ const CustomInput = ({
   containerClassName,
   autoComplete,
 }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-
   const handleChange = (inputValue) => {
     onChange(inputValue);
   };
@@ -45,6 +43,7 @@ const CustomInput = ({
         disabled={disabled}
         onChange={handleChange}
         autoComplete={autoComplete}
+        allowClear
       />
       :type === "number" ?
       <Input
@@ -59,6 +58,7 @@ const CustomInput = ({
       disabled={disabled}
       onChange={handleChange}
       autoComplete={autoComplete}
+      allowClear
     />:
       <Input.Password
       className={`${className}`}
@@ -71,6 +71,7 @@ const CustomInput = ({
       disabled={disabled}
       onChange={handleChange}
       autoComplete={autoComplete}
+      allowClear
     />}
     </span>
   );
