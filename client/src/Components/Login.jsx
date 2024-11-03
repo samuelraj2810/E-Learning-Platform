@@ -3,12 +3,13 @@ import loginImg from "../Assets/Images/login.png";
 import CustomInput from "./Common/CustomInput";
 import CustomButton from "./Common/CustomButton";
 import loginLeftImage from "../Assets/Images/loginbg.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 import { useCustomMessage } from "./Common/CustomMessage";
 import { POST } from "./ApiFunction/ApiFunction";
 
 const Login = () => {
   const navigate = useNavigate();
+  const {token} = useParams()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ const Login = () => {
     
     setLoading(true);
     try {
-      const result = await POST("http://localhost:3000/login", { email, password });
+      const result = await POST(`http://localhost:3000/login/${token}`, { email, password });
       setLoading(false);
       if (result?.status === 200) {
         localStorage.setItem("token", result?.data?.token);

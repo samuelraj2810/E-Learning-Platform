@@ -102,6 +102,6 @@ const getData = async(req,res) =>{
 module.exports = {
     regPost,
     loginPost,
-    otpLogin,
+    // otpLogin,
     getData
 }

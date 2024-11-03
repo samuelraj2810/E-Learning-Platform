@@ -8,9 +8,9 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendVerificationEmail = async (email, tokenn,name) => {
+const sendVerificationEmail = async (email, token,name) => {
     try {
-        const verificationUrl = `http://localhost:3000/verify-email/${token}`;
+        const verificationUrl = `http://localhost:3001/login/${token}`;
         await transporter.sendMail({
             from: process.env.USER_MAIL,
             to: email,

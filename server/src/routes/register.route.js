@@ -7,9 +7,8 @@ const {forgotPassword,resetPassword} = require("../controllers/ForgotPassword.co
 router.get("/getData",registerCtrl.getData)
 
 router.post("/register",registerCtrl.regPost)
-router.post("/login",registerCtrl.loginPost)
-router.post("/otplogin",registerCtrl.otpLogin)
-router.get("/verify-email/:token", verifyEmail);
+router.post("/login/:token",verifyEmail,registerCtrl.loginPost)
+// router.post("/otplogin",registerCtrl.otpLogin)
 router.post("/forgotpassword", forgotPassword);
 router.post("/resetpass/:token", resetPassword);
 
