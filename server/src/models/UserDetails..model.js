@@ -10,9 +10,9 @@ const userSch = new mongoose.Schema(
     sex:String,
     email: String,
     designation: String,
-    title:{
-      type:Array,
-      default:['name','phonenumber','age','sex','email','designation']
+    title: {
+      type: [String],
+      default: ["name","phonenumber","age","sex","email","designation"]
     },
     _id: {
       type: String,
