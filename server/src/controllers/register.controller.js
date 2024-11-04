@@ -3,6 +3,7 @@ const register = require("../models/Register.model")
 const {tokenGen} = require("../middleware/authToken")
 const otpgen = require("../utils/otpGen")
 const {sendVerificationEmail} = require("../utils/verifyemail")
+const userDetails = require("../models/UserDetails..model")
 const jwt = require("jsonwebtoken")
 
 const regPost = async(req,res) =>{

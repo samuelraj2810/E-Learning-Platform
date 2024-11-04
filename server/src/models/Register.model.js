@@ -3,21 +3,11 @@ const { v4 } = require("uuid");
 
 const RegSch = new mongoose.Schema(
   {
-    username: String,
+    username:String,
     number: Number,
     email: String,
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
     password: String,
     designation: String,
-    isVerified: { 
-        type: Boolean,
-         default: false 
-        },
-    resetPasswordToken: String ,
-    resetPasswordExpires:Date,
     _id: {
       type: String,
       default: v4,
@@ -26,6 +16,12 @@ const RegSch = new mongoose.Schema(
       type: String,
       default: v4,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    resetPasswordToken: String ,
+    resetPasswordExpires:Date,
   },
   { timestamps: true }
 );
