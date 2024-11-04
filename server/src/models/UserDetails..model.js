@@ -10,6 +10,10 @@ const userSch = new mongoose.Schema(
     sex:String,
     email: String,
     designation: String,
+    title:{
+      type:Array,
+      default:[name,phonenumber,age,sex,email,designation]
+    },
     _id: {
       type: String,
       default: v4,
