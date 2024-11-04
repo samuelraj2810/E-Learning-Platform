@@ -9,6 +9,7 @@ import { POST } from "./ApiFunction/ApiFunction";
 
 function Signup() {
   const showMessage = useCustomMessage();
+  const [loding,setLoading] = useState(false)
   const [registerData, setRegisterData] = useState({
     username: "",
     number: "",
@@ -37,16 +38,20 @@ function Signup() {
     if (registerData.number.length < 10) {
       return showMessage("warning", "please enter 10 digit number");
     }
+    setLoading(true)
     const result = await POST("http://localhost:3000/register", registerData);
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);
+        setLoading(false)
         navigate("/login");
       } else {
         showMessage("error", "Email already exists");
+        setLoading(false)
       }
     } catch (e) {
       showMessage("error", "Email already exists");
+      setLoading(false)
     }
   };
   return (
