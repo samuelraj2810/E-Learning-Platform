@@ -64,22 +64,17 @@ const ProfileDetails = () => {
             />
           ))}
         </div>
-
-        <div className="md:flex-1 grid gap-4">
-          {data?.slice(1, 2).map((user) =>
-            Object.keys(user).map((key) => (
-              <CustomInput
-                disabled={isupdate}
-                key={user._id + key} // Ensure each key is unique
-                className="text-xs lg:text-base"
-                containerClassName="mx-2"
-                titleClassName="text-xs lg:text-base"
-                title={key} // Use the key as the title
-                value={user[key]} // Use the value for the corresponding key
-                // onChange={(value) => handleChange(user._id, key, value)} // Update function
-              />
-            ))
-          )}
+        <div className="md:flex-1 flex flex-col gap-4">
+          {titles.map((title) => (
+            <CustomInput
+              disabled={isupdate}
+              className="text-xs lg:text-base"
+              containerClassName="mx-2"
+              titleClassName="text-xs lg:text-base"
+              title={title}
+              value={data.length > 0 ? data[1][title] : ''}
+            />
+          ))}
         </div>
       </form>
     </div>
