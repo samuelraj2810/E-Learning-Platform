@@ -55,7 +55,7 @@ const Nav = () => {
   const handleToken = (id) => {
     handleMenuClick()
     if (id === 6) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       setSignOut(true);
     }
   };
