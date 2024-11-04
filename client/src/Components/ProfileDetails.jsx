@@ -75,9 +75,11 @@ const ProfileDetails = () => {
             color="solid"
           />
         </div>
-        <div className="md:flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-          {/* <Radio.Group options={options} onChange={onChange1} value={value1} className="border h-fit"/> */}
-          {titles.map((title) => (
+        <div className="md:flex-1 flex flex-col gap-4 mt-10">
+          <span>
+          <Radio.Group options={options} onChange={onChange1} value={value1} className="border h-fit w-fit mx-2"/>
+          </span>
+          {titles.filter((title) => title !== 'gender').map((title) => (
             <CustomInput
               disabled={isupdate}
               className="text-xs lg:text-base"
