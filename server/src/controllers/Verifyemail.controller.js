@@ -25,6 +25,7 @@ const verifyEmail = async (req, res) => {
     };
 // to store the data from the register database to the user details " only if the email is verified "
     await userDetails.create(data)
+    await userDetails.save()
 
     res.redirect("http://localhost:3001/verify");
   } catch (error) {

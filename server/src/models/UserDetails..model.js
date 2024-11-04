@@ -12,7 +12,7 @@ const userSch = new mongoose.Schema(
     designation: String,
     title:{
       type:Array,
-      default:[name,phonenumber,age,sex,email,designation]
+      default:['name','phonenumber','age','sex','email','designation']
     },
     _id: {
       type: String,
