@@ -18,7 +18,6 @@ const ForgotPassword = () => {
             if(response.status === 200){
                 setLoading(false)
                 showMessage("success",response?.data?.message)
-                navigate("/resetpass/:token")
             }
         } catch (err) {
             setLoading(false)
