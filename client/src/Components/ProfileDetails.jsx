@@ -5,6 +5,7 @@ import CustomButton from "./Common/CustomButton";
 import { Radio, Switch } from "antd";
 import { useCustomMessage } from "./Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
+import CustomProgressBar from "./Common/CustomProgressBar";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
@@ -88,19 +89,24 @@ const ProfileDetails = () => {
 
   const handleButtonClick = () => {
     postData();
+    setIsupdate(true);
   };
+
   return (
-    <form className="overflow-hidden bg-white lg:mx-auto flex flex-col rounded-lg p-4 lg:p-6">
-      <div className="flex gap-4 justify-between h-fit">
-        <h1 className="lg:text-2xl text-xl font-bold">Profile details</h1>
-        <span className="ml-auto">
-          <span>Update</span>
-        <Switch disabled={!isupdate} className="ml-2 bg-Primary" onClick={()=>setIsupdate(false)}/>
-        </span>
+    <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
+      <div className="flex items-center gap-4 h-fit ">
+        <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
+          Profile details
+        </h1>
+        <CustomProgressBar
+          totalfield={titles}
+          percent={titles}
+          className=""
+        />
         <CustomButton
-          title={"update"}
+          title={"submit"}
           onClick={handleButtonClick}
-          className={` text-xs ${
+          className={`ml-auto text-xs ${
             isupdate && "bg-green-500"
           } capitalize tracking-wider`}
           color="solid"
@@ -108,17 +114,17 @@ const ProfileDetails = () => {
         />
       </div>
       <div
-        className="md:flex-1 grid grid-cols-1 md:grid-cols-2
-         lg:grid-cols-3 gap-4 mt-10 border-b py-8"
+        className="grid grid-cols-1 mt-2 md:grid-cols-2
+         lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
       >
         {titles
           .filter((title) => title !== "gender" && title !== "address")
           .map((title) => (
             <CustomInput
               disabled={isupdate}
-              className="text-xs lg:text-base"
-              containerClassName="mx-2 md:w-80"
-              titleClassName="text-xs lg:text-base"
+              className="text-xs"
+              containerClassName="mx-2"
+              titleClassName="text-xs"
               title={title}
               value={data.length > 0 ? data[0][title] : ""}
               onChange={(e) => {
@@ -128,7 +134,7 @@ const ProfileDetails = () => {
             />
           ))}
         <span className="mx-2">
-          <p className="text-xs lg:text-base font-normal mb-4 capitalize text-gray-700">
+          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
             gender
           </p>
           <Radio.Group
@@ -140,10 +146,10 @@ const ProfileDetails = () => {
           />
         </span>
         <span className="mx-2">
-          <p className="text-xs lg:text-base font-normal mb-4 capitalize text-gray-700">
+          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
             Address
           </p>
-          <TextArea className="md:w-80" disabled={isupdate} />
+          <TextArea className="" disabled={isupdate} />
         </span>
       </div>
     </form>
