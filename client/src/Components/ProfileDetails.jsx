@@ -98,7 +98,7 @@ const ProfileDetails = () => {
         <Switch disabled={!isupdate} className="ml-2 bg-Primary" onClick={()=>setIsupdate(false)}/>
         </span>
         <CustomButton
-          title={"update"}
+          title={"submit"}
           onClick={handleButtonClick}
           className={` text-xs ${
             isupdate && "bg-green-500"
