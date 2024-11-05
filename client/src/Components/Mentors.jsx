@@ -13,7 +13,7 @@ const Mentors = () => {
   return (
     <div className="w-[90%] m-auto h-fit py-8">
       <h1 className="text-2xl font-semibold drop-shadow md:text-3xl mb-10">
-        Learn Form Industrial Experts
+        <span className="text-Primary">Learn</span> Form Industrial Experts
       </h1>
       <div className="mx-auto rounded-lg flex flex-col md:flex-row flex-wrap gap-10 md:justify-center lg:justify-around mt-10 md:py-8 lg:p-4">
         {mentorsList.map((each) => (
