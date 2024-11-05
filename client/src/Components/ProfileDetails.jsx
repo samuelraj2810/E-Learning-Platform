@@ -44,7 +44,8 @@ const ProfileDetails = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const result = await GET("http://localhost:3000/getData");
+      setToken(sessionStorage.getItem("token"));
+      const result = await GET("http://localhost:3000/getData",{headers:{Authorization:`Bearer ${token}`}});
       const modifiedResult = result?.data?.map((each) => ({
         ...each,
         disable: false,
@@ -56,6 +57,7 @@ const ProfileDetails = () => {
       setIsLoading(false);
     }
   };
+  console.log(data)
   const postData = async () => {
     setIsLoading(true);
     try {
@@ -84,7 +86,6 @@ const ProfileDetails = () => {
 
   useEffect(() => {
     fetchData();
-    setToken(sessionStorage.getItem("token"));
   }, []);
 
   const handleButtonClick = () => {

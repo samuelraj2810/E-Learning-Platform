@@ -39,8 +39,8 @@ function Course() {
 
   return (
     <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
-      <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popu</span>lar Courses</h1>
-      <div className="h-10 w-20 rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
+      <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popular</span> Courses</h1>
+      <div className="h-10 w-[120px] rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
       <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-[90px] mx-auto ">
         {CourseDetails.length >= 1 ? (
           CourseDetails.map((value, index) => (

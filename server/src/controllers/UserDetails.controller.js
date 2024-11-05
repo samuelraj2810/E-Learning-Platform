@@ -7,7 +7,7 @@ const getData = async(req,res) =>{
         const userId = req.userId
         console.log(userId);
         
-        const data = await register.findOne({userId})
+        const data = await userDetails.findOne({userId})
         if(!data ){
             return res.status(404).json({message:"data not found"})
         }
@@ -20,7 +20,7 @@ const getData = async(req,res) =>{
 const editData = async(req,res) =>{
     try{
         const userId = req.userId
-        const data = await register.updateOne({userId},req.body,{new:true})
+        const data = await userDetails.updateOne({userId},req.body,{new:true})
         res.json(data)
     }
     catch(error){
