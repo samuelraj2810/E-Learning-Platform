@@ -55,13 +55,13 @@ const Nav = () => {
   const handleToken = (id) => {
     handleMenuClick()
     if (id === 6) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       setSignOut(true);
     }
   };
 
   return (
-    <nav className="sticky lg:text-xl text-gray-700 bg-white top-0 font-poppins flex h-[10vh] shadow-md px-2 z-40">
+    <nav className="sticky lg:text-xl bg-white top-0 font-poppins flex h-[10vh] shadow-md px-2 z-40">
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
@@ -73,7 +73,7 @@ const Nav = () => {
           <Link
             to={each.to}
             key={each.id}
-            className="hover:text-black scale-100 transition-all hover:drop-shadow duration-500"
+            className="hover:text-Primary scale-100 transition-all hover:drop-shadow duration-500"
           >
             {each.title}
           </Link>

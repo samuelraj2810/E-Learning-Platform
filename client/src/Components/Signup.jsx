@@ -9,6 +9,7 @@ import { POST } from "./ApiFunction/ApiFunction";
 
 function Signup() {
   const showMessage = useCustomMessage();
+  const [loding,setLoading] = useState(false)
   const [registerData, setRegisterData] = useState({
     username: "",
     number: "",
@@ -37,30 +38,35 @@ function Signup() {
     if (registerData.number.length < 10) {
       return showMessage("warning", "please enter 10 digit number");
     }
+    setLoading(true)
     const result = await POST("http://localhost:3000/register", registerData);
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);
+        setLoading(false)
         navigate("/login");
       } else {
         showMessage("error", "Email already exists");
+        setLoading(false)
       }
     } catch (e) {
       showMessage("error", "Email already exists");
+      setLoading(false)
     }
   };
   return (
-    <div className="flex flex-col md:flex-row items-center justify-end h-screen relative w-full md:p-10">
+    <div className="flex flex-col md:flex-row items-center justify-end h-screen relative w-full">
       <img
         src={signUpImg}
-        className="object-cover absolute bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 lg:w-9/12 top-0 left-0"
+        className="object-cover fixed bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 top-0 left-0"
       />
-      <form className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 lg:w-3/12  w-full p-4">
-        <h1 className="text-center font-extrabold tracking-wider md:text-left md:text-3xl text-xl">
+      <form className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 overflow-y-auto h-full w-full">
+        <h1 className="text-center font-extrabold tracking-wider md:text-3xl text-xl sticky top-0 bg-white z-10 py-4 pl-4">
           <span className="text-3xl md:text-[50px] text-Primary">s</span>ign up
         </h1>
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Name"
           required={true}
           type="text"
@@ -71,6 +77,7 @@ function Signup() {
         />
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Phone number"
           required={true}
           type="number"
@@ -81,6 +88,7 @@ function Signup() {
         />
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Email"
           required={true}
           type="email"
@@ -91,6 +99,7 @@ function Signup() {
         />
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Create password"
           required={true}
           type="password"
@@ -101,6 +110,7 @@ function Signup() {
         />
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Confirm password"
           required={true}
           type="password"
@@ -111,6 +121,7 @@ function Signup() {
         />
         <CustomInput
           className="p-2"
+          containerClassName="mx-4"
           title="Designation"
           required={true}
           type="text"
@@ -119,7 +130,7 @@ function Signup() {
             setRegisterData((p) => ({ ...p, designation: e.target.value }))
           }
         />
-        <div>
+        <div className="mx-4 mb-4">
           <CustomButton title="submit" color="solid" onClick={handleSubmit} />
           <Link to="/login">
             <CustomButton

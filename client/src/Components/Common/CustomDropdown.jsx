@@ -7,7 +7,7 @@ const CustomDropdown = ({ menus, onClick, title,className,placement="bottom" }) 
     key: menu.id,
     label: (
       <span className={`lg:text-xl lg:py-2 text-gray-700 font-Poppins ${menu.id === 6 && ("text-red-500")}`}>
-        <Link to={menu.to} onClick={()=>menu.id === 6 && localStorage.removeItem("token")}>{menu.title}</Link>
+        <Link to={menu.to} onClick={()=>menu.id === 6 && sessionStorage.removeItem("token")}>{menu.title}</Link>
       </span>
     ),
     onClick: menu.onClick,
