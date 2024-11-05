@@ -8,8 +8,6 @@ const verifyEmail = async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const user = await register.findOne({ userId: decoded.userId });
-    console.log(user.userId);
-    console.log(decoded.userId);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -25,8 +23,6 @@ const verifyEmail = async (req, res) => {
     };
 // to store the data from the register database to the user details " only if the email is verified "
     await userDetails.create(data)
-    await userDetails.save()
-
     res.redirect("http://localhost:3001/verify");
   } catch (error) {
     res.status(400).json({ error: "Invalid or expired token" });
