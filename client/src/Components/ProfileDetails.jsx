@@ -65,16 +65,18 @@ const ProfileDetails = () => {
   const postData = async () => {
     setIsLoading(true);
     try {
-      const result = await axios.put("http://localhost:3000/editdata",       {
-        name: "saidhasun420", // Use data from the state
+      const result = await axios.put("http://localhost:3000/editdata", {
+        name: "saidhasun", // Use data from the state
       },{
         headers:{
           Authorization:`Bearer ${token}`
         }
       });
       if (result.status === 200) {
+        console.log(result.data);
+        
         setIsLoading(false);
-        showMessage("success", "Data updated successfully");
+        showMessage("success", result.data.message);
       }
     } catch (error) {
       console.error("Error updating data:", error);
