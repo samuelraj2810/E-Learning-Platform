@@ -11,11 +11,28 @@ import axios from "axios";
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
   const [token, setToken] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      _id: "7daba129-1a18-4a38-b370-0fef402abee1",
+      name: "sai",
+      phonenumber: 123456789,
+      email: "saidhasun0407@gmail.com",
+      designation: "student",
+      title: ["name", "phonenumber", "age", "sex", "email", "designation"],
+      userId: "05526fc2-5265-4dfe-9030-87c428fa7773",
+      createdAt: {
+        $date: "2024-11-05T14:51:27.863Z",
+      },
+      updatedAt: {
+        $date: "2024-11-05T14:51:27.863Z",
+      },
+      __v: 0,
+    },
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(true);
   const [isupdate, setIsupdate] = useState(true);
-  const [value1, setValue1] = useState("Apple");
+  const [value1, setValue1] = useState("male");
   const options = [
     {
       label: "male",
@@ -30,53 +47,61 @@ const ProfileDetails = () => {
       value: "other",
     },
   ];
-  const titles = [
-    "username",
-    "email",
-    "gender",
-    "address",
-    "number",
-    "designation",
-  ];
-  console.log(data);
+  console.log(data, "dddd");
   const onChange1 = ({ target: { value } }) => {
     console.log("radio1 checked", value);
     setValue1(value);
   };
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      setToken(sessionStorage.getItem("token"));
-      const result = await axios.get("http://localhost:3000/getData", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const modifiedResult = result?.data?.map((each) => ({
-        ...each,
-        disable: false,
-      }));
-      setData(modifiedResult || []);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  console.log(data);
+  // const fetchData = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     setToken(sessionStorage.getItem("token"));
+  //     const result = await axios.get("http://localhost:3000/getData", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const modifiedResult = result?.data?.map((each) => ({
+  //       ...each,
+  //       disable: false,
+  //     }));
+  //     setData(modifiedResult || []);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const postData = async () => {
     setIsLoading(true);
     try {
-      const result = await POST("http://localhost:3000/register", data);
+      setToken(sessionStorage.getItem("token"));
+      
+      // Use the latest data values from state instead of hardcoding them
+      const result = await axios.put(
+        "http://localhost:3000/editdata", 
+        {
+          name: data[0].name, // Use the value from the first item in the data array
+          phonenumber: data[0].phonenumber,
+          email: data[0].email,
+          designation: data[0].designation,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      
       if (result.status === 200) {
         setIsLoading(false);
-        fetchData();
-        showMessage("success", "Data added successfully");
+        // Optionally re-fetch data if necessary
+        showMessage("success", "Data updated successfully");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error updating data:", error);
     } finally {
       setIsLoading(false);
     }
   };
+  
   const handleInputChange = (title, value) => {
     setData((prevData) => {
       const updatedData = [...prevData];
@@ -88,13 +113,14 @@ const ProfileDetails = () => {
     });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const handleButtonClick = () => {
-    postData();
+    postData()
     setIsupdate(true);
+    setChecked(true)
   };
 
   return (
@@ -104,9 +130,6 @@ const ProfileDetails = () => {
           Profile details
         </h1>
         {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
-        <Checkbox checked={checked} onChange={()=>{setIsupdate(!isupdate);setChecked(!checked)}}>
-          Edit Details
-        </Checkbox>
         <CustomButton
           title={"submit"}
           onClick={handleButtonClick}
@@ -117,26 +140,40 @@ const ProfileDetails = () => {
           disabled={isupdate}
         />
       </div>
+        <Checkbox
+          checked={checked}
+          onChange={() => {
+            setIsupdate(!isupdate);
+            setChecked(!checked);
+          }}
+          className={`text-xs ${checked ?  "" : ""}`}
+        >
+          Edit Details
+        </Checkbox>
       <div
-        className="grid grid-cols-1 mt-2 md:grid-cols-2
+        className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
       >
-        {titles
-          .filter((title) => title !== "gender" && title !== "address")
-          .map((title) => (
-            <CustomInput
-              disabled={isupdate}
-              className="text-xs"
-              containerClassName="mx-2"
-              titleClassName="text-xs"
-              title={title}
-              value={data.length > 0 ? data[0][title] : ""}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                handleInputChange(title, newValue);
-              }}
-            />
-          ))}
+{data.map((each) => 
+   each.title.filter((field) => ![, "sex"].includes(field))
+    .map((field) => ( 
+      <CustomInput
+        key={field}
+        disabled={isupdate}
+        className="text-xs"
+        containerClassName="mx-2" 
+        titleClassName="text-xs"
+        title={field}
+        type={field === "age" ?  "number" : field}
+        value={each[field] || ""} 
+        onChange={(e) => {
+          const newValue =e.target.value;
+          handleInputChange(field, newValue);
+        }}
+      />
+    ))
+  )}
+
         <span className="mx-2">
           <p className="text-xs font-normal mb-4 capitalize text-gray-700">
             gender
