@@ -22,7 +22,7 @@ const editData = async(req,res) =>{
         const userId = req.userId
         const data = await userDetails.findOneAndUpdate({userId},req.body,{new:true})
         res.json({data,message:"Data updated successfully"})
-        // console.log(data);
+        console.log(data);
         
     }
     catch(error){

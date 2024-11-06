@@ -36,18 +36,16 @@ const ProfileDetails = () => {
     console.log("radio1 checked", value);
     setValue1(value);
   };
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
+      const token = sessionStorage.getItem("token"); 
       if (token) {
-        // setToken(token);
-        const result = await GET("http://localhost:3000/getData", token);
-        const userEmail = sessionStorage.getItem("email");
-        const filteredData = result.data.filter(
-          (each) => each.email === userEmail
-        );
-        setData(result);
+            const result = await axios.get("http://localhost:3000/getdata",{
+            headers: { Authorization: `Bearer ${token}` },
+    });
+        setData(result.data);
       } else {
         console.log("Token not found in sessionStorage.");
       }
@@ -62,32 +60,31 @@ const ProfileDetails = () => {
     fetchData();
   }, []);
 
-  // const postData = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const result = await axios.put(
-  //       "http://localhost:3000/editdata",
-  //       {
-  //         name: "saidhasun", // Use data from the state
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     if (result.status === 200) {
-  //       console.log(result.data);
+  const postData = async () => {
+    setIsLoading(true);
+    try {
+      const token = sessionStorage.getItem("token"); 
+      const result = await axios.put(
+        "http://localhost:3000/editdata",
+          data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (result.status === 200) {
+        console.log(result.data);
 
-  //       setIsLoading(false);
-  //       showMessage("success", result.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating data:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+        setIsLoading(false);
+        showMessage("success", result.data.message);
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (title, value) => {
     setData((prevData) => {
@@ -101,7 +98,7 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
-    // postData();
+    postData();
     setIsupdate(true);
     setChecked(true);
   };
