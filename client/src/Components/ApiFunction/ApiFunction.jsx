@@ -11,13 +11,13 @@ export const POST = async (action, params) => {
   }
 };
 
-export const GET = async (action, token=null) => {
+export const GET = async (action, token) => {
   try {
-    const result = await axios.get(`http://localhost:3000/${action}`, {
+    const result = await axios.get(action,{
       headers: { Authorization: `Bearer ${token}` },
     });
     if (result?.status === 200) {
-      return result;
+      return result
     }
   } catch (error) {
     console.error(error);
