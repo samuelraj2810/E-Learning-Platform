@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomInput from "./Common/CustomInput";
 import { GET, POST } from "./ApiFunction/ApiFunction";
 import CustomButton from "./Common/CustomButton";
-import { Radio, Switch } from "antd";
+import { Checkbox, Radio, Switch } from "antd";
 import { useCustomMessage } from "./Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "./Common/CustomProgressBar";
@@ -12,6 +12,10 @@ const ProfileDetails = () => {
   const showMessage = useCustomMessage();
   // const [token, setToken] = useState(null);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [checked, setChecked] = useState(true);
+  const [isupdate, setIsupdate] = useState(true);
+  const [value1, setValue1] = useState("Apple");
   const options = [
     {
       label: "male",
@@ -34,9 +38,6 @@ const ProfileDetails = () => {
     "number",
     "designation",
   ];
-  const [isLoading, setIsLoading] = useState(false);
-  const [isupdate, setIsupdate] = useState(true);
-  const [value1, setValue1] = useState("Apple");
   console.log(data);
   const onChange1 = ({ target: { value } }) => {
     console.log("radio1 checked", value);
@@ -45,28 +46,22 @@ const ProfileDetails = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-      console.log(token);
-      
-      const result = axios.get("http://localhost:3000/getData",{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }});
-       const response = result.data
-       console.log(response);
-       
-      // const modifiedResult = result?.data?.map((each) => ({
-      //   ...each,
-      //   disable: false,
-      // }));
-      // setData(modifiedResult || []);
+      setToken(sessionStorage.getItem("token"));
+      const result = await axios.get("http://localhost:3000/getData", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const modifiedResult = result?.data?.map((each) => ({
+        ...each,
+        disable: false,
+      }));
+      setData(modifiedResult || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  console.log(data)
+  console.log(data);
   const postData = async () => {
     setIsLoading(true);
     try {
@@ -103,67 +98,65 @@ const ProfileDetails = () => {
   };
 
   return (
-    <></>
-  //   <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
-  //     <div className="flex items-center gap-4 h-fit ">
-  //       <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
-  //         Profile details
-  //       </h1>
-  //       <CustomProgressBar
-  //         totalfield={titles}
-  //         percent={titles}
-  //         className=""
-  //       />
-  //       <CustomButton
-  //         title={"submit"}
-  //         onClick={handleButtonClick}
-  //         className={`ml-auto text-xs ${
-  //           isupdate && "bg-green-500"
-  //         } capitalize tracking-wider`}
-  //         color="solid"
-  //         disabled={isupdate}
-  //       />
-  //     </div>
-  //     <div
-  //       className="grid grid-cols-1 mt-2 md:grid-cols-2
-  //        lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
-  //     >
-  //       {titles
-  //         .filter((title) => title !== "gender" && title !== "address")
-  //         .map((title) => (
-  //           <CustomInput
-  //             disabled={isupdate}
-  //             className="text-xs"
-  //             containerClassName="mx-2"
-  //             titleClassName="text-xs"
-  //             title={title}
-  //             value={data.length > 0 ? data[0][title] : ""}
-  //             onChange={(e) => {
-  //               const newValue = e.target.value;
-  //               handleInputChange(title, newValue);
-  //             }}
-  //           />
-  //         ))}
-  //       <span className="mx-2">
-  //         <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-  //           gender
-  //         </p>
-  //         <Radio.Group
-  //           options={options}
-  //           onChange={onChange1}
-  //           value={value1}
-  //           className="h-fit"
-  //           disabled={isupdate}
-  //         />
-  //       </span>
-  //       <span className="mx-2">
-  //         <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-  //           Address
-  //         </p>
-  //         <TextArea className="" disabled={isupdate} />
-  //       </span>
-  //     </div>
-  //   </form>
+    <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
+      <div className="flex items-center gap-4 h-fit ">
+        <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
+          Profile details
+        </h1>
+        {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
+        <Checkbox checked={checked} onChange={()=>{setIsupdate(!isupdate);setChecked(!checked)}}>
+          Edit Details
+        </Checkbox>
+        <CustomButton
+          title={"submit"}
+          onClick={handleButtonClick}
+          className={`ml-auto text-xs ${
+            isupdate && "bg-green-500"
+          } capitalize tracking-wider`}
+          color="solid"
+          disabled={isupdate}
+        />
+      </div>
+      <div
+        className="grid grid-cols-1 mt-2 md:grid-cols-2
+         lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
+      >
+        {titles
+          .filter((title) => title !== "gender" && title !== "address")
+          .map((title) => (
+            <CustomInput
+              disabled={isupdate}
+              className="text-xs"
+              containerClassName="mx-2"
+              titleClassName="text-xs"
+              title={title}
+              value={data.length > 0 ? data[0][title] : ""}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                handleInputChange(title, newValue);
+              }}
+            />
+          ))}
+        <span className="mx-2">
+          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+            gender
+          </p>
+          <Radio.Group
+            options={options}
+            onChange={onChange1}
+            value={value1}
+            className="h-fit"
+            disabled={isupdate}
+          />
+        </span>
+        <span className="mx-2">
+          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+            Address
+          </p>
+          <TextArea className="" disabled={isupdate} />
+        </span>
+      </div>
+    </form>
   );
 };
 

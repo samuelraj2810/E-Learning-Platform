@@ -14,7 +14,7 @@ const CustomDropdown = ({ menus, onClick, title,className,placement="bottom" }) 
   }));
   return (
     <>
-      <Dropdown menu={{ items: styledMenus }} placement={placement} className={`tracking-wider capitalize ${className}`}>
+      <Dropdown menu={{ items: styledMenus,selectable: true, }} placement={placement} className={`tracking-wider capitalize ${className}`}>
           <Space>{title}</Space>
       </Dropdown>
     </>
