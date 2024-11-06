@@ -10,7 +10,8 @@ const getData = async(req,res) =>{
         if(!data ){
             return res.status(404).json({message:"data not found"})
         }
-        res.json(data)
+        console.log(data)
+        res.json({data})
     }
     catch(error){
         res.json(error.message)

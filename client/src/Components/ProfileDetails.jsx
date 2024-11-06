@@ -74,22 +74,31 @@ const ProfileDetails = () => {
   const postData = async () => {
     setIsLoading(true);
     try {
-      setToken(sessionStorage.getItem("token"));
-      
-      // Use the latest data values from state instead of hardcoding them
-      const result = await axios.put(
-        "http://localhost:3000/editdata", 
-        {
-          name: data[0].name, // Use the value from the first item in the data array
-          phonenumber: data[0].phonenumber,
-          email: data[0].email,
-          designation: data[0].designation,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
+      const token = sessionStorage.getItem("token");
+      const result = await axios.get("http://localhost:3000/getData", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // const modifiedResult = result?.data?.map((each) => ({
+      //   ...each,
+      //   disable: false,
+      // }));
+      const modifiedResult = result.data
+      setData(modifiedResult || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  console.log(data);
+  const postData = async () => {
+    setIsLoading(true);
+    try {
+      const result = await POST("http://localhost:3000/editdata", data,{ // write a new function for put method
+        headers:{
+          Authorization:`Bearer ${token}`
         }
-      );
-      
+      });
       if (result.status === 200) {
         setIsLoading(false);
         // Optionally re-fetch data if necessary
