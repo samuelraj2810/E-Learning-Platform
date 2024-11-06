@@ -7,7 +7,7 @@ const userSch = new mongoose.Schema(
     name:String,
     phonenumber: Number,
     age:Number,
-    sex:String,
+    gender:String,
     email: String,
     address:String,
     designation: String,

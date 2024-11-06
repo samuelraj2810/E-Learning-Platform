@@ -20,7 +20,9 @@ const getData = async(req,res) =>{
 const editData = async(req,res) =>{
     try{
         const userId = req.userId
-        const data = await userDetails.findOneAndUpdate({userId},req.body,{new:true})
+        const{agee} = req.body
+        const age = parseInt(agee)
+        const data = await userDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
         res.json({data,message:"Data updated successfully"})
         // console.log(data);
         
