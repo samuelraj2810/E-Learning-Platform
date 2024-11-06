@@ -66,7 +66,11 @@ const ProfileDetails = () => {
   const postData = async () => {
     setIsLoading(true);
     try {
-      const result = await POST("http://localhost:3000/register", data);
+      const result = await POST("http://localhost:3000/editdata", data,{ // write a new function for put method
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
       if (result.status === 200) {
         setIsLoading(false);
         fetchData();
