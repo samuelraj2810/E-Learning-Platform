@@ -20,9 +20,8 @@ const getData = async(req,res) =>{
 const editData = async(req,res) =>{
     try{
         const userId = req.userId
-        const data = await userDetails.updateOne({userId},req.body)
-        const updatedData = await userDetails.findOne({userId})
-        res.json({updatedData,message:"Data updated successfully"})
+        const data = await userDetails.findOneAndUpdate({userId},req.body,{new:true})
+        res.json({data,message:"Data updated successfully"})
         // console.log(data);
         
     }
