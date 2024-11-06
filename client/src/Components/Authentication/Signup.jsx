@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import CustomInput from "./Common/CustomInput";
-import { useCustomMessage } from "./Common/CustomMessage";
-import CustomButton from "./Common/CustomButton";
-import signUpImg from "../Assets/Images/signup.png";
-import { POST } from "./ApiFunction/ApiFunction";
+import CustomInput from "../Common/CustomInput";
+import { useCustomMessage } from "../Common/CustomMessage";
+import CustomButton from "../Common/CustomButton";
+import signUpImg from "../../Assets/Images/signup.png";
+import { POST } from "../ApiFunction/ApiFunction";
 
 function Signup() {
   const showMessage = useCustomMessage();

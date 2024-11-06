@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useCustomMessage } from "./Common/CustomMessage";
-import CustomInput from "./Common/CustomInput";
-import CustomButton from "./Common/CustomButton";
+import { useCustomMessage } from "../Common/CustomMessage";
+import CustomInput from "../Common/CustomInput";
+import CustomButton from "../Common/CustomButton";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");

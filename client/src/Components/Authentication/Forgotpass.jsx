@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import CustomButton from "./Common/CustomButton";
-import CustomInput from "./Common/CustomInput";
-import { useCustomMessage } from "./Common/CustomMessage";
+import CustomButton from "../Common/CustomButton";
+import CustomInput from "../Common/CustomInput";
+import { useCustomMessage } from "../Common/CustomMessage";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

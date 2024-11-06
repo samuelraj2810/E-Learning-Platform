@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import CustomDropdown from "./Common/CustomDropdown";
+import CustomDropdown from "../Common/CustomDropdown";
 
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);

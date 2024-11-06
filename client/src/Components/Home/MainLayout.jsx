@@ -3,7 +3,7 @@ import Nav from './Nav'
 import { Outlet } from 'react-router-dom'
 import axios from 'axios';
 import LoadingPage from './LoadingPage';
-import { GET } from './ApiFunction/ApiFunction';
+import { GET } from '../ApiFunction/ApiFunction';
 
 function MainLayout() {
   const [token, setToken] = useState(null);

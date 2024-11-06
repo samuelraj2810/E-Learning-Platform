@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Components/Home";
-import Signup from "./Components/Signup";
-import Login from "./Components/Login";
-import ResetPassword from "./Components/ResetPass";
-import ForgotPassword from "./Components/Forgotpass";
-import VericicationPage from "./Components/VericicationPage";
-import ProfileDetails from "./Components/ProfileDetails";
-import MainLayout from "./Components/MainLayout";
+import Home from "./Components/Home/Home";
+import Signup from "./Components/Authentication/Signup";
+import Login from "./Components/Authentication/Login";
+import ResetPassword from "./Components/Authentication/ResetPass";
+import ForgotPassword from "./Components/Authentication/Forgotpass";
+import VericicationPage from "./Components/Authentication/VericicationPage";
+import ProfileDetails from "./Components/Home/ProfileDetails";
+import MainLayout from "./Components/Home/MainLayout";
 
 const Routers = () => {
   return (

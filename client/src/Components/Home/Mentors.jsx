@@ -1,9 +1,9 @@
 import React from "react";
 import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
-import mentorImg from "../Assets/Images/mentors.png";
-import mentorOne from "../Assets/Images/mentor-1.jpg";
-import mentorTwo from "../Assets/Images/mentor-2.jpeg";
+import mentorImg from "../../Assets/Images/mentors.png";
+import mentorOne from "../../Assets/Images/mentor-1.jpg";
+import mentorTwo from "../../Assets/Images/mentor-2.jpeg";
 const Mentors = () => {
   const mentorsList = [
     ,
