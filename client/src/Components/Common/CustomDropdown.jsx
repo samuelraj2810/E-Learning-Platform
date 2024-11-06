@@ -2,7 +2,7 @@ import { Dropdown, Space } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CustomDropdown = ({ menus, onClick, title,className,placement="bottom" }) => {
+const CustomDropdown = ({ menus, onClick, title,className,placement="bottom"}) => {
   const styledMenus = menus.map(menu => ({
     key: menu.id,
     label: (
