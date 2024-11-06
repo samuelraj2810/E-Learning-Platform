@@ -1,5 +1,4 @@
 const userDetails = require("../models/UserDetails..model")
-const register = require("../models/Register.model")
 const bcrypt = require("bcrypt")
 
 const getData = async(req,res) =>{
