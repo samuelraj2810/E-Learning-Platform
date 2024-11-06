@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import CustomInput from "./Common/CustomInput";
 import { GET, POST } from "./ApiFunction/ApiFunction";
 import CustomButton from "./Common/CustomButton";
-import { Radio, Switch } from "antd";
+import { Checkbox, Radio, Switch } from "antd";
 import { useCustomMessage } from "./Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "./Common/CustomProgressBar";
+import axios from "axios";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
   const [token, setToken] = useState(null);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [checked, setChecked] = useState(true);
+  const [isupdate, setIsupdate] = useState(true);
+  const [value1, setValue1] = useState("Apple");
   const options = [
     {
       label: "male",
@@ -33,9 +38,6 @@ const ProfileDetails = () => {
     "number",
     "designation",
   ];
-  const [isLoading, setIsLoading] = useState(false);
-  const [isupdate, setIsupdate] = useState(true);
-  const [value1, setValue1] = useState("Apple");
   console.log(data);
   const onChange1 = ({ target: { value } }) => {
     console.log("radio1 checked", value);
@@ -45,7 +47,9 @@ const ProfileDetails = () => {
     setIsLoading(true);
     try {
       setToken(sessionStorage.getItem("token"));
-      const result = await GET("http://localhost:3000/getData",{headers:{Authorization:`Bearer ${token}`}});
+      const result = await axios.get("http://localhost:3000/getData", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const modifiedResult = result?.data?.map((each) => ({
         ...each,
         disable: false,
@@ -57,7 +61,7 @@ const ProfileDetails = () => {
       setIsLoading(false);
     }
   };
-  console.log(data)
+  console.log(data);
   const postData = async () => {
     setIsLoading(true);
     try {
@@ -99,11 +103,10 @@ const ProfileDetails = () => {
         <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
           Profile details
         </h1>
-        <CustomProgressBar
-          totalfield={titles}
-          percent={titles}
-          className=""
-        />
+        {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
+        <Checkbox checked={checked} onChange={()=>{setIsupdate(!isupdate);setChecked(!checked)}}>
+          Edit Details
+        </Checkbox>
         <CustomButton
           title={"submit"}
           onClick={handleButtonClick}
