@@ -44,10 +44,7 @@ const ProfileDetails = () => {
       const tokenFromStorage = sessionStorage.getItem("token");
       if (tokenFromStorage) {
         setToken(tokenFromStorage);
-        const result = await axios.get("http://localhost:3000/getData", {
-          headers: { Authorization: `Bearer ${tokenFromStorage}` },
-        });
-
+        const result = await GET("getData", tokenFromStorage);
         const userEmail = sessionStorage.getItem("email");
         const filteredData = result.data.filter((each) => each.email === userEmail);
         setData(filteredData);
