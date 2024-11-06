@@ -74,26 +74,6 @@ const ProfileDetails = () => {
   const postData = async () => {
     setIsLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-      const result = await axios.get("http://localhost:3000/getData", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      // const modifiedResult = result?.data?.map((each) => ({
-      //   ...each,
-      //   disable: false,
-      // }));
-      const modifiedResult = result.data
-      setData(modifiedResult || []);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  console.log(data);
-  const postData = async () => {
-    setIsLoading(true);
-    try {
       const result = await POST("http://localhost:3000/editdata", data,{ // write a new function for put method
         headers:{
           Authorization:`Bearer ${token}`
