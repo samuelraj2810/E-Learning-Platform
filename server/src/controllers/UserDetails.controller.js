@@ -21,7 +21,9 @@ const editData = async(req,res) =>{
     try{
         const userId = req.userId
         const data = await userDetails.updateOne({userId},req.body,{new:true})
-        res.json(data)
+        res.json({data,message:"Data updated successfully"})
+        // console.log(data);
+        
     }
     catch(error){
         res.json(error.message)
