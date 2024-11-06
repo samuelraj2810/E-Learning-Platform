@@ -14,7 +14,7 @@ router.get("/verify-email/:token", verifyEmail);
 router.post("/forgotpassword", forgotPassword);
 router.post("/resetpass/:token", resetPassword);
 
-router.get("/getData",verifyToken,UserDetails.getData)
-router.put("/editData",verifyToken,UserDetails.editData)
+router.get("/getdata",verifyToken,UserDetails.getData)
+router.put("/editdata",verifyToken,UserDetails.editData)
 
 module.exports = router
