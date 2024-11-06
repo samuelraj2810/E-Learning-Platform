@@ -10,7 +10,7 @@ import axios from "axios";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
-  // const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(true);
@@ -46,14 +46,15 @@ const ProfileDetails = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      setToken(sessionStorage.getItem("token"));
+      const token = sessionStorage.getItem("token");
       const result = await axios.get("http://localhost:3000/getData", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const modifiedResult = result?.data?.map((each) => ({
-        ...each,
-        disable: false,
-      }));
+      // const modifiedResult = result?.data?.map((each) => ({
+      //   ...each,
+      //   disable: false,
+      // }));
+      const modifiedResult = result.data
       setData(modifiedResult || []);
     } catch (error) {
       console.error("Error fetching data:", error);
