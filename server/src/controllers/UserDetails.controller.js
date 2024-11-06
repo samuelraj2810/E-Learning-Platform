@@ -7,11 +7,12 @@ const getData = async(req,res) =>{
         console.log(userId);
         
         const data = await userDetails.findOne({userId})
+        const datas = [data]
         if(!data ){
             return res.status(404).json({message:"data not found"})
         }
-        console.log(data)
-        res.json({data})
+        console.log(datas)
+        res.json(data)
     }
     catch(error){
         res.json(error.message)
@@ -23,7 +24,8 @@ const editData = async(req,res) =>{
         const{agee} = req.body
         const age = parseInt(agee)
         const data = await userDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
-        res.json({data,message:"Data updated successfully"})
+        const datas = [data]
+        res.json({datas,message:"Data updated successfully"})
         // console.log(data);
         
     }
