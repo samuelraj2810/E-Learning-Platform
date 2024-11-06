@@ -12,7 +12,7 @@ const getData = async(req,res) =>{
             return res.status(404).json({message:"data not found"})
         }
         console.log(datas)
-        res.json(data)
+        res.json(datas)
     }
     catch(error){
         res.json(error.message)
@@ -25,7 +25,7 @@ const editData = async(req,res) =>{
         const age = parseInt(agee)
         const data = await userDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
         const datas = [data]
-        res.json({datas,message:"Data updated successfully"})
+        res.json(datas)
         // console.log(data);
         
     }
