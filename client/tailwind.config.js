@@ -4,10 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        Primary: "#4338ca",
+        Primary: "#22d3ee",
+        PrimaryDark: "#083344",
       },
       backgroundColor:{
-        Primary: "#4338ca",
+        Primary: "#22d3ee",
+        PrimaryDark: "#083344",
       },
       fontFamily: {
         Poppins: ["Poppins", "serif"],

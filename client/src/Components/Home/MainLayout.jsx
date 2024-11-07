@@ -39,9 +39,10 @@ function MainLayout() {
   }, []);
 
   return (
-    <div>
+    <div className='bg-gray-50'>
       <Nav />
-      {isLoading ? <LoadingPage/> : <Outlet />}
+      {/* {isLoading ? <LoadingPage/> : <Outlet />} */}
+      <Outlet />
     </div>
   );
 }
