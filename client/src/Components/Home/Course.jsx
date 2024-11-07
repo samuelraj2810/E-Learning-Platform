@@ -1,8 +1,8 @@
 import React from "react";
-import htmlphoto from "../Assets/html5-icon-12118.png";
-import clogo from "../Assets/c logo.png";
-import javalogo from "../Assets/Java-Logo.jpg";
-import pythhologo from "../Assets/python.jpg";
+import htmlphoto from "../../Assets/html5-icon-12118.png"
+import clogo from "../../Assets/c logo.png";
+import javalogo from "../../Assets/Java-Logo.jpg";
+import pythhologo from "../../Assets/python.jpg";
 import CarddComp from "./CarddComp";
 
 function Course() {

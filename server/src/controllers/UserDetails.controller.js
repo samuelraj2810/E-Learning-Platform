@@ -21,8 +21,8 @@ const getData = async(req,res) =>{
 const editData = async(req,res) =>{
     try{
         const userId = req.userId
-        const{agee} = req.body
-        const age = parseInt(agee)
+        const{age} = req.body
+        age==null||undefined? null : parseInt(age)
         const data = await userDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
         const datas = [data]
         res.json(datas)
