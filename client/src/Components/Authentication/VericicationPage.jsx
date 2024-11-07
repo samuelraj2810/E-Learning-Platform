@@ -1,7 +1,7 @@
 import { CheckCircleTwoTone } from '@ant-design/icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import verifyBg from "../Assets/Images/verifyed.jpg"
+import verifyBg from "../../Assets/Images/verifyed.jpg"
 const VericicationPage = () => {
   return (
     <div className='h-screen w-screen relative flex flex-col md:flex-row items-center md:items-start gap-4 tracking-widest justify-start lg:justify-center p-4'>

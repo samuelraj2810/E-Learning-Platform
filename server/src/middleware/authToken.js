@@ -2,14 +2,14 @@ const jwt = require("jsonwebtoken")
 const register = require("../models/Register.model")
 
 const tokenGen = async(userId) => {
-
-    return jwt.sign({id:userId},process.env.JWT_KEY,{expiresIn:"1h"})
-
+ return jwt.sign({id:userId},process.env.JWT_KEY)
 }
 
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization;
+    console.log(token);
+    
     if (!token) {
       return res.status(404).json({Message : "You have to be logged in to create account"});
     }
@@ -22,6 +22,7 @@ const verifyToken = async (req, res, next) => {
       if(!checkUser){
           return res.status(404).json({message : "user not found"})
       }
+      console.log(checkUser.userId)
       req.userId = checkUser.userId;
       
       next();
@@ -33,5 +34,5 @@ const verifyToken = async (req, res, next) => {
   };
   
 module.exports = {
-    tokenGen
+    tokenGen,verifyToken
 }

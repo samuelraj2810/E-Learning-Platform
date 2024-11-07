@@ -7,12 +7,13 @@ const userSch = new mongoose.Schema(
     name:String,
     phonenumber: Number,
     age:Number,
-    sex:String,
+    gender:String,
     email: String,
+    address:String,
     designation: String,
     title: {
       type: [String],
-      default: ["name","phonenumber","age","sex","email","designation"]
+      default: ["name","phonenumber","age","gender","email","designation"]
     },
     _id: {
       type: String,

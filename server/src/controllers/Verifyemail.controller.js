@@ -8,8 +8,6 @@ const verifyEmail = async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const user = await register.findOne({ userId: decoded.userId });
-    console.log(user.userId);
-    console.log(decoded.userId);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
