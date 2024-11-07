@@ -7,6 +7,8 @@ import { useCustomMessage } from "../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "../Common/CustomProgressBar";
 import axios from "axios";
+import LoadingPage from "./LoadingPage";
+import CustomSkeleton from "../Common/CustomSkeleton";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
@@ -63,6 +65,7 @@ const ProfileDetails = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  
   const postData = async () => {
     setIsLoading(true);
     let convertedObject = data[0].title.reduce((acc, key) => {
@@ -88,7 +91,7 @@ const ProfileDetails = () => {
         console.log(result.data);
 
         setIsLoading(false);
-        showMessage("success", result.data.message);
+        showMessage("success", "Data added Successfully");
       }
     } catch (error) {
       console.error("Error updating data:", error);
@@ -116,7 +119,7 @@ const ProfileDetails = () => {
   return (
     <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
       <div className="flex items-center gap-4 h-fit ">
-        <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
+        <h1 className="lg:text-2xl text-base border-l-8 border-PrimaryDark pl-2 font-semibold text-PrimaryDark my-4 tracking-widest">
           Profile details
         </h1>
         {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
@@ -128,6 +131,7 @@ const ProfileDetails = () => {
           } capitalize tracking-wider`}
           color="solid"
           disabled={isupdate}
+          loading={isLoading}
         />
       </div>
       <Checkbox
@@ -136,16 +140,16 @@ const ProfileDetails = () => {
           setIsupdate(!isupdate);
           setChecked(!checked);
         }}
-        className={`text-xs ${checked ? "" : ""}`}
-      >
-        Edit Details
+        className={`text-xs my-4 ${checked ? "" : ""}`}
+        >
+        Update
       </Checkbox>
+        {data?.length > 0 ?
       <div
         className="grid grid-cols-1 mt-4 md:grid-cols-2
-         lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
+         lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
       >
-        {data?.length > 0 ?
-        data.map((each) =>
+        {data.map((each) =>
           each.title
             .filter((field) => !["gender"].includes(field))
             .map((field) => (
@@ -163,8 +167,7 @@ const ProfileDetails = () => {
                   handleInputChange(field, newValue);
                 }}
               />
-            ))
-        ): ""}
+            )))}
         <span className="mx-2">
           <p className="text-xs font-normal mb-4 capitalize text-gray-700">
             gender
@@ -184,6 +187,7 @@ const ProfileDetails = () => {
           <TextArea className="" disabled={isupdate} value={address} onChange={(e)=>setAddress(e.target.value)}/>
         </span>
       </div>
+      : <CustomSkeleton active rows={4} />}
     </form>
   );
 };
