@@ -8,6 +8,7 @@ const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
+  const name = sessionStorage.getItem("name")
 
 
   const navList = [
@@ -58,6 +59,7 @@ const Nav = () => {
     handleMenuClick()
     if (id === 6) {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("name")
       setSignOut(true);
     }
   };
@@ -84,6 +86,7 @@ const Nav = () => {
         {!signOut && (
           <CustomDropdown
              onClick={()=>setMenuId(5)}
+            //  title={name}
             icon={<UserOutlined className={`text-white p-2 border-2 rounded-full`}/>}
             className=""
             menus={navList.filter((menu) =>menu.id === 5 || menu.id === 6)}
