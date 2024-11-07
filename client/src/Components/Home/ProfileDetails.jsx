@@ -140,7 +140,7 @@ const ProfileDetails = () => {
           setIsupdate(!isupdate);
           setChecked(!checked);
         }}
-        className={`text-xs ${checked ? "" : ""}`}
+        className={`text-xs my-4 ${checked ? "" : ""}`}
         >
         Update
       </Checkbox>

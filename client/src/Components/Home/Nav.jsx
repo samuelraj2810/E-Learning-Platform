@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
+import { CloseOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import CustomDropdown from "../Common/CustomDropdown";
 
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
+  const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
 
   const navList = [
@@ -61,7 +62,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="sticky lg:text-xl bg-white top-0 font-poppins flex h-[10vh] shadow-md px-2 z-40">
+    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-poppins flex h-[10vh] shadow-lg px-2 z-40">
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
@@ -71,17 +72,19 @@ const Nav = () => {
       <div className="capitalize tracking-wider w-full p-2 md:flex flex-col md:flex-row md:justify-between items-center hidden">
         {updatedNavList.map((each) => (
           <Link
+          onClick={()=>setMenuId(each.id)}
             to={each.to}
             key={each.id}
-            className="hover:text-Primary scale-100 transition-all hover:drop-shadow duration-500"
+            className={`hover:text-PrimaryDark p-2 rounded scale-100 transition-all h-full flex items-center hover:drop-shadow duration-500 ${each.id === menuId && "border border-PrimaryDark text-PrimaryDark" }`}
           >
             {each.title}
           </Link>
         ))}
         {!signOut && (
           <CustomDropdown
-            title="Profile"
-            className="p-4"
+             onClick={()=>setMenuId(5)}
+            icon={<UserOutlined className={`text-white p-2 border-2 rounded-full`}/>}
+            className=""
             menus={navList.filter((menu) =>menu.id === 5 || menu.id === 6)}
           />
         )}
