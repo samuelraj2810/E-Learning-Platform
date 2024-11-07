@@ -11,7 +11,7 @@ import axios from "axios";
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
   // const [token, setToken] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(true);
   const [isupdate, setIsupdate] = useState(true);
@@ -45,7 +45,10 @@ const ProfileDetails = () => {
         const result = await axios.get("http://localhost:3000/getdata", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setData([result.data]);
+        setData(result.data);
+        if (result.data?.length > 0 && result.data[0].gender) {
+          setValue1(result.data[0].gender);
+        }
       } else {
         console.log("Token not found in sessionStorage.");
       }
@@ -61,7 +64,7 @@ const ProfileDetails = () => {
   }, []);
   const postData = async () => {
     setIsLoading(true);
-    const convertedObject = data[0].title.reduce((acc, key) => {
+    let convertedObject = data[0].title.reduce((acc, key) => {
       if (data[0].hasOwnProperty(key)) {
         acc[key] = data[0][key];
       }
@@ -91,7 +94,6 @@ const ProfileDetails = () => {
       setIsLoading(false);
     }
   };
-
   const handleInputChange = (title, value) => {
     setData((prevData) => {
       const updatedData = [...prevData];
@@ -140,7 +142,8 @@ const ProfileDetails = () => {
         className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
       >
-        {data.map((each) =>
+        {data?.length > 0 ?
+        data.map((each) =>
           each.title
             .filter((field) => !["gender"].includes(field))
             .map((field) => (
@@ -159,8 +162,7 @@ const ProfileDetails = () => {
                 }}
               />
             ))
-        )}
-
+        ): ""}
         <span className="mx-2">
           <p className="text-xs font-normal mb-4 capitalize text-gray-700">
             gender
