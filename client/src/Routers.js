@@ -8,6 +8,7 @@ import ForgotPassword from "./Components/Authentication/Forgotpass";
 import VericicationPage from "./Components/Authentication/VericicationPage";
 import ProfileDetails from "./Components/Home/ProfileDetails";
 import MainLayout from "./Components/Home/MainLayout";
+import CourseCatalog from "./Components/coursecatalog/Coursecatalog";
 
 const Routers = () => {
   return (
@@ -15,7 +16,7 @@ const Routers = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home/>}/>
-          <Route path="/courses" element={""}/>
+          <Route path="/courses" element={<CourseCatalog/>}/>
           <Route path="/profiledetails" element={<ProfileDetails/>}/>
           <Route path="" element={""}/>
         </Route>
