@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../Common/CustomInput";
-// import { GET, POST } from "../ApiFunction/ApiFunction";
+import { PUT } from "../ApiFunction/ApiFunction";
 import CustomButton from "../Common/CustomButton";
 import { Checkbox, Radio } from "antd";
 import { useCustomMessage } from "../Common/CustomMessage";
@@ -9,7 +9,6 @@ import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 // import LoadingPage from "./LoadingPage";
 import CustomSkeleton from "../Common/CustomSkeleton";
-import axios from "axios";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();

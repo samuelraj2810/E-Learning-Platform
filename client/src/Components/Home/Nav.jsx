@@ -8,7 +8,7 @@ const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
-  const name = sessionStorage.getItem("name")
+  // const name = sessionStorage.getItem("name")
 
 
   const navList = [
