@@ -1,36 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import Nav from './Nav'
-import { Outlet } from 'react-router-dom'
-import axios from 'axios';
-import LoadingPage from './LoadingPage';
-import { GET } from '../ApiFunction/ApiFunction';
+import React, { useEffect, useState } from "react";
+import Nav from "./Nav";
+import { Outlet } from "react-router-dom";
+import LoadingPage from "./LoadingPage";
+import { GET } from "../ApiFunction/ApiFunction";
+import { useCustomMessage } from "../Common/CustomMessage";
+import { SmileTwoTone } from "@ant-design/icons";
 
 function MainLayout() {
-  const [token, setToken] = useState(null);
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const showMessage = useCustomMessage();
 
   const fetchData = async () => {
-    setIsLoading(true);
-
     try {
-      const tokenFromStorage = sessionStorage.getItem("token");
-      if (tokenFromStorage) {
-        setToken(tokenFromStorage);
+      const token = sessionStorage.getItem("token");
+      if (token) {
         const result = await GET("http://localhost:3000/getData", {
-          headers: { Authorization: `Bearer ${tokenFromStorage}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        const userEmail = sessionStorage.getItem("email");
-        const filteredData = result.data.filter((each) => each.email === userEmail);
-        setData(filteredData);
-      } else {
-        console.log("Token not found in sessionStorage.");
+        setData(result);
+        showMessage("success", "Welcome", <SmileTwoTone />);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false); 
+      showMessage("error", error);
     }
   };
 
@@ -39,10 +30,10 @@ function MainLayout() {
   }, []);
 
   return (
-    <div>
+    <>
       <Nav />
-      {isLoading ? <LoadingPage/> : <Outlet />}
-    </div>
+      {!data ? <LoadingPage /> : <Outlet />}
+    </>
   );
 }
 

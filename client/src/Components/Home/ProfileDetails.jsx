@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CustomInput from "../Common/CustomInput";
-import { GET, POST } from "../ApiFunction/ApiFunction";
+import { GET, PUT } from "../ApiFunction/ApiFunction";
 import CustomButton from "../Common/CustomButton";
 import { Checkbox, Radio, Switch } from "antd";
 import { useCustomMessage } from "../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "../Common/CustomProgressBar";
+import CustomSkeleton from "../Common/CustomSkeleton";
 import axios from "axios";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
-  const [token, setToken] = useState(null);
-  const [data, setData] = useState([,
-  ]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(true);
   const [isupdate, setIsupdate] = useState(true);
-  const [value1, setValue1] = useState("male");
+  const [checkBoxValue, setCheckBoxValue] = useState("male");
+  const [address, setAddress] = useState("");
   const options = [
     {
       label: "male",
@@ -31,60 +31,60 @@ const ProfileDetails = () => {
       value: "other",
     },
   ];
-  console.log(data, "dddd");
-  
+
   const onChange1 = ({ target: { value } }) => {
     console.log("radio1 checked", value);
-    setValue1(value);
+    setCheckBoxValue(value);
   };
-  const fetchData = async () => {
-    setIsLoading(true);
 
+  const fetchData = async () => {
     try {
-      const tokenFromStorage = sessionStorage.getItem("token");
-      if (tokenFromStorage) {
-        setToken(tokenFromStorage);
-        const result = await GET("getData", tokenFromStorage);
-        const userEmail = sessionStorage.getItem("email");
-        const filteredData = result.data.filter((each) => each.email === userEmail);
-        setData(filteredData);
-      } else {
-        console.log("Token not found in sessionStorage.");
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        const result = await axios.get("http://localhost:3000/getdata", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setData(result.data);
+        if (result.data?.length > 0 && result.data[0].gender) {
+          setCheckBoxValue(result.data[0].gender);
+          setAddress(result.data[0].address);
+        }
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false); 
     }
   };
 
+  console.log(data, "dddd");
   useEffect(() => {
     fetchData();
   }, []);
 
   const postData = async () => {
     setIsLoading(true);
+    let convertedObject = data[0].title.reduce((acc, key) => {
+      if (data[0].hasOwnProperty(key)) {
+        acc[key] = data[0][key];
+      }
+      return acc;
+    }, {});
+    convertedObject.gender = checkBoxValue;
+    convertedObject.address = address;
     try {
-      const result = await axios.put("http://localhost:3000/editdata", {
-        name: "saidhasun", // Use data from the state
-      },{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      });
+      const result = await PUT(
+        "http://localhost:3000/editdata",
+        convertedObject
+      );
       if (result.status === 200) {
-        console.log(result.data);
-        
         setIsLoading(false);
-        showMessage("success", result.data.message);
+        showMessage("success", "Data added Successfully");
       }
     } catch (error) {
-      console.error("Error updating data:", error);
-    } finally {
+      showMessage("error", "Something went wrong");
       setIsLoading(false);
     }
   };
-  
+
   const handleInputChange = (title, value) => {
     setData((prevData) => {
       const updatedData = [...prevData];
@@ -97,15 +97,44 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
-    postData()
-    setIsupdate(true);
-    setChecked(true)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
+  
+    // Ensure no required fields are empty or just whitespace
+    if (
+      !data[0].email.trim() ||
+      !String(data[0].phonenumber).trim() ||
+      !data[0].address.trim() ||
+      !data[0].name.trim() ||
+      !String(data[0].age).trim() ||
+      !data[0].designation.trim()
+    ) {
+      showMessage("error", "Please fill in all fields");
+      return;
+    } else if (!emailPattern.test(data[0].email)) {
+      showMessage("error", "Please enter a valid email");
+      return;
+    } else if (!phonePattern.test(data[0].phonenumber)) {
+      showMessage("error", "Please enter a valid 10-digit mobile number");
+      return;
+    } else if (!agePattern.test(data[0].age)) {
+      showMessage("error", "Please enter a valid 2-digit age");
+      return;
+    } else {
+      // Proceed with the data submission
+      postData();
+      setIsupdate(true);
+      setChecked(true);
+    }
   };
+  
+  
 
   return (
     <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
       <div className="flex items-center gap-4 h-fit ">
-        <h1 className="lg:text-2xl text-base font-semibold my-4 tracking-widest">
+        <h1 className="lg:text-2xl text-base border-l-8 border-PrimaryDark pl-2 font-semibold text-PrimaryDark my-4 tracking-widest">
           Profile details
         </h1>
         {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
@@ -117,61 +146,71 @@ const ProfileDetails = () => {
           } capitalize tracking-wider`}
           color="solid"
           disabled={isupdate}
+          loading={isLoading}
         />
       </div>
-        <Checkbox
-          checked={checked}
-          onChange={() => {
-            setIsupdate(!isupdate);
-            setChecked(!checked);
-          }}
-          className={`text-xs ${checked ?  "" : ""}`}
-        >
-          Edit Details
-        </Checkbox>
-      <div
-        className="grid grid-cols-1 mt-4 md:grid-cols-2
-         lg:grid-cols-4 gap-4 items-center rounded-lg border p-4"
-      >
-{/* {data.map((each) => 
-   each.title.filter((field) => ![, "sex"].includes(field))
-    .map((field) => ( 
-      <CustomInput
-        key={field}
-        disabled={isupdate}
-        className="text-xs"
-        containerClassName="mx-2" 
-        titleClassName="text-xs"
-        title={field}
-        type={field === "age" ?  "number" : field}
-        value={each[field] || ""} 
-        onChange={(e) => {
-          const newValue =e.target.value;
-          handleInputChange(field, newValue);
+      <Checkbox
+        checked={checked}
+        onChange={() => {
+          setIsupdate(!isupdate);
+          setChecked(!checked);
         }}
-      />
-    ))
-  )} */}
+        className={`text-xs my-4 ${checked ? "" : ""}`}
+      >
+        Update
+      </Checkbox>
+      {data.length > 0 ? (
+        <div
+          className="grid grid-cols-1 mt-4 md:grid-cols-2
+         lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
+        >
+        {data.map((each) =>
+          each.title
+            .filter((field) => !["gender"].includes(field))
+            .map((field) => (
+              <CustomInput
+                key={field}
+                disabled={isupdate}
+                className="text-xs"
+                containerClassName="mx-2"
+                titleClassName="text-xs"
+                title={field}
+                type={field === "age" ? "number" : field}
+                value={each[field] || ""}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  handleInputChange(field, newValue);
+                }}
+              />
+            )))}
 
-        <span className="mx-2">
-          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-            gender
-          </p>
-          <Radio.Group
-            options={options}
-            onChange={onChange1}
-            value={value1}
-            className="h-fit"
-            disabled={isupdate}
-          />
-        </span>
-        <span className="mx-2">
-          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-            Address
-          </p>
-          <TextArea className="" disabled={isupdate} />
-        </span>
-      </div>
+          <span className="mx-2">
+            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+              gender
+            </p>
+            <Radio.Group
+              options={options}
+              onChange={onChange1}
+              value={checkBoxValue}
+              className="h-fit"
+              disabled={isupdate}
+            />
+          </span>
+          <span className="mx-2">
+            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+              Address
+            </p>
+            <TextArea
+              className=""
+              disabled={isupdate}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </span>
+        </div>
+      ) : (
+        <CustomSkeleton active rows={4} />
+      )}
     </form>
   );
 };
