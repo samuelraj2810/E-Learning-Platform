@@ -97,19 +97,39 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
-    if (!data[0].email || !data[0].phonenumber || !data[0].address  || !data[0].name || !data[0].age || !data[0].designation) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
+  
+    // Ensure no required fields are empty or just whitespace
+    if (
+      !data[0].email.trim() ||
+      !String(data[0].phonenumber).trim() ||
+      !data[0].address.trim() ||
+      !data[0].name.trim() ||
+      !String(data[0].age).trim() ||
+      !data[0].designation.trim()
+    ) {
       showMessage("error", "Please fill in all fields");
       return;
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(!data[0].email)) {
+    } else if (!emailPattern.test(data[0].email)) {
       showMessage("error", "Please enter a valid email");
       return;
+    } else if (!phonePattern.test(data[0].phonenumber)) {
+      showMessage("error", "Please enter a valid 10-digit mobile number");
+      return;
+    } else if (!agePattern.test(data[0].age)) {
+      showMessage("error", "Please enter a valid 2-digit age");
+      return;
+    } else {
+      // Proceed with the data submission
+      postData();
+      setIsupdate(true);
+      setChecked(true);
     }
-    postData();
-    setIsupdate(true);
-    setChecked(true);
   };
+  
+  
 
   return (
     <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
