@@ -159,13 +159,12 @@ const ProfileDetails = () => {
       >
         Update
       </Checkbox>
-      {data ? (
+      {data.length > 0 ? (
         <div
           className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
         >
-{data?.length > 0 ?
-        data.map((each) =>
+        {data.map((each) =>
           each.title
             .filter((field) => !["gender"].includes(field))
             .map((field) => (
@@ -183,8 +182,7 @@ const ProfileDetails = () => {
                   handleInputChange(field, newValue);
                 }}
               />
-            ))
-        ): ""}
+            )))}
 
           <span className="mx-2">
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
