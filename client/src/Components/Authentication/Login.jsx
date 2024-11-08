@@ -37,7 +37,10 @@ const Login = () => {
       setLoading(false);
       if (result?.status === 200) {
         sessionStorage.setItem("token", result?.data?.token);
-        sessionStorage.setItem("email", email);
+        // sessionStorage.setItem("email", email);
+        sessionStorage.setItem("name",result?.data?.name);
+        console.log(result?.data?.name);
+        
         showMessage("success", result?.data?.message);
         navigate("/");
       } else {

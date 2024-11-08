@@ -55,10 +55,12 @@ const loginPost = async(req,res) => {
         }
         const token =await tokenGen(checkmail.userId)
         console.log(token)
+        const name = checkmail.username
 
         res.json({
             message:"Login Successfully",
-            token
+            token,
+            name
         })
 
     } catch (error) {
