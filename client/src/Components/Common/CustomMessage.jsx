@@ -11,10 +11,11 @@ export const useCustomMessage = () => {
 export const MessageProvider = ({ children }) => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const showMessage = (type, content) => {
+  const showMessage = (type, content, icon) => {
     messageApi.open({
-      type:type,
-      content:content,
+      type: type,
+      content: content,
+      icon: icon,
     });
   };
 

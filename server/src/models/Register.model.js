@@ -3,7 +3,7 @@ const { v4 } = require("uuid");
 
 const RegSch = new mongoose.Schema(
   {
-    username:String,
+    username: String,
     number: Number,
     email: String,
     password: String,
@@ -20,8 +20,8 @@ const RegSch = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    resetPasswordToken: String ,
-    resetPasswordExpires:Date,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   { timestamps: true }
 );

@@ -7,13 +7,13 @@ module.exports = {
         Primary: "#0d9488",
         PrimaryDark: "#083344",
       },
-      backgroundColor:{
+      backgroundColor: {
         Primary: "#0d9488",
         PrimaryDark: "#083344",
       },
       fontFamily: {
         Poppins: ["Poppins", "serif"],
-        Title:["Koulen", "sans-serif"],
+        Title: ["Koulen", "sans-serif"],
       },
     },
   },

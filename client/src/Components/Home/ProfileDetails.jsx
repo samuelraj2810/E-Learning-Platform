@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../Common/CustomInput";
-import { GET, POST } from "../ApiFunction/ApiFunction";
+import { GET, PUT } from "../ApiFunction/ApiFunction";
 import CustomButton from "../Common/CustomButton";
 import { Checkbox, Radio, Switch } from "antd";
 import { useCustomMessage } from "../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "../Common/CustomProgressBar";
-import axios from "axios";
-import LoadingPage from "./LoadingPage";
 import CustomSkeleton from "../Common/CustomSkeleton";
 
 const ProfileDetails = () => {
@@ -32,7 +30,6 @@ const ProfileDetails = () => {
       value: "other",
     },
   ];
-  console.log(data, "dddd");
 
   const onChange1 = ({ target: { value } }) => {
     console.log("radio1 checked", value);
@@ -40,65 +37,49 @@ const ProfileDetails = () => {
   };
 
   const fetchData = async () => {
-    setIsLoading(true);
     try {
-      const token = sessionStorage.getItem("token");
-      if (token) {
-        const result = await axios.get("http://localhost:3000/getdata", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setData(result.data);
-        if (result.data?.length > 0) {
-          setCheckBoxValue(result.data[0].gender);
-          setAddress(result.data[0].address);
-        }
-      } else {
-        console.log("Token not found in sessionStorage.");
+      const result = await GET("http://localhost:3000/getdata");
+      setData(result);
+      if (result.data?.length > 0) {
+        setCheckBoxValue(result.data[0].gender);
+        setAddress(result.data[0].address);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
+     showMessage("error",error || "Failed to load data")
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const postData = async () => {
     setIsLoading(true);
+
     let convertedObject = data[0].title.reduce((acc, key) => {
       if (data[0].hasOwnProperty(key)) {
         acc[key] = data[0][key];
       }
       return acc;
     }, {});
-    convertedObject.gender = checkBoxValue
-    convertedObject.address = address
+
+    convertedObject.gender = checkBoxValue;
+    convertedObject.address = address;
     try {
-      const token = sessionStorage.getItem("token");
-      const result = await axios.put(
+      const result = await PUT(
         "http://localhost:3000/editdata",
-          convertedObject,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        convertedObject
       );
       if (result.status === 200) {
-        console.log(result.data);
-
         setIsLoading(false);
         showMessage("success", "Data added Successfully");
       }
     } catch (error) {
-      console.error("Error updating data:", error);
-    } finally {
+      showMessage("error", "Something went wrong");
       setIsLoading(false);
     }
   };
+
   const handleInputChange = (title, value) => {
     setData((prevData) => {
       const updatedData = [...prevData];
@@ -141,53 +122,61 @@ const ProfileDetails = () => {
           setChecked(!checked);
         }}
         className={`text-xs my-4 ${checked ? "" : ""}`}
-        >
+      >
         Update
       </Checkbox>
-        {data?.length > 0 ?
-      <div
-        className="grid grid-cols-1 mt-4 md:grid-cols-2
+      {data?.length > 0 ? (
+        <div
+          className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
-      >
-        {data.map((each) =>
-          each.title
-            .filter((field) => !["gender"].includes(field))
-            .map((field) => (
-              <CustomInput
-                key={field}
-                disabled={isupdate}
-                className="text-xs"
-                containerClassName="mx-2"
-                titleClassName="text-xs"
-                title={field}
-                type={field === "age" ? "number" : field}
-                value={each[field] || ""}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  handleInputChange(field, newValue);
-                }}
-              />
-            )))}
-        <span className="mx-2">
-          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-            gender
-          </p>
-          <Radio.Group
-            options={options}
-            onChange={onChange1}
-            value={checkBoxValue}
-            className="h-fit"
-            disabled={isupdate}
-          />
-        </span>
-        <span className="mx-2">
-          <p className="text-xs font-normal mb-4 capitalize text-gray-700">
-            Address
-          </p>
-          <TextArea className="" disabled={isupdate} value={address} onChange={(e)=>setAddress(e.target.value)}/>
-        </span>
-      </div>
-      : <CustomSkeleton active rows={4} />}
+        >
+          {data.map((each) =>
+            each.title
+              .filter((field) => !["gender"].includes(field))
+              .map((field) => (
+                <CustomInput
+                  key={field}
+                  disabled={isupdate}
+                  className="text-xs"
+                  containerClassName="mx-2"
+                  titleClassName="text-xs"
+                  title={field}
+                  type={field === "age" ? "number" : field}
+                  value={each[field] || ""}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    handleInputChange(field, newValue);
+                  }}
+                />
+              ))
+          )}
+          <span className="mx-2">
+            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+              gender
+            </p>
+            <Radio.Group
+              options={options}
+              onChange={onChange1}
+              value={checkBoxValue}
+              className="h-fit"
+              disabled={isupdate}
+            />
+          </span>
+          <span className="mx-2">
+            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+              Address
+            </p>
+            <TextArea
+              className=""
+              disabled={isupdate}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </span>
+        </div>
+      ) : (
+        <CustomSkeleton active rows={4} />
+      )}
     </form>
   );
 };
