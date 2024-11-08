@@ -29,7 +29,7 @@ function Course() {
       image: javalogo,
     },
     {
-      courseName: "C Programming",
+      courseName: "C Program",
       instructorName: "Sudeep",
       duration: "7:32:43",
       rating: 4.5,
@@ -41,7 +41,7 @@ function Course() {
     <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
       <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popular</span> Courses</h1>
       <div className="h-10 w-[120px] rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
-      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-[90px] mx-auto ">
+      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-[70px] mx-auto ">
         {CourseDetails.length >= 1 ? (
           CourseDetails.map((value, index) => (
             <CarddComp
