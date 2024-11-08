@@ -6,7 +6,6 @@ import Mentors from "./Mentors";
 import Testimonial from "./Testimonials";
 
 const Home = () => {
-
   return (
     <>
       <Banner />

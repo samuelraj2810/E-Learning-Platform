@@ -7,7 +7,7 @@ const CustomSkeleton = ({
   rows = {},
   width = {},
   size = {},
-  className ="",
+  className = "",
   cardclassName = "",
   style,
 }) => {

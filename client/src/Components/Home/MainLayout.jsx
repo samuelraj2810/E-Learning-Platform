@@ -56,7 +56,7 @@ import { UpOutlined } from "@ant-design/icons";
 
 function MainLayout() {
   return (
-    <div className='bg-gray-50'>
+    <>
       <Nav />
       <Outlet />
       <Footer />
