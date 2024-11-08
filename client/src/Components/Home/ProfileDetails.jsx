@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../Common/CustomInput";
-import { GET, POST } from "../ApiFunction/ApiFunction";
+// import { GET, POST } from "../ApiFunction/ApiFunction";
 import CustomButton from "../Common/CustomButton";
-import { Checkbox, Radio, Switch } from "antd";
+import { Checkbox, Radio } from "antd";
 import { useCustomMessage } from "../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
-import CustomProgressBar from "../Common/CustomProgressBar";
+// import CustomProgressBar from "../Common/CustomProgressBar";
 import axios from "axios";
-import LoadingPage from "./LoadingPage";
+// import LoadingPage from "./LoadingPage";
 import CustomSkeleton from "../Common/CustomSkeleton";
 
 const ProfileDetails = () => {

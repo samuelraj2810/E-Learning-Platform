@@ -27,7 +27,7 @@ function CarddComp({courseName, instructorName,image,index, duration, rating}) {
       <div>
         <div className="w-56 h-36 mb-4 rounded-md md:mb-3 md:w-[280px] md:h-[190px] border overflow-hidden">
           <img
-            src={image}
+            src={image} alt=""
             className="rounded-md w-full h-full object-fill"
           ></img>
         </div>

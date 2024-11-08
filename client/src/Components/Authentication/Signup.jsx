@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../Common/CustomInput";
 import { useCustomMessage } from "../Common/CustomMessage";
@@ -57,7 +56,7 @@ function Signup() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-end h-screen relative w-full">
       <img
-        src={signUpImg}
+        src={signUpImg} alt=""
         className="object-cover fixed bg-gradient-to-r from-gray-200 to-white h-full md:w-1/2 top-0 left-0"
       />
       <form className="flex flex-col gap-10 z-40 bg-[#ffffffe3] md:w-1/2 overflow-y-auto h-full w-full">

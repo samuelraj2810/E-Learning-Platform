@@ -12,7 +12,7 @@ function Banner() {
       <Carousel autoplay>
         {bannerdata.map((a, i) => (
           <div>
-          <img src={a} alt={`image ${i}`} key={i} className='w-full object-cover h-[80vh]' />
+          <img src={a} alt={`Banner ${i}`} key={i} className='w-full object-cover h-[80vh]' />
           </div>
         ))}
       </Carousel>
