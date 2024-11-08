@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CustomInput from "../Common/CustomInput";
 import { GET, PUT } from "../ApiFunction/ApiFunction";
 import CustomButton from "../Common/CustomButton";
@@ -7,10 +7,11 @@ import { useCustomMessage } from "../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "../Common/CustomProgressBar";
 import CustomSkeleton from "../Common/CustomSkeleton";
+import axios from "axios";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(true);
   const [isupdate, setIsupdate] = useState(true);
@@ -38,31 +39,35 @@ const ProfileDetails = () => {
 
   const fetchData = async () => {
     try {
-      const result = await GET("http://localhost:3000/getdata");
-      setData(result);
-      if (result.data?.length > 0) {
-        setCheckBoxValue(result.data[0].gender);
-        setAddress(result.data[0].address);
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        const result = await axios.get("http://localhost:3000/getdata", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setData(result.data);
+        if (result.data?.length > 0 && result.data[0].gender) {
+          setCheckBoxValue(result.data[0].gender);
+          setAddress(result.data[0].address);
+        }
       }
     } catch (error) {
-     showMessage("error",error || "Failed to load data")
+      console.error("Error fetching data:", error);
     }
   };
 
+  console.log(data, "dddd");
   useEffect(() => {
     fetchData();
   }, []);
 
   const postData = async () => {
     setIsLoading(true);
-
     let convertedObject = data[0].title.reduce((acc, key) => {
       if (data[0].hasOwnProperty(key)) {
         acc[key] = data[0][key];
       }
       return acc;
     }, {});
-
     convertedObject.gender = checkBoxValue;
     convertedObject.address = address;
     try {
@@ -92,6 +97,15 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
+    if (!data[0].email || !data[0].phonenumber || !data[0].address  || !data[0].name || !data[0].age || !data[0].designation) {
+      showMessage("error", "Please fill in all fields");
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(!data[0].email)) {
+      showMessage("error", "Please enter a valid email");
+      return;
+    }
     postData();
     setIsupdate(true);
     setChecked(true);
@@ -125,31 +139,33 @@ const ProfileDetails = () => {
       >
         Update
       </Checkbox>
-      {data?.length > 0 ? (
+      {data ? (
         <div
           className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
         >
-          {data.map((each) =>
-            each.title
-              .filter((field) => !["gender"].includes(field))
-              .map((field) => (
-                <CustomInput
-                  key={field}
-                  disabled={isupdate}
-                  className="text-xs"
-                  containerClassName="mx-2"
-                  titleClassName="text-xs"
-                  title={field}
-                  type={field === "age" ? "number" : field}
-                  value={each[field] || ""}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    handleInputChange(field, newValue);
-                  }}
-                />
-              ))
-          )}
+{data?.length > 0 ?
+        data.map((each) =>
+          each.title
+            .filter((field) => !["gender"].includes(field))
+            .map((field) => (
+              <CustomInput
+                key={field}
+                disabled={isupdate}
+                className="text-xs"
+                containerClassName="mx-2"
+                titleClassName="text-xs"
+                title={field}
+                type={field === "age" ? "number" : field}
+                value={each[field] || ""}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  handleInputChange(field, newValue);
+                }}
+              />
+            ))
+        ): ""}
+
           <span className="mx-2">
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               gender
