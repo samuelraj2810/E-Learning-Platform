@@ -75,7 +75,7 @@ const Nav = () => {
           onClick={()=>setMenuId(each.id)}
             to={each.to}
             key={each.id}
-            className={`hover:text-PrimaryDark p-2 rounded scale-100 transition-all h-full flex items-center hover:drop-shadow duration-500 ${each.id === menuId && "border border-PrimaryDark text-PrimaryDark" }`}
+            className={`hover:text-PrimaryDark p-2 rounded scale-100 transition-all h-full flex items-center hover:drop-shadow duration-500 ${each.id === menuId && " text-PrimaryDark" }`}
           >
             {each.title}
           </Link>
