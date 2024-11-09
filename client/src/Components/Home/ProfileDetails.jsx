@@ -8,6 +8,7 @@ import TextArea from "antd/es/input/TextArea";
 import CustomProgressBar from "../Common/CustomProgressBar";
 import CustomSkeleton from "../Common/CustomSkeleton";
 import axios from "axios";
+import CustomDropdown from "../Common/CustomDropdown";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
@@ -17,6 +18,7 @@ const ProfileDetails = () => {
   const [isupdate, setIsupdate] = useState(true);
   const [checkBoxValue, setCheckBoxValue] = useState("male");
   const [address, setAddress] = useState("");
+  const [designation, setDesignation] = useState("");
   const options = [
     {
       label: "male",
@@ -29,6 +31,20 @@ const ProfileDetails = () => {
     {
       label: "other",
       value: "other",
+    },
+  ];
+  const designationLists = [
+    {
+      value: "Admin",
+      label: "Admin",
+    },
+    {
+      value: "Student",
+      label: "Student",
+    },
+    {
+      value: "Employee",
+      label: "Employee",
     },
   ];
 
@@ -48,6 +64,7 @@ const ProfileDetails = () => {
         if (result.data?.length > 0 && result.data[0].gender) {
           setCheckBoxValue(result.data[0].gender);
           setAddress(result.data[0].address);
+          setDesignation(result.data[0].designation);
         }
       }
     } catch (error) {
@@ -70,6 +87,7 @@ const ProfileDetails = () => {
     }, {});
     convertedObject.gender = checkBoxValue;
     convertedObject.address = address;
+    convertedObject.designation = designation;
     try {
       const result = await PUT(
         "http://localhost:3000/editdata",
@@ -134,7 +152,7 @@ const ProfileDetails = () => {
   return (
     <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
       <div className="flex items-center gap-4 h-fit ">
-        <h1 className="lg:text-2xl text-base border-l-8 border-PrimaryDark pl-2 font-semibold text-PrimaryDark my-4 tracking-widest">
+        <h1 className="lg:text-2xl text-base border-l-8 border-Primary pl-2 font-semibold text-PrimaryDark my-4 tracking-widest">
           Profile details
         </h1>
         {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
@@ -206,6 +224,12 @@ const ProfileDetails = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
+          </span>
+          <span className="mx-2">
+            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+              Designation
+            </p>
+            <CustomDropdown type="select" className="w-full" defaultValue={designation} disabled={isupdate} menus={designationLists}/>
           </span>
         </div>
       ) : (

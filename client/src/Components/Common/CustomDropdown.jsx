@@ -1,15 +1,19 @@
-import { Dropdown, Space } from "antd";
+import { Dropdown, Select, Space } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const CustomDropdown = ({
   menus,
+  type = "default",
   onClick,
   title,
   className,
   placement = "bottom",
   icon,
+  titleClassName,variant,
+  placeholder,allowClear,defaultValue,disabled,required,containerClassName,onChange
 }) => {
+
   const styledMenus = menus.map((menu) => ({
     key: menu.id,
     label: (
@@ -28,15 +32,37 @@ const CustomDropdown = ({
     ),
     onClick: menu.onClick,
   }));
+
   return (
     <>
-      <Dropdown
-        menu={{ items: styledMenus, selectable: true }}
-        placement={placement}
-        className={`tracking-wider capitalize ${className}`}
-      >
-        <Space>{icon ? icon : title}</Space>
-      </Dropdown>
+      {type === "default" ? (
+        <Dropdown
+          menu={{ items: styledMenus, selectable: true }}
+          placement={placement}
+          className={`tracking-wider capitalize ${className}`}
+        >
+          <Space>{icon ? icon : title}</Space>
+        </Dropdown>
+      ) : (
+        <span className={containerClassName}>
+          <p className={`text-base font-normal capitalize mb-4 text-gray-700 ${titleClassName}`}>
+        {title}
+        {required && (
+            <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">required</span>
+        )}
+      </p>
+      <Select
+        defaultValue={defaultValue}
+        allowClear={allowClear}
+        options={menus}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={`${className}`}
+        onChange={onChange}
+        variant={variant}
+      />
+        </span>
+      )}
     </>
   );
 };

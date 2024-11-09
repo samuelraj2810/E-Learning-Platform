@@ -6,10 +6,11 @@ import { useCustomMessage } from "../Common/CustomMessage";
 import CustomButton from "../Common/CustomButton";
 import signUpImg from "../../Assets/Images/signup.png";
 import { POST } from "../ApiFunction/ApiFunction";
+import CustomDropdown from "../Common/CustomDropdown";
 
 function Signup() {
   const showMessage = useCustomMessage();
-  const [loding,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [registerData, setRegisterData] = useState({
     username: "",
     number: "",
@@ -18,6 +19,21 @@ function Signup() {
     password: "",
     cnfpassword: "",
   });
+  console.log(registerData.designation)
+  const designationLists = [
+    {
+      value: "Admin",
+      label: "Admin",
+    },
+    {
+      value: "Student",
+      label: "Student",
+    },
+    {
+      value: "Employee",
+      label: "Employee",
+    },
+  ];
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,20 +54,20 @@ function Signup() {
     if (registerData.number.length < 10) {
       return showMessage("warning", "please enter 10 digit number");
     }
-    setLoading(true)
+    setLoading(true);
     const result = await POST("http://localhost:3000/register", registerData);
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);
-        setLoading(false)
+        setLoading(false);
         navigate("/login");
       } else {
         showMessage("error", "Email already exists");
-        setLoading(false)
+        setLoading(false);
       }
     } catch (e) {
       showMessage("error", "Email already exists");
-      setLoading(false)
+      setLoading(false);
     }
   };
   return (
@@ -119,19 +135,26 @@ function Signup() {
             setRegisterData((p) => ({ ...p, cnfpassword: e.target.value }))
           }
         />
-        <CustomInput
-          className="p-2"
+        <CustomDropdown
+          type="select"
           containerClassName="mx-4"
+          menus={designationLists}
+          className="w-full pr-2 py-5 border border-gray-300 rounded"
+          placeholder="select"
+          variant="borderless"
           title="Designation"
           required={true}
-          type="text"
-          placeholder="desg - srudent,professiional,fresher"
-          onChange={(e) =>
-            setRegisterData((p) => ({ ...p, designation: e.target.value }))
+          onChange={(value) =>
+          setRegisterData((p) => ({ ...p, designation: value }))
           }
         />
         <div className="mx-4 mb-4">
-          <CustomButton title="submit" color="solid" onClick={handleSubmit} />
+          <CustomButton
+            title="submit"
+            color="solid"
+            onClick={handleSubmit}
+            loading={loading}
+          />
           <Link to="/login">
             <CustomButton
               title="Back"
