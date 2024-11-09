@@ -26,6 +26,7 @@ const Routers = () => {
           <Route path="/resetpass/:token" element={<ResetPassword />} />
           <Route path="/verify" element={<VericicationPage/>} />
           <Route path="/instructordashboard" element={<DashBoard/>} />
+          <Route path="/admin" element={<DashBoard/>} />
       </Routes>
     </main>
   );
