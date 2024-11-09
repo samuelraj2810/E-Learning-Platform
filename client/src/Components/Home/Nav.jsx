@@ -8,7 +8,6 @@ const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
-  const name = sessionStorage.getItem("name")
 
 
   const navList = [
@@ -65,7 +64,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-Koulen font-bold flex h-[10vh] shadow-lg px-2 z-40">
+    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-Poppins flex h-[10vh] shadow-lg px-2 z-40">
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
@@ -78,7 +77,7 @@ const Nav = () => {
             onClick={() => setMenuId(each.id)}
             to={each.to}
             key={each.id}
-            className={`hover:bg-PrimaryDark/30 p-2 rounded scale-100 transition-all hover:drop-shadow duration-500 ${each.id === menuId && " bg-PrimaryDark/30" }`}
+            className={`hover:bg-PrimaryDark/10 p-4 rounded scale-100 transition-all hover:drop-shadow duration-500 ${each.id === menuId && " bg-PrimaryDark/30" }`}
           >
             {each.title}
           </Link>

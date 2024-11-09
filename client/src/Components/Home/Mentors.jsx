@@ -1,13 +1,10 @@
 import React from "react";
-import { Avatar } from "antd";
-import { AntDesignOutlined } from "@ant-design/icons";
 import mentorImg from "../../Assets/Images/mentor-1.jpg";
 import mentorOne from "../../Assets/Images/mentor-2.jpg";
 import mentorTwo from "../../Assets/Images/mentor-4.png";
 import mentorThree from "../../Assets/Images/mentor-3.jpg";
 const Mentors = () => {
   const mentorsList = [
-    ,
     { image: mentorImg, name: "Vignesh", status: "developer" },
     { image: mentorThree, name: "Ashok", status: "developer" },
     { image: mentorTwo, name: "Aisu", status: "developer" },
@@ -21,7 +18,7 @@ const Mentors = () => {
       </h1>
       <div className="mx-auto rounded-lg flex flex-col md:flex-row flex-wrap gap-10 md:justify-center lg:justify-around mt-10 md:py-8 lg:p-4">
         {mentorsList.map((each) => (
-          <div className="p-2 bg-gradient-to-b from-Primary/10 to-gray-100 md:rounded-full text-sm md:text-base capitalize flex lg:flex-col lg:gap-4 md:w-2/5 lg:w-fit">
+          <div className="p-2 bg-gradient-to-b from-Primary/10 to-gray-50 md:rounded-full text-sm md:text-base capitalize flex lg:flex-col lg:gap-4 md:w-2/5 lg:w-fit">
             <img
               src={each.image}
               alt="mentors"

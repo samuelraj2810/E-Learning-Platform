@@ -7,7 +7,8 @@ import ResetPassword from "./Components/Authentication/ResetPass";
 import ForgotPassword from "./Components/Authentication/Forgotpass";
 import VericicationPage from "./Components/Authentication/VericicationPage";
 import ProfileDetails from "./Components/Home/ProfileDetails";
-import MainLayout from "./Components/Home/MainLayout";
+import MainLayout from "./Components/Home/MainLayout"; 
+import DashBoard from "./Components/Dashboard/Dashboard"; 
 
 const Routers = () => {
   return (
@@ -24,6 +25,7 @@ const Routers = () => {
           <Route path="/forgotpass" element={<ForgotPassword />} />
           <Route path="/resetpass/:token" element={<ResetPassword />} />
           <Route path="/verify" element={<VericicationPage/>} />
+          <Route path="/instructordashboard" element={<DashBoard/>} />
       </Routes>
     </main>
   );
