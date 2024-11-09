@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { v4 } = require("uuid");
 
-const userSch = new mongoose.Schema(
+const InstSch = new mongoose.Schema(
 
 {
     name:String,
@@ -11,6 +11,8 @@ const userSch = new mongoose.Schema(
     email: String,
     address:String,
     designation: String,
+    experience:String,
+    expertise:String,
     title: {
       type: [String],
       default: ["name","phonenumber","age","email"]
@@ -19,13 +21,13 @@ const userSch = new mongoose.Schema(
       type: String,
       default: v4,
     },
-    userId: {
+    instructorId: {
       type: String
     }
   },
   { timestamps: true }
 );
 
-const userDetails = mongoose.model("UserDetails",userSch)
+const instructorDetails = mongoose.model("InstructorDetails",InstSch)
 
-module.exports= userDetails
+module.exports= instructorDetails
