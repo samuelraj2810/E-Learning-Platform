@@ -8,6 +8,7 @@ import ForgotPassword from "./Components/Authentication/Forgotpass";
 import VericicationPage from "./Components/Authentication/VericicationPage";
 import ProfileDetails from "./Components/Home/ProfileDetails";
 import MainLayout from "./Components/Home/MainLayout";
+import InstructorDashboard from "./Components/Home/InstructorDashboard";
 
 const Routers = () => {
   return (
@@ -24,6 +25,8 @@ const Routers = () => {
           <Route path="/forgotpass" element={<ForgotPassword />} />
           <Route path="/resetpass/:token" element={<ResetPassword />} />
           <Route path="/verify" element={<VericicationPage/>} />
+          <Route path="/instructordashboard" element={<InstructorDashboard/>} />
+          <Route path="/admin" element={<VericicationPage/>} />
       </Routes>
     </main>
   );

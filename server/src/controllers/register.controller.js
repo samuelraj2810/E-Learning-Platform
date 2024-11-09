@@ -53,14 +53,17 @@ const loginPost = async(req,res) => {
         if(!checkpass){
             return res.status(404).json({message:"Invalid Password"})
         }
+
         const token =await tokenGen(checkmail.userId)
         console.log(token)
-        const name = checkmail.username
+        let navigate
+
+        checkmail.designation==="Student"?navigate="/":checkmail.designation==="Instructor"?navigate="/instructordashboard":navigate="/admin"
 
         res.json({
             message:"Login Successfully",
             token,
-            name
+            navigate
         })
 
     } catch (error) {
