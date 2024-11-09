@@ -1,16 +1,17 @@
 import React from "react";
 import { Avatar } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
-import mentorImg from "../../Assets/Images/mentors.png";
-import mentorOne from "../../Assets/Images/mentor-1.jpg";
-import mentorTwo from "../../Assets/Images/mentor-2.jpeg";
+import mentorImg from "../../Assets/Images/mentor-1.jpg";
+import mentorOne from "../../Assets/Images/mentor-2.jpg";
+import mentorTwo from "../../Assets/Images/mentor-4.png";
+import mentorThree from "../../Assets/Images/mentor-3.jpg";
 const Mentors = () => {
   const mentorsList = [
     ,
-    { image: mentorImg, name: "ravid gupta kuman", status: "developer" },
-    { image: mentorImg, name: "ravid", status: "developer" },
-    { image: mentorTwo, name: "ravid", status: "developer" },
-    { image: mentorOne, name: "ravid", status: "developer" },
+    { image: mentorImg, name: "Vignesh", status: "developer" },
+    { image: mentorThree, name: "Ashok", status: "developer" },
+    { image: mentorTwo, name: "Aisu", status: "developer" },
+    { image: mentorOne, name: "Gopala Krishnan", status: "developer" },
   ];
   return (
     <div className="w-[90%] m-auto h-fit py-8">
@@ -24,7 +25,7 @@ const Mentors = () => {
             <img
               src={each.image}
               alt="mentors"
-              className="border-4 border-white hover:border z-10 hover:scale-105 transition-all duration-500 bg-gray-100 object-cover shadow-md rounded-full h-20 w-20 md:h-40 md:w-40 lg:h-60 lg:w-60 mr-2 lg:mr-0"
+              className="border-4 border-white hover:border z-10 hover:scale-105 transition-all duration-500 bg-white object-contain shadow-md rounded-full h-20 w-20 md:h-40 md:w-40 lg:h-60 lg:w-60 mr-2 lg:mr-0"
             />
             <div className="w-full bg-gray-50 border-double border-4 rounded-lg lg:shadow-lg scale-100 transition-all duration-500">
               <p className="uppercase text-[8px] md:text-xs text-gray-800 text-right lg:mb-2 bg-green-200 ml-auto w-fit px-1 md:p-1 rounded-md">

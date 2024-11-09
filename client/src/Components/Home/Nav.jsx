@@ -65,7 +65,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-poppins flex h-[10vh] shadow-lg px-2 z-40">
+    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-Koulen font-bold flex h-[10vh] shadow-lg px-2 z-40">
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
