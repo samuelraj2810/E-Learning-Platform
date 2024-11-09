@@ -28,12 +28,12 @@ function Subscriptions() {
     <div className="w-[90%] m-auto flex flex-col gap-5 mb-10 md:gap-14 md:mt-20 md:mb-20 ">
       <h1 className="text-2xl font-semibold md:text-[28px] md:text-3xl relative z-10"><span className="text-white">Plan</span> Details</h1>
       <div className="h-10 w-16 rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
-      <div className="flex flex-row flex-wrap gap-8 p-5 mx-auto items-center justify-center md:gap-20">
+      <div className="flex gap-10 flex-row flex-wrap p-5 mx-auto items-center justify-evenly w-full">
         {subscriptions.length >= 1 ? (
           subscriptions.map((value, index) => (
             <div
               key={index}
-              className="md:w-[250px] md:h-[350px] rounded-lg shadow-md md:shadow-lg p-6 scale-100 transition-all duration-500"
+              className="md:w-[250px] md:h-[350px] rounded-lg shadow-md md:shadow-lg p-6 scale-100 transition-all duration-500 "
             >
               <p className="md:text-2xl font-bold md:my-4">
                 {value.cost}
