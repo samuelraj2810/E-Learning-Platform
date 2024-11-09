@@ -33,11 +33,11 @@ const Login = () => {
     
     setLoading(true);
     try {
-      const result = await POST(`http://localhost:3000/login`, { email, password });
+      const result = await POST(`http://localhost:3000/login`,{ email, password });
       setLoading(false);
       if (result?.status === 200) {
         sessionStorage.setItem("token", result?.data?.token);
-        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("name",result?.data?.name); 
         showMessage("success", result?.data?.message);
         navigate("/");
       } else {
