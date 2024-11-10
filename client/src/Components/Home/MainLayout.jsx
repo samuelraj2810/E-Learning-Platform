@@ -5,7 +5,7 @@ import LoadingPage from "./LoadingPage";
 import { GET } from "../ApiFunction/ApiFunction";
 import { useCustomMessage } from "../Common/CustomMessage";
 import { SmileTwoTone } from "@ant-design/icons";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../Instructor/Dashboard";
 
 function MainLayout() {
   const [data, setData] = useState([]);
@@ -32,9 +32,8 @@ function MainLayout() {
 
   return (
     <>
-      {/* <Nav /> */}
-      {/* {!data ? <LoadingPage /> : <Outlet />} */}
-      <Dashboard/>
+      <Nav />
+      {!data ? <LoadingPage /> : <Outlet />}
     </>
   );
 }
