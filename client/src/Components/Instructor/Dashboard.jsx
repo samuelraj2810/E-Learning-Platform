@@ -5,15 +5,40 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InstructorProfile from "./InstructorProfile";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { GET } from "../ApiFunction/ApiFunction";
+import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate()
+  const [data, setData] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuId, setMenuId] = useState(1);
   const [instructorName, setInstructorName] = useState("- - -");
+  const fetchData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        const result = await axios.get("http://localhost:3000/getinsdata", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setData(result.data);
+        // if (result.data?.length > 0 && result.data[0].gender) {
+        //   setCheckBoxValue(result.data[0].gender);
+        //   setAddress(result.data[0].address);
+        //   setDesignation(result.data[0].designation);
+        // }
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(()=>{
+    fetchData()
+  },[])
+  console.log(data)
   const navList = [
     { id: 1, to: "/instructordashboard", title: "Instructor Profile",icon:<UserOutlined className="mr-2" />},
     { id: 2, to: "/instructordashboard/instructorcourse", title: "Courses" ,icon:<ContainerOutlined className="mr-2" />},

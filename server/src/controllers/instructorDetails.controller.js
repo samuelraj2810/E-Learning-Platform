@@ -4,7 +4,7 @@ const instructorDetails = require("../models/instructorDetails.model")
 const insgetData = async (req, res) => {
     try {
         const userId = req.userId;
-        
+        console.log(userId)
         // Check if userId exists in the request
         if (!userId) {
             return res.status(400).json({ message: "User ID is required" });
