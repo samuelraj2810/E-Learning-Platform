@@ -19,9 +19,9 @@ const singleUpload = upload.single("uploadfile")
 router.use(verifyToken)
 router.post("/addcourse",singleUpload,courseCtrl.addCourse);
 router.put("/editcourse/:_id",singleUpload,courseCtrl.editCourse);
-router.get("/getInstCourse",singleUpload,courseCtrl.getCoursebyId);
-router.get("/getAllCourse",singleUpload,courseCtrl.getAllCourse);
-router.get("/getCourse/:_id",singleUpload,courseCtrl.getCourse);
+router.get("/getinstcourse",singleUpload,courseCtrl.getCoursebyId);
+router.get("/getallcourse",singleUpload,courseCtrl.getAllCourse);
+router.get("/getcourse/:_id",singleUpload,courseCtrl.getCourse);
 
 
 module.exports = router;
