@@ -16,10 +16,12 @@ const upload = multer({
 });
 
 const singleUpload = upload.single("uploadfile")
-router.post("/addcourse",verifyToken,courseCtrl.addCourse);
-router.put("/editcourse",verifyToken,courseCtrl.editCourse);
-router.get("/getInstCourse",verifyToken,courseCtrl.getCoursebyId);
-router.get("/getAllCourse",verifyToken,courseCtrl.getAllCourse);
+router.use(verifyToken)
+router.post("/addcourse",singleUpload,courseCtrl.addCourse);
+router.put("/editcourse/:_id",singleUpload,courseCtrl.editCourse);
+router.get("/getInstCourse",singleUpload,courseCtrl.getCoursebyId);
+router.get("/getAllCourse",singleUpload,courseCtrl.getAllCourse);
+router.get("/getCourse/:_id",singleUpload,courseCtrl.getCourse);
 
 
 module.exports = router;

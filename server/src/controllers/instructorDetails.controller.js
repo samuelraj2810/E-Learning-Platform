@@ -38,7 +38,7 @@ const inseditData = async(req,res) =>{
             res.json({message:"data not"})
         }
         const datas = [data]
-        res.json(data)
+        res.json(datas)
         
         
     }

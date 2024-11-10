@@ -11,7 +11,7 @@ const addCourse =async (req,res) => {
         const data={
             ...req.body,
             instructorId,
-            instructorName
+            instructorName,
         }
         const data1 = await courseDetails.create(data)
         res.json({
@@ -22,16 +22,19 @@ const addCourse =async (req,res) => {
         res.json(error.message)
     }
 }
-const editCourse =async (req,res) => {
+const editCourse =async(req,res) => {
     
     try{
-        const {_id} = req.body
-        const data = await courseDetails.findOneAndUpdate({_id},req.body,{new:true})
+        const {_id} = req.params;
+        console.log(req.body);
+        
+        const data = await courseDetails.findOneAndUpdate({_id},{...req.body},{new:true})
         if(!data){
             return res.status(403).json({message:"no data found"})
         }
         res.json({
-            message:"Course edited Successfully"
+            data,
+            message:"Course edited Successfully" 
         })
         
     }catch(error){
@@ -43,12 +46,12 @@ const getCoursebyId =async (req,res) => {
     try{
         const instructorId = req.userId
         const data = await courseDetails.find({instructorId})
+        console.log("hit");
+        
         if(!data){
             return res.status(403).json({message:"no data found"})
         }
-        res.json({
-            message:"Course edited Successfully"
-        })
+        res.json(data)
         
     }catch(error){
         res.json(error.message)
@@ -61,9 +64,27 @@ const getAllCourse =async (req,res) => {
         if(!data){
             return res.status(403).json({message:"no data found"})
         }
-        res.json({
-            message:"Course edited Successfully"
-        })
+        res.json(
+            data
+        )
+        
+    }catch(error){
+        res.json(error.message)
+    }
+}
+const getCourse =async (req,res) => {
+    
+    try{
+        const {_id} = req.params;
+        const data = await courseDetails.findOne({_id})
+        console.log(data);
+        
+        if(!data){
+            return res.status(403).json({message:"no data found"})
+        }
+        res.json(
+            data
+        )
         
     }catch(error){
         res.json(error.message)
@@ -71,5 +92,5 @@ const getAllCourse =async (req,res) => {
 }
 
 module.exports = {
-    addCourse,editCourse,getAllCourse,getCoursebyId
+    addCourse,editCourse,getAllCourse,getCoursebyId,getCourse
 }
