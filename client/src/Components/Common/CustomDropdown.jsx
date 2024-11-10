@@ -11,7 +11,7 @@ const CustomDropdown = ({
   placement = "bottom",
   icon,
   titleClassName,variant,
-  placeholder,allowClear,defaultValue,disabled,required,containerClassName,onChange,
+  placeholder,allowClear,defaultValue,disabled,required,containerClassName,onChange,value
 }) => {
 
   const styledMenus = menus.map((menu) => ({
@@ -31,6 +31,10 @@ const CustomDropdown = ({
       </span>
     ),
     onClick: menu.onClick,
+  }));
+  const selectOptions = menus.map((menu) => ({
+    label: menu.label,
+    value: menu.value, // Assuming `id` is the value you want for the select
   }));
 
   return (
@@ -53,9 +57,9 @@ const CustomDropdown = ({
       </p>
       <Select
         defaultValue={defaultValue}
-        value={defaultValue} 
+        value={value} 
         allowClear={allowClear}
-        options={menus}
+        options={selectOptions}
         placeholder={placeholder}
         disabled={disabled}
         className={`${className}`}

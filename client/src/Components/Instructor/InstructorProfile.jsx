@@ -18,7 +18,7 @@ const InstructorProfile = () => {
   const [checkBoxValue, setCheckBoxValue] = useState("male");
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
-  const [expertise, setExpertise] = useState("");
+  const [expertise, setExpertise] = useState("Programming");
   const fetchData = async () => {
     const result = await GET("http://localhost:3000/getinsdata");
     if (result && result.length > 0) {
@@ -248,6 +248,7 @@ const InstructorProfile = () => {
               type="select"
               className="w-full"
               defaultValue={expertise}
+              value={expertise}
               disabled={isupdate}
               menus={expertiseLists}
             />
