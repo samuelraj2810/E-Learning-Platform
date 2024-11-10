@@ -3,7 +3,7 @@ const router = express.Router()
 const {verifyToken} = require("../middleware/authToken")
 const instructor = require("../controllers/instructorDetails.controller")
 
-router.get("/getdata",verifyToken,instructor.insgetData)
-router.put("/editdata",verifyToken,instructor.inseditData)
+router.get("/getInsData",verifyToken,instructor.insgetData)
+router.put("/editInsData",verifyToken,instructor.inseditData)
 
 module.exports = router

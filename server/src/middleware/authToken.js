@@ -25,6 +25,7 @@ const verifyToken = async (req, res, next) => {
       console.log(checkUser.userId)
       req.userId = checkUser.userId;
       
+      
       next();
       
     } catch (error) {
