@@ -15,13 +15,13 @@ const InstSch = new mongoose.Schema(
     expertise:String,
     title: {
       type: [String],
-      default: ["name","phonenumber","age","email"]
+      default: ["name","phonenumber","age","email","expertise",]
     },
     _id: {
       type: String,
       default: v4,
     },
-    instructorId: {
+    userId: {
       type: String
     }
   },

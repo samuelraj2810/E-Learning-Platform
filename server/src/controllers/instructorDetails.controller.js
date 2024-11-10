@@ -1,33 +1,45 @@
-const userDetails = require("../models/UserDetails..model")
-const instDetails = require("../models/instructorDetails.model")
-const bcrypt = require("bcrypt")
+const instructorDetails = require("../models/instructorDetails.model")
 
-const insgetData = async(req,res) =>{
-    try{
-        const userId = req.userId
-        console.log(userId);
+
+const insgetData = async (req, res) => {
+    try {
+        const userId = req.userId;
         
-        const data = await instDetails.findOne({userId})
-        const datas = [data]
-        if(!data ){
-            return res.status(404).json({message:"data not found"})
+        // Check if userId exists in the request
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required" });
         }
-        console.log(datas)
-        res.json(datas)
+
+        const data = await instructorDetails.findOne({ userId });
+        
+        // Handle case where data is not found
+        if (!data) {
+            return res.status(404).json({ message: "Data not found" });
+        }
+
+        const datas = [data];
+        console.log(datas);
+        res.json(datas);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    catch(error){
-        res.json(error.message)
-    }
-}
+};
+
 const inseditData = async(req,res) =>{
     try{
+        console.log("hi")
+        
         const userId = req.userId
         const{age} = req.body
         age==null||undefined? null : parseInt(age)
-        const data = await userDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
+        const data = await instructorDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
+        console.log(data);
+        if(!data){
+            res.json({message:"data not"})
+        }
         const datas = [data]
         res.json(datas)
-        // console.log(data);
+        
         
     }
     catch(error){
