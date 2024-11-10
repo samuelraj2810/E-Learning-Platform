@@ -59,8 +59,6 @@ const InstructorProfile = () => {
     }
   };
   console.log(data);
-  console.log(designation);
-  console.log(address);
   console.log(expertise);
   const options = [
     {
@@ -92,28 +90,28 @@ const InstructorProfile = () => {
   ];
   const expertiseLists = [
     {
-      value: "Technology",
       label: "Technology",
+      value: "Technology",
     },
     {
-      value: "Business",
       label: "Business",
+      value: "Business",
     },
     {
-      value: "Programming",
       label: "Programming",
+      value: "Programming",
     },
     {
-      value: "Design",
       label: "Design",
+      value: "Design",
     },
     {
-      value: "Personal",
       label: "Personal",
+      value: "Personal",
     },
     {
-      value: "Development",
       label: "Development",
+      value: "Development",
     },
   ];
   const onChange1 = ({ target: { value } }) => {
