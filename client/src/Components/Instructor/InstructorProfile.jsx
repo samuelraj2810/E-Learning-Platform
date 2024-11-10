@@ -1,17 +1,67 @@
-import React, { useState } from 'react'
-import CustomDropdown from '../Common/CustomDropdown'
-import TextArea from 'antd/es/input/TextArea'
-import { Radio } from 'antd'
-import { EditFilled } from '@ant-design/icons'
-import CustomButton from '../Common/CustomButton'
-import CustomSkeleton from '../Common/CustomSkeleton'
+import React, { useEffect, useState } from "react";
+import CustomDropdown from "../Common/CustomDropdown";
+import TextArea from "antd/es/input/TextArea";
+import { Radio } from "antd";
+import { EditFilled } from "@ant-design/icons";
+import CustomButton from "../Common/CustomButton";
+import CustomSkeleton from "../Common/CustomSkeleton";
+import CustomInput from "../Common/CustomInput";
+import { GET, PUT } from "../ApiFunction/ApiFunction";
+import { useCustomMessage } from "../Common/CustomMessage";
 
 const InstructorProfile = () => {
+  const showMessage = useCustomMessage();
+
   const [data, setData] = useState([]);
   const [isupdate, setIsupdate] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [checkBoxValue, setCheckBoxValue] = useState("male");
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
+  const [expertise, setExpertise] = useState("");
+  const fetchData = async () => {
+    const result = await GET("http://localhost:3000/getinsdata");
+    if (result && result.length > 0) {
+      setData(result);
+      setCheckBoxValue(result[0].gender);
+      setAddress(result[0].address);
+      setDesignation(result[0].designation);
+      setExpertise(result[0].expertise);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const postData = async () => {
+    setIsLoading(true);
+    let convertedObject = data[0].title.reduce((acc, key) => {
+      if (data[0].hasOwnProperty(key)) {
+        acc[key] = data[0][key];
+      }
+      return acc;
+    }, {});
+    convertedObject.gender = checkBoxValue;
+    convertedObject.address = address;
+    convertedObject.designation = designation;
+    convertedObject.expertise = expertise;
+    try {
+      const result = await PUT(
+        "http://localhost:3000/editinsdata",
+        convertedObject
+      );
+      if (result.status === 200) {
+        setIsLoading(false);
+        showMessage("success", "Data added Successfully");
+      }
+    } catch (error) {
+      showMessage("error", "Something went wrong");
+      setIsLoading(false);
+    }
+  };
+  console.log(data);
+  console.log(designation);
+  console.log(address);
+  console.log(expertise);
   const options = [
     {
       label: "male",
@@ -28,16 +78,16 @@ const InstructorProfile = () => {
   ];
   const designationLists = [
     {
-      value: "Admin",
       label: "Admin",
+      value: "Admin",
     },
     {
-      value: "Student",
       label: "Student",
+      value: "Student",
     },
     {
-      value: "Employee",
-      label: "Employee",
+      label: "Instructor",
+      value: "Instructor",
     },
   ];
   const expertiseLists = [
@@ -70,33 +120,94 @@ const InstructorProfile = () => {
     console.log("radio1 checked", value);
     setCheckBoxValue(value);
   };
+  const handleInputChange = (title, value) => {
+    setData((prevData) => {
+      const updatedData = [...prevData];
+      updatedData[0] = {
+        ...updatedData[0],
+        [title]: value,
+      };
+      return updatedData;
+    });
+  };
+  
+  const handleButtonClick = () => {
+    if (!data[0]) {
+      showMessage("error", "Data is missing or not initialized properly");
+      return;
+    }
+    
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
+    
+    // Ensure no required fields are empty or just whitespace
+    // if (
+    //   !data[0].email?.trim() ||
+    //   !String(data[0].phonenumber)?.trim() ||
+    //   !data[0].address?.trim() ||
+    //   !data[0].name?.trim() ||
+    //   !String(data[0].age)?.trim() ||
+    //   !data[0].designation?.trim()
+    // ) {
+    //   showMessage("error", "Please fill in all fields");
+    //   return;
+    // } else if (!emailPattern.test(data[0].email)) {
+    //   showMessage("error", "Please enter a valid email");
+    //   return;
+    // } else if (!phonePattern.test(data[0].phonenumber)) {
+    //   showMessage("error", "Please enter a valid 10-digit mobile number");
+    //   return;
+    // } else if (!agePattern.test(data[0].age)) {
+    //   showMessage("error", "Please enter a valid 2-digit age");
+    //   return;
+    // } else {
+    //   // Proceed with the data submission
+    //   postData();
+    //   setIsupdate(true);
+    // }
+    postData();
+
+  };
+  
   return (
     <div>
-      <div className='pb-2 border-b flex items-center justify-between transition-all'>
-        <h1 className='font-semibold tracking-wider lg:text-lg'>Details</h1>
-        <span className='flex items-center'>
-      <span className='mr-2 hidden lg:block text-gray-400'>Edit</span>
-      <EditFilled onClick={()=>setIsupdate(!isupdate)} className='shadow duration-500 scale-100 hover:bg-Primary/10 hover:text-Primary p-2 rounded-full'/>
+      <div className="pb-2 border-b flex items-center justify-between transition-all">
+        <h1 className="font-semibold tracking-wider lg:text-lg">Details</h1>
+        <span className="flex items-center">
+          <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
+          <EditFilled
+            onClick={() => setIsupdate(!isupdate)}
+            className="shadow duration-500 scale-100 hover:bg-Primary/10 hover:text-Primary p-2 rounded-full"
+          />
         </span>
       </div>
-        {data ?
-         <form className="grid grid-cols-1 mt-4 md:grid-cols-2
-         lg:grid-cols-4 gap-4 rounded-lg shadow border p-8 bg-white">
-        {/* <CustomInput
-                key={field}
-                disabled={isupdate}
-                className="text-xs"
-                containerClassName="mx-2"
-                titleClassName="text-xs"
-                title={field}
-                type={field === "age" ? "number" : field}
-                value={each[field] || ""}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  handleInputChange(field, newValue);
-                }}
-              /> */}
-        <span className="lg:mx-2">
+      {data ? (
+        <form
+          className="grid grid-cols-1 mt-4 md:grid-cols-2
+         lg:grid-cols-4 gap-4 rounded-lg shadow border p-8 bg-white"
+        >
+          {data.map((each) =>
+            each.title
+              .filter((field) => !["gender"].includes(field))
+              .map((field) => (
+                <CustomInput
+                  key={field}
+                  disabled={isupdate}
+                  className="text-xs"
+                  containerClassName="mx-2"
+                  titleClassName="text-xs"
+                  title={field}
+                  type={field === "age" ? "number" : field}
+                  value={each[field] || ""}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    handleInputChange(field, newValue);
+                  }}
+                />
+              ))
+          )}
+          <span className="lg:mx-2">
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               gender
             </p>
@@ -123,29 +234,43 @@ const InstructorProfile = () => {
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               Designation
             </p>
-            <CustomDropdown type="select" className="w-full" defaultValue={designation} disabled={isupdate} menus={designationLists}/>
+            <CustomDropdown
+              type="select"
+              className="w-full"
+              defaultValue={designation}
+              disabled={isupdate}
+              menus={designationLists}
+            />
           </span>
           <span className="mx-2">
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               Expertise
             </p>
-            <CustomDropdown type="select" className="w-full" defaultValue={designation} disabled={isupdate} menus={expertiseLists}/>
+            <CustomDropdown
+              type="select"
+              className="w-full"
+              defaultValue={expertise}
+              disabled={isupdate}
+              menus={expertiseLists}
+            />
           </span>
         </form>
-        :<CustomSkeleton active rows={4} />}
-        {!isupdate &&
+      ) : (
+        <CustomSkeleton active rows={4} />
+      )}
+      {!isupdate && (
         <CustomButton
           title={"submit"}
-          // onClick={handleButtonClick}
+          onClick={handleButtonClick}
           className={`absolute bottom-6 right-6 text-xs ${
             !isupdate && "bg-Primary"
           } capitalize tracking-wider`}
           color="solid"
-          // loading={isLoading}
+          loading={isLoading}
         />
-}
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default InstructorProfile
+export default InstructorProfile;

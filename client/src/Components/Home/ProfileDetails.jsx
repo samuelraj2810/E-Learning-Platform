@@ -43,8 +43,8 @@ const ProfileDetails = () => {
       label: "Student",
     },
     {
-      value: "Employee",
-      label: "Employee",
+      value: "Instructor",
+      label: "Instructor",
     },
   ];
 
@@ -203,7 +203,7 @@ const ProfileDetails = () => {
             )))}
 
           <span className="mx-2">
-            <p className="text-xs font-normal mb-4 capitalize text-gray-700">
+            <p className="text-xs font-normal mb-4 text-gray-700">
               gender
             </p>
             <Radio.Group
