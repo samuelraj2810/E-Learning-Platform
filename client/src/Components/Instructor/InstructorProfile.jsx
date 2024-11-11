@@ -235,7 +235,7 @@ const InstructorProfile = () => {
             <CustomDropdown
               type="select"
               className="w-full"
-              defaultValue={designation}
+              value={designation}
               disabled={isupdate}
               menus={designationLists}
               onChange={(e)=>setDesignation(e)}
@@ -248,7 +248,7 @@ const InstructorProfile = () => {
             <CustomDropdown
               type="select"
               className="w-full"
-              defaultValue={expertise}
+              value={expertise}
               disabled={isupdate}
               menus={expertiseLists}
               onChange={(e)=>setExpertise(e)}
