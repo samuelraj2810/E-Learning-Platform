@@ -238,6 +238,7 @@ const InstructorProfile = () => {
               defaultValue={designation}
               disabled={isupdate}
               menus={designationLists}
+              onChange={(e)=>setDesignation(e)}
             />
           </span>
           <span className="mx-2">
@@ -248,9 +249,9 @@ const InstructorProfile = () => {
               type="select"
               className="w-full"
               defaultValue={expertise}
-              value={expertise}
               disabled={isupdate}
               menus={expertiseLists}
+              onChange={(e)=>setExpertise(e)}
             />
           </span>
         </form>
