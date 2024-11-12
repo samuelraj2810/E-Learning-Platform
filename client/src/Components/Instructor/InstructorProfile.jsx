@@ -59,7 +59,7 @@ const InstructorProfile = () => {
     }
   };
   console.log(data);
-  console.log(expertise);
+  console.log(address);
   const options = [
     {
       label: "male",
@@ -128,27 +128,27 @@ const InstructorProfile = () => {
       return updatedData;
     });
   };
-  
+
   const handleButtonClick = () => {
     if (!data[0]) {
       showMessage("error", "Data is missing or not initialized properly");
       return;
     }
-    
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
-    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
-    
+    const phonePattern = /^\d{10}$/; // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/; // Ensures the age is exactly 2 digits
+
     // Ensure no required fields are empty or just whitespace
     if (
       !data[0].email?.trim() ||
       !String(data[0].phonenumber)?.trim() ||
-      !data[0].address?.trim() ||
+      !address?.trim() ||
       !data[0].name?.trim() ||
       !String(data[0].age)?.trim() ||
-      !data[0].designation?.trim() ||
-      // !data[0].experience?.trim() ||
-      !data[0].expertise?.trim()
+      !designation?.trim() ||
+      !data[0].experience?.trim() ||
+      !expertise?.trim()
     ) {
       showMessage("error", "Please fill in all fields");
       return;
@@ -162,17 +162,14 @@ const InstructorProfile = () => {
       showMessage("error", "Please enter a valid 2-digit age");
       return;
     } else {
-      // Proceed with the data submission
       postData();
       setIsupdate(true);
     }
-    postData();
-
   };
-  
+
   return (
     <div>
-      <div className="pb-2 border-b flex items-center justify-between transition-all">
+      <div className="pb-2 border-b flex items-center justify-between transition-all ">
         <h1 className="font-semibold tracking-wider lg:text-lg">Details</h1>
         <span className="flex items-center">
           <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
@@ -240,7 +237,7 @@ const InstructorProfile = () => {
               value={designation}
               disabled={isupdate}
               menus={designationLists}
-              onChange={(e)=>setDesignation(e)}
+              onChange={(e) => setDesignation(e)}
             />
           </span>
           <span className="mx-2">
@@ -253,7 +250,7 @@ const InstructorProfile = () => {
               value={expertise}
               disabled={isupdate}
               menus={expertiseLists}
-              onChange={(e)=>setExpertise(e)}
+              onChange={(e) => setExpertise(e)}
             />
           </span>
         </form>

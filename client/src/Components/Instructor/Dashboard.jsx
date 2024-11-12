@@ -15,9 +15,12 @@ const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuId, setMenuId] = useState(1);
   const [instructorName, setInstructorName] = useState("- - -");
-  useEffect(async()=>{
+  const fetchData = async() => {
     const result = await GET("http://localhost:3000/getinsdata")
     setInstructorName(result[0].name)
+  }
+  useEffect(()=>{
+    fetchData()
   },[])
   console.log(instructorName)
   const navList = [
@@ -51,6 +54,7 @@ const Dashboard = () => {
     setIsMenuOpen((prev) => !prev);
   };
   const handleSignOut = () => {
+    sessionStorage.clear()
     navigate("/login")
   }
   return (
@@ -91,12 +95,12 @@ const Dashboard = () => {
           </ul>
         </motion.div>
       </div>
-      <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5">
+      <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
           <h1 className="mr-auto">{instructorName}</h1>
           <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-2 rounded-full" onClick={handleSignOut}/>
         </div>
-        <div className="bg-white m-3 shadow-lg rounded-lg p-4">
+        <div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
           <Outlet />
         </div>
       </div>
