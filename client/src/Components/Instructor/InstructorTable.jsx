@@ -32,9 +32,9 @@ const InstructorTable = () => {
   console.log(updatedDataSource);
   
   const columns = [
-    { title: "Course", dataIndex: "course", key: "course" ,render:(text) => <span className="!text-gray-500">{text}</span>},
-    { title: "Student", dataIndex: "student", key: "student" },
-    { title: "revenue", dataIndex: "revenue", key: "revenue" },
+    { title: "Course", dataIndex: "course", key: "course" ,render:(text) => <span className="!text-gray-500 ">{text}</span>},
+    { title: "Student", dataIndex: "student", key: "student",width:50,align:"center" ,render:(text) => <span className="bg-Primary/40 p-1 rounded-full text-white text-xs">{text}</span>},
+    { title: "revenue", dataIndex: "revenue", key: "revenue",render:(text) => <span className="!text-gray-500">{text}</span> },
     {
       title: "Action",
       key: "action",
