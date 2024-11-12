@@ -16,7 +16,7 @@ const CourseCard = ({ course }) => {
       <img
         src={course.image}
         alt={`Course cover for ${course.title} by ${course.instructor}`}
-        className="w-full h-48 object-cover rounded-md mb-4"
+        className="w-full h-48 object-contain rounded-md mb-4"
         onError={(e) => {
           e.target.src = "/path/to/placeholder-image.jpg";
         }}

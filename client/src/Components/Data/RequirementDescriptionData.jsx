@@ -1,5 +1,3 @@
-// RequirementsDescriptionData.js
-
 const RequirementsDescriptionData = [
   {
     id: 1,

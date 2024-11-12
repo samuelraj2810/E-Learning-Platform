@@ -1,5 +1,3 @@
-// RequirementsDescription.jsx
-
 import React from "react";
 
 const RequirementsDescription = ({ requirementsData }) => {

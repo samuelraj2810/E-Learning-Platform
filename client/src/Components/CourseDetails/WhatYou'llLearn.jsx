@@ -1,4 +1,3 @@
-// WhatYoullLearn.jsx
 import React from "react";
 
 const WhatYoullLearn = ({ points }) => {

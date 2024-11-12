@@ -1,5 +1,3 @@
-// src/components/Data/CourseLecturesData.jsx
-
 import introPhoto from "../../Assets/CourseDetailsMedia/Box.png";
 import BasicSampleVideo from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
 import advancedVideo from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
@@ -15,8 +13,8 @@ const CourseLecturesData = [
     sections: [
       {
         title: "Introduction",
-        lectures: "8 lectures",
-        duration: "9min",
+        lectures: "1 lecture",
+        duration: "1min",
         media: introPhoto,
       },
       {
@@ -65,6 +63,24 @@ const CourseLecturesData = [
     id: 3,
     courseTitle: "Node.js for Beginners",
     sections: [
+      {
+        title: "Introduction to Node.js",
+        lectures: "5 lectures",
+        duration: "10min",
+        media: introPhoto,
+      },
+      {
+        title: "Setting up Node.js Environment",
+        lectures: "3 lectures",
+        duration: "8min",
+        media: setupImage,
+      },
+      {
+        title: "Creating Your First API",
+        lectures: "6 lectures",
+        duration: "15min",
+        media: BasicSampleVideo,
+      },
       {
         title: "Introduction to Node.js",
         lectures: "5 lectures",

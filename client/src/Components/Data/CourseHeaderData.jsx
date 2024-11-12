@@ -1,8 +1,8 @@
 import BasicVideo from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
-import Reactfundamental from "../../Assets/CourseCatalogMedia/pngwing.png";
-import nodejs from "../../Assets/CourseCatalogMedia/image3.png";
-import css from "../../Assets/CourseCatalogMedia/image4.png";
-import API from "../../Assets/CourseCatalogMedia/image5.png";
+import Reactfundamental from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
+import nodejs from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
+import css from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
+import API from "../../Assets/CourseDetailsMedia/Basic-Sample-Video.mp4";
 
 const CourseHeaderData = [
   {
@@ -12,10 +12,9 @@ const CourseHeaderData = [
       "Learn the fundamentals of JavaScript, from variables to loops.",
     instructor: "Srinivan",
     duration: "4 hours",
-    price: 499,
-    originalPrice: 599,
-    mediaSrc: BasicVideo,
-    paymentLink: "https://example.com/payment/js-basics",
+    price: 799,
+    originalPrice: 3499,
+    mediaSrc: BasicVideo
   },
   {
     id: 2,
@@ -24,9 +23,8 @@ const CourseHeaderData = [
     instructor: "Jane Smith",
     duration: "6 hours",
     price: 499,
-    originalPrice: 599,
-    mediaSrc: Reactfundamental,
-    paymentLink: "https://example.com/payment/react-fundamentals",
+    originalPrice: 2499,
+    mediaSrc: Reactfundamental
   },
   {
     id: 3,
@@ -34,10 +32,9 @@ const CourseHeaderData = [
     description: "Get started with Node.js for backend development.",
     instructor: "Alex Brown",
     duration: "5 hours",
-    price: 499,
-    originalPrice: 599,
-    mediaSrc: nodejs,
-    paymentLink: "https://example.com/payment/nodejs-beginners",
+    price: 649,
+    originalPrice: 1999,
+    mediaSrc: nodejs
   },
   {
     id: 4,
@@ -45,10 +42,9 @@ const CourseHeaderData = [
     description: "Learn how to style your website using CSS.",
     instructor: "Emily Davis",
     duration: "3 hours",
-    price: 499,
-    originalPrice: 599,
-    mediaSrc: css,
-    paymentLink: "https://example.com/payment/css-beginners",
+    price: 399,
+    originalPrice: 2499,
+    mediaSrc: css
   },
   {
     id: 5,
@@ -57,10 +53,9 @@ const CourseHeaderData = [
       "Understand how to work with APIs and integrate them into your apps.",
     instructor: "Michael Clark",
     duration: "4.5 hours",
-    price: 499,
-    originalPrice: 599,
-    mediaSrc: API,
-    paymentLink: "https://example.com/payment/api-learning",
+    price: 799,
+    originalPrice: 5999,
+    mediaSrc: API
   },
 ];
 

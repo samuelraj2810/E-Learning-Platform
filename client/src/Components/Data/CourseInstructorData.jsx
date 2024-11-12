@@ -1,4 +1,3 @@
-// CourseInstructorData.jsx
 import SrinivanImage from "../../Assets/CourseDetailsMedia/srinivan.jpg";
 import JaneSmithImage from "../../Assets/CourseDetailsMedia/srinivan.jpg";
 import AlexBrownImage from "../../Assets/CourseDetailsMedia/srinivan.jpg";

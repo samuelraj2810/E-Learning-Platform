@@ -9,7 +9,7 @@ import CourseHeaderData from "../Data/CourseHeaderData";
 import CourseLecturesData from "../Data/CourseLecturesData";
 import WhatYoullLearnData from "../Data/WhatYou'llLearnData";
 import CourseInstructorData from "../Data/CourseInstructorData";
-import RequirementsDescriptionData from "../Data/RequirementDescriptionData"; // Import the requirements data
+import RequirementsDescriptionData from "../Data/RequirementDescriptionData";
 
 const CourseDetails = () => {
   const { courseId } = useParams();
@@ -17,7 +17,7 @@ const CourseDetails = () => {
   const [courseLectureData, setCourseLectureData] = useState(null);
   const [whatYoullLearnData, setWhatYoullLearnData] = useState([]);
   const [instructorData, setInstructorData] = useState(null);
-  const [requirementsData, setRequirementsData] = useState(null); // Add requirements data state
+  const [requirementsData, setRequirementsData] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const CourseDetails = () => {
     }
 
     setInstructorData(selectedInstructor);
-    setRequirementsData(selectedRequirements); // Set requirements data
+    setRequirementsData(selectedRequirements);
   }, [courseId, navigate]);
 
   if (!courseHeaderData) {
@@ -87,7 +87,7 @@ const CourseDetails = () => {
         <div className="col-span-1 space-y-6">
           <CourseInstructor instructor={instructorData} />
           <RequirementsDescription requirementsData={requirementsData} />{" "}
-          {/* Pass requirements data */}
+          
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-// WhatYoullLearnData.js
 const WhatYoullLearnData = [
   {
     id: 1,

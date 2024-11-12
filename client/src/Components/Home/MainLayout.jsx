@@ -53,8 +53,10 @@ import { Outlet } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 import { GET } from "../ApiFunction/ApiFunction";
 import { useCustomMessage } from "../Common/CustomMessage";
-import { SmileTwoTone } from "@ant-design/icons";
+import { SmileTwoTone, UpOutlined } from "@ant-design/icons";
 import Dashboard from "../Instructor/Dashboard";
+import { Footer } from "antd/es/layout/layout";
+import { FloatButton } from "antd";
 
 function MainLayout() {
   return (

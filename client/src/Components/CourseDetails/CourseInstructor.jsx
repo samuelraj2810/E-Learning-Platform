@@ -1,4 +1,3 @@
-// CourseInstructor.jsx
 import React from "react";
 import { IoIosStar } from "react-icons/io";
 import { MdReviews } from "react-icons/md";

@@ -9,7 +9,7 @@ function Course() {
   let CourseDetails = [
     {
       id: 1,
-      image: javaScriptBaicsImage,
+      image: htmlphoto,
       title: "JavaScript",
       instructor: "John Doe",
       price: "₹499",
@@ -20,7 +20,7 @@ function Course() {
     },
     {
       id: 2,
-      image: Reactfundamental,
+      image: clogo,
       title: "React",
       instructor: "Jane Smith",
       price: "₹499",
@@ -31,7 +31,7 @@ function Course() {
     },
     {
       id: 3,
-      image: nodejs,
+      image: javalogo,
       title: "Node.js",
       instructor: "Alex Brown",
       price: "₹499",
@@ -41,7 +41,7 @@ function Course() {
     },
     {
       id: 4,
-      image: css,
+      image: pythhologo,
       title: "CSS",
       instructor: "Emily Davis",
       price: "₹499",
