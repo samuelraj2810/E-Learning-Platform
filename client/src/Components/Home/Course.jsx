@@ -1,8 +1,8 @@
 import React from "react";
-import javaScriptBaicsImage from "../../Assets/CourseCatalogMedia/image1.png";
-import Reactfundamental from "../../Assets/CourseCatalogMedia/pngwing.png";
-import nodejs from "../../Assets/CourseCatalogMedia/image3.png";
-import css from "../../Assets/CourseCatalogMedia/image4.png";
+import htmlphoto from "../../Assets/Images/html5-icon-12118.png"
+import clogo from "../../Assets/Images/c logo.png";
+import javalogo from "../../Assets/Images/Java-Logo.jpg";
+import pythhologo from "../../Assets/Images/python.jpg";
 import CarddComp from "./CarddComp";
 
 function Course() {
@@ -55,7 +55,7 @@ function Course() {
     <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
       <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popular</span> Courses</h1>
       <div className="h-10 w-[120px] rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
-      <div className="flex flex-row flex-wrap gap-10 justify-center md:gap-[70px] mx-auto ">
+      <div className="flex flex-row flex-wrap justify-evenly w-full mx-auto ">
         {CourseDetails.length >= 1 ? (
           CourseDetails.map((value, index) => (
             <CarddComp

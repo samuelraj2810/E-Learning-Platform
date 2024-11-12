@@ -8,7 +8,6 @@ const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
-  // const name = sessionStorage.getItem("name")
 
 
   const navList = [
@@ -65,7 +64,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-poppins flex h-[10vh] shadow-lg px-2 z-40">
+    <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-Poppins flex h-[10vh] shadow-lg px-2 z-40">
       <div className="p-2 flex items-center w-full">
         <h1 className="">Logo</h1>
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
@@ -78,7 +77,7 @@ const Nav = () => {
             onClick={() => setMenuId(each.id)}
             to={each.to}
             key={each.id}
-            className={`hover:text-PrimaryDark p-2 rounded scale-100 transition-all h-full flex items-center hover:drop-shadow duration-500 ${each.id === menuId && " text-PrimaryDark" }`}
+            className={`hover:bg-PrimaryDark/10 p-4 rounded scale-100 transition-all hover:drop-shadow duration-500 ${each.id === menuId && " bg-PrimaryDark/30" }`}
           >
             {each.title}
           </Link>
@@ -103,7 +102,7 @@ const Nav = () => {
         variants={menuVariants}
       >
         <h1 className="flex items-center bg-Primary h-[10vh] justify-between text-lg p-4 w-full">
-          <span className="">Menu</span>
+          <span className="tracking-wider">Menu</span>
           <CloseOutlined onClick={handleMenuClick} className="md:hidden" />
         </h1>
         <ul className="flex justify-center gap-4 p-4 border-t flex-col w-full">

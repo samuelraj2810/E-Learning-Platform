@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const register = require("../models/Register.model");
 const jwt = require("jsonwebtoken");
 const userDetails = require("../models/UserDetails..model");
+const instDetails = require("../models/instructorDetails.model");
 const verifyEmail = async (req, res) => {
   try {
     const { token } = req.params;
@@ -12,6 +13,7 @@ const verifyEmail = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     user.isVerified = true;
     await user.save();
     const data = {
@@ -21,8 +23,17 @@ const verifyEmail = async (req, res) => {
       designation: user.designation,
       userId:user.userId
     };
+    if(user.designation ==="Student"){
 // to store the data from the register database to the user details " only if the email is verified "
-    await userDetails.create(data)
+    await userDetails.create(data)}
+    else if(user.designation==="Instructor"){
+      await instDetails.create(data)
+    }
+    else {
+      await adminDetails.create(data)
+      res.redirect("http://localhost:3001/instructordashboard")
+    }
+
     res.redirect("http://localhost:3001/verify");
   } catch (error) {
     res.status(400).json({ error: "Invalid or expired token" });

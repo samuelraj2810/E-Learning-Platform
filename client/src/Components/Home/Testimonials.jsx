@@ -1,4 +1,7 @@
 import React from 'react';
+import studentOne from "../../Assets/Images/student-1.jpg"
+import studentTwo from "../../Assets/Images/student-2.jpg"
+import studentThree from "../../Assets/Images/student-3.jpg"
 function Testimonial(){
     
 const testimonials = [
@@ -6,19 +9,19 @@ const testimonials = [
       name: 'Jane Doe',
       position: 'MERN developer @ Zoho',
       text: 'Thiese Courses has transformed my Career. The experience has been phenomenal!',
-      image: '', 
+      image: studentOne, 
     },
     {
       name: 'John Smith',
       position: 'Software Tester @ TCS',
       text: 'Absolutely love the ease of use and the features provided. Highly recommended!',
-      image: '',
+      image: studentTwo,
     },
     {
       name: 'Alice Johnson',
       position: 'Graphic Designer (Freelancer)',
       text: 'A great tool for anyone looking to improve their workflow. Very intuitive!',
-      image: '',
+      image: studentThree,
     },
   ];
   return (
@@ -34,7 +37,7 @@ const testimonials = [
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
-                className="w-24 h-24 rounded-full mb-4"
+                className="w-24 h-24 rounded-full mb-4 object-cover object-left-top"
               />
               <h3 className="text-xl font-semibold">{testimonial.name}</h3>
               <p className="text-sm text-gray-500 mb-2">{testimonial.position}</p>

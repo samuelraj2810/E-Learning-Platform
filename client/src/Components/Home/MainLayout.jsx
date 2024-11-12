@@ -50,9 +50,11 @@
 import React from "react";
 import Nav from "./Nav";
 import { Outlet } from "react-router-dom";
-import { FloatButton } from "antd";
-import Footer from "./Footer";
-import { UpOutlined } from "@ant-design/icons";
+import LoadingPage from "./LoadingPage";
+import { GET } from "../ApiFunction/ApiFunction";
+import { useCustomMessage } from "../Common/CustomMessage";
+import { SmileTwoTone } from "@ant-design/icons";
+import Dashboard from "../Instructor/Dashboard";
 
 function MainLayout() {
   return (

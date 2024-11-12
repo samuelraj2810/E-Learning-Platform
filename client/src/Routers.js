@@ -11,17 +11,26 @@ import MainLayout from "./Components/Home/MainLayout";
 import About from "./Components/AboutUs";
 import CoursesCatalog from "./Components/CoursesCatalog/Coursecatalog";
 import CourseDetails from "./Components/CourseDetails/CourseDetails";
+import MainLayout from "./Components/Home/MainLayout"; 
+import DashBoard from "./Components/Instructor/Dashboard"; 
+import InstructorProfile from "./Components/Instructor/InstructorProfile";
+import InstructorCourse from "./Components/Instructor/InstructorCourse";
+import InstructorTable from "./Components/Instructor/InstructorTable";
 
 const Routers = () => {
   return (
     <main className="font-Poppins">
       <Routes>
+        {/* Main layout with nested routes */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="courses" element={<CoursesCatalog />} />
           <Route path="courses/:courseId" element={<CourseDetails/>} />
           <Route path="profiledetails" element={<ProfileDetails />} />
           <Route path="about" element={<About />} />
+          <Route index element={<Home />} /> {/* Default route for / */}
+          <Route path="/courses" element={<div>Courses Page</div>} />
+          <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 
         <Route path="signup" element={<Signup />} />
@@ -29,6 +38,20 @@ const Routers = () => {
         <Route path="forgotpass" element={<ForgotPassword />} />
         <Route path="resetpass/:token" element={<ResetPassword />} />
         <Route path="verify" element={<VericicationPage />} />
+
+        {/* Authentication routes */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgotpass" element={<ForgotPassword />} />
+        <Route path="/resetpass/:token" element={<ResetPassword />} />
+        <Route path="/verify" element={<VericicationPage />} />
+
+        {/* Instructor Dashboard */}
+        <Route path="/instructordashboard" element={<DashBoard />}>
+          {/* <Route index element={<InstructorTable/>} /> */}
+          <Route path="/instructordashboard" element={<InstructorProfile/>} />
+          <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
+        </Route>
       </Routes>
     </main>
   );
