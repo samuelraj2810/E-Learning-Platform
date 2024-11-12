@@ -10,7 +10,8 @@ const courseSchema = new mongoose.Schema({
     duration:String,
     instructorName:String,
     instructorId:String,
-    image:String,
+    imagepath:String,
+    filename:String
 
 },{timestamps:true})
 

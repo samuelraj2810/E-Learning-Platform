@@ -1,17 +1,22 @@
 const courseDetails = require("../models/course.model")
 const instructorDetails = require("../models/instructorDetails.model")
+const fs = require("fs")
 const addCourse =async (req,res) => {
     
     try{
         const instructorId = req.userId
         const insdata = await instructorDetails.findOne({userId:instructorId})
         console.log(insdata);
-        
+        let file = req.file        
         const instructorName = insdata.name
         const data={
             ...req.body,
             instructorId,
             instructorName,
+        }
+        if(file){
+            data.imagepath = `/static/${file.filename}`
+            data.filename = file.filename
         }
         const data1 = await courseDetails.create(data)
         res.json({
@@ -26,9 +31,16 @@ const editCourse =async(req,res) => {
     
     try{
         const {_id} = req.params;
-        console.log(req.body);
-        
-        const data = await courseDetails.findOneAndUpdate({_id},{...req.body},{new:true})
+        let file = req.file
+        const find = await courseDetails.findById(_id)
+        let imagepath
+        let filename
+        if(find){
+            fs.unlinkSync(`src/public/courseimages/${find.filename}`)
+            imagepath = `/static/${file.filename}`
+            filename = file.filename
+        }
+        const data = await courseDetails.findOneAndUpdate({_id},{...req.body,imagepath,filename},{new:true})
         if(!data){
             return res.status(403).json({message:"no data found"})
         }
@@ -91,6 +103,26 @@ const getCourse =async (req,res) => {
     }
 }
 
+const deleteCourse =async (req,res) => {
+    
+    try{
+        const {_id} = req.params;
+        const data = await courseDetails.findById({_id})
+        if(data){
+            // fs.unlinkSync(`src/public/courseimages/${data.filename}`)
+        }
+        else{
+            return res.status(403).json({message:"no data found"})}
+    
+        const data1 = await courseDetails.findByIdAndDelete(_id)
+        res.json({
+            message:"course deleted successfully"
+    })
+        
+    }catch(error){
+        res.json(error.message)
+    }
+}
 module.exports = {
-    addCourse,editCourse,getAllCourse,getCoursebyId,getCourse
+    addCourse,editCourse,getAllCourse,getCoursebyId,getCourse,deleteCourse
 }
