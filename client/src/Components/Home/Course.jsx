@@ -1,66 +1,61 @@
-import React from "react";
-import htmlphoto from "../../Assets/Images/html5-icon-12118.png"
-import clogo from "../../Assets/Images/c logo.png";
-import javalogo from "../../Assets/Images/Java-Logo.jpg";
-import pythhologo from "../../Assets/Images/python.jpg";
-import CarddComp from "./CarddComp";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+// import javaScriptBaicsImage from "../../Assets/CourseCatalog/image1.png";
+// import Reactfundamental from "../../Assets/CourseCatalog/pngwing.png";
+// import nodejs from "../../Assets/CourseCatalog/image3.png";
+// import css from "../../Assets/CourseCatalog/image4.png";
+// import API from "../../Assets/CourseCatalog/image5.png";
 
-function Course() {
-  let CourseDetails = [
-    {
-      courseName: "Html",
-      instructorName: "Antony",
-      duration: "10:00:00",
-      rating: 4.5,
-      image: htmlphoto,
-    },
-    {
-      courseName: "Python",
-      instructorName: "kalidas",
-      duration: "9:53:06",
-      rating: 4.5,
-      image: pythhologo,
-    },
-    {
-      courseName: "Java",
-      instructorName: "Sathish",
-      duration: "11:21:24",
-      rating: 4.5,
-      image: javalogo,
-    },
-    {
-      courseName: "C Program",
-      instructorName: "Sudeep",
-      duration: "7:32:43",
-      rating: 4.5,
-      image: clogo,
-    },
-  ];
+const courses = [
+  { id: 1,  title: "JavaScript Basics", instructor: "John Doe", price: "$49", category: "Programming", rating: 4.5 },
+  { id: 2,  title: "React Fundamentals", instructor: "Jane Smith", price: "$59", category: "Frontend Development", rating: 4.7 },
+  { id: 3,  title: "Node.js for Beginners", instructor: "Alex Brown", price: "$39", category: "Backend Development", rating: 4.3 },
+  { id: 4, title: "CSS for Beginners", instructor: "Emily Davis", price: "$29", category: "Frontend Development", rating: 4.8 },
+  { id: 5, title: "API Learning", instructor: "Michael Clark", price: "$45", category: "Backend Development", rating: 4.6 },
+]
+
+const Course = () => {
 
   return (
-    <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
-      <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popular</span> Courses</h1>
-      <div className="h-10 w-[120px] rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
-      <div className="flex flex-row flex-wrap justify-evenly w-full mx-auto ">
-        {CourseDetails.length >= 1 ? (
-          CourseDetails.map((value, index) => (
-            <CarddComp
-              index={index}
-              image={value.image}
-              courseName={value.courseName}
-              instructorName={value.instructorName}
-              duration={value.duration}
-              rating={value.rating}
-            />
-          ))
-        ) : (
-          <>
-            <h1>data not found</h1>
-          </>
-        )}
+    <div className="w-[90%] mx-auto ">
+
+      {/* Main content area */}
+      <div className="md:w-full p-6 ">
+        <h1 className="text-3xl font-bold mb-8">Course Catalog</h1>
+
+        {/* Course Cards */}
+        <div className=" p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {courses.length > 0 ? (
+            courses.map(course => (
+              <div
+                key={course.id}
+                className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-blue-50"
+              >
+                {/* Image section */}
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-48 object-cover rounded-md mb-4"
+                />
+                <h2 className="text-xl font-semibold">{course.title}</h2>
+                <p className="text-gray-700">Instructor: {course.instructor}</p>
+                <p className="text-green-500 font-bold">{course.price}</p>
+                <p className="text-yellow-500 font-semibold">Rating: {course.rating} ⭐</p>
+                <Link
+                  to={`/courses/${course.id}`}
+                  className="inline-block mt-4 text-blue-500"
+                >
+                  View Details
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-full text-center">No courses found based on your filters.</p>
+          )}
+        </div>
+        </div>
       </div>
-    </div>
   );
-}
+};
 
 export default Course;
