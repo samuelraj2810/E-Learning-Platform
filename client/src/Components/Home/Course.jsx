@@ -1,39 +1,53 @@
 import React from "react";
-import htmlphoto from "../../Assets/html5-icon-12118.png"
-import clogo from "../../Assets/c logo.png";
-import javalogo from "../../Assets/Java-Logo.jpg";
-import pythhologo from "../../Assets/python.jpg";
+import javaScriptBaicsImage from "../../Assets/CourseCatalogMedia/image1.png";
+import Reactfundamental from "../../Assets/CourseCatalogMedia/pngwing.png";
+import nodejs from "../../Assets/CourseCatalogMedia/image3.png";
+import css from "../../Assets/CourseCatalogMedia/image4.png";
 import CarddComp from "./CarddComp";
 
 function Course() {
   let CourseDetails = [
     {
-      courseName: "Html",
-      instructorName: "Antony",
-      duration: "10:00:00",
+      id: 1,
+      image: javaScriptBaicsImage,
+      title: "JavaScript",
+      instructor: "John Doe",
+      price: "₹499",
+      category: "Programming",
       rating: 4.5,
-      image: htmlphoto,
+      description:
+        "Learn the fundamentals of JavaScript, from variables to loops.",
     },
     {
-      courseName: "Python",
-      instructorName: "kalidas",
-      duration: "9:53:06",
-      rating: 4.5,
-      image: pythhologo,
+      id: 2,
+      image: Reactfundamental,
+      title: "React",
+      instructor: "Jane Smith",
+      price: "₹499",
+      category: "Frontend Development",
+      rating: 4.7,
+      description:
+        "Master the basics of React, including components and hooks.",
     },
     {
-      courseName: "Java",
-      instructorName: "Sathish",
-      duration: "11:21:24",
-      rating: 4.5,
-      image: javalogo,
+      id: 3,
+      image: nodejs,
+      title: "Node.js",
+      instructor: "Alex Brown",
+      price: "₹499",
+      category: "Backend Development",
+      rating: 4.3,
+      description: "Get started with Node.js for backend development.",
     },
     {
-      courseName: "C Program",
-      instructorName: "Sudeep",
-      duration: "7:32:43",
-      rating: 4.5,
-      image: clogo,
+      id: 4,
+      image: css,
+      title: "CSS",
+      instructor: "Emily Davis",
+      price: "₹499",
+      category: "Frontend Development",
+      rating: 4.8,
+      description: "Learn how to style your website using CSS.",
     },
   ];
 
@@ -47,9 +61,9 @@ function Course() {
             <CarddComp
               index={index}
               image={value.image}
-              courseName={value.courseName}
-              instructorName={value.instructorName}
-              duration={value.duration}
+              courseName={value.title}
+              instructorName={value.instructor}
+              price={value.price}
               rating={value.rating}
             />
           ))

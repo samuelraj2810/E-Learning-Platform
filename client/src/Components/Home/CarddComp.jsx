@@ -1,6 +1,6 @@
 import React from "react";
 
-function CarddComp({courseName, instructorName,image,index, duration, rating}) {
+function CarddComp({courseName, instructorName,image,index, price, rating}) {
 
     let data = [{
         head:"Course",
@@ -11,8 +11,8 @@ function CarddComp({courseName, instructorName,image,index, duration, rating}) {
         value:instructorName
     },
     {
-        head:"Duration",
-        value:duration
+        head:"Price",
+        value:price
     },
     {
         head:"Rating",

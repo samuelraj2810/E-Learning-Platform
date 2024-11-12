@@ -1,5 +1,5 @@
 const express =require("express");
-const router = express.Router()
+const AuthenitactionRouter = express.Router()
 const registerCtrl = require("../controllers/register.controller")
 const verifyEmail = require("../controllers/Verifyemail.controller")
 const UserDetails = require("../controllers/UserDetails.controller")
@@ -7,14 +7,14 @@ const {forgotPassword,resetPassword} = require("../controllers/ForgotPassword.co
 const {verifyToken} = require("../middleware/authToken")
 
 
-router.post("/register",registerCtrl.regPost)
-router.post("/login",registerCtrl.loginPost)
+AuthenitactionRouter.post("/register",registerCtrl.regPost)
+AuthenitactionRouter.post("/login",registerCtrl.loginPost)
 // router.post("/otplogin",registerCtrl.otpLogin)
-router.get("/verify-email/:token", verifyEmail);
-router.post("/forgotpassword", forgotPassword);
-router.post("/resetpass/:token", resetPassword);
+AuthenitactionRouter.get("/verify-email/:token", verifyEmail);
+AuthenitactionRouter.post("/forgotpassword", forgotPassword);
+AuthenitactionRouter.post("/resetpass/:token", resetPassword);
 
-router.get("/getdata",verifyToken,UserDetails.getData)
-router.put("/editdata",verifyToken,UserDetails.editData)
+AuthenitactionRouter.get("/getdata",verifyToken,UserDetails.getData)
+AuthenitactionRouter.put("/editdata",verifyToken,UserDetails.editData)
 
-module.exports = router
+module.exports = AuthenitactionRouter

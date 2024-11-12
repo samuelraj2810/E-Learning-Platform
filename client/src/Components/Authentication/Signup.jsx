@@ -131,7 +131,7 @@ function Signup() {
         />
         <div className="mx-4 mb-4">
           <CustomButton title="submit" color="solid" onClick={handleSubmit} />
-          <Link to="/login">
+          <Link to="/">
             <CustomButton
               title="Back"
               className="mx-4 text-Primary tracking-wider"

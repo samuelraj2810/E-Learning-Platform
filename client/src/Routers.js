@@ -9,11 +9,8 @@ import VericicationPage from "./Components/Authentication/VericicationPage";
 import ProfileDetails from "./Components/Home/ProfileDetails";
 import MainLayout from "./Components/Home/MainLayout";
 import About from "./Components/AboutUs";
-import CourseCatalog from "./Components/coursecatalog/Coursecatalog";
-// import CourseDetails from "./Components/CourseDetails/CourseDetails";
-// import CourseCatalog from "./Components/CourseCatalog/CourseCatolog";
-// import Payment from "./Components/Payment"; // Payment Component
-// import LearningProgress from "./Components/LearningProgress"; // Learning Progress Component
+import CoursesCatalog from "./Components/CoursesCatalog/Coursecatalog";
+import CourseDetails from "./Components/CourseDetails/CourseDetails";
 
 const Routers = () => {
   return (
@@ -21,14 +18,10 @@ const Routers = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="courses" element={<CourseCatalog/>} />
-          <Route path="courses/:id" element={""} />
+          <Route path="courses" element={<CoursesCatalog />} />
+          <Route path="courses/:courseId" element={<CourseDetails/>} />
           <Route path="profiledetails" element={<ProfileDetails />} />
           <Route path="about" element={<About />} />
-          {/* Add route for Learning Progress */}
-          {/* <Route path="learning-progress" element={<LearningProgress />} /> */}
-          {/* Add route for Payment */}
-          {/* <Route path="payment" element={<Payment />} /> */}
         </Route>
 
         <Route path="signup" element={<Signup />} />
