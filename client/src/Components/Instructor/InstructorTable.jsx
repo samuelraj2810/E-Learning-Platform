@@ -33,8 +33,8 @@ const InstructorTable = () => {
   
   const columns = [
     { title: "Course", dataIndex: "course", key: "course" ,render:(text) => <span className="!text-gray-500 ">{text}</span>},
-    { title: "Student", dataIndex: "student", key: "student",width:50,align:"center" ,render:(text) => <span className="bg-Primary/40 p-1 rounded-full text-white text-xs">{text}</span>},
-    { title: "revenue", dataIndex: "revenue", key: "revenue",render:(text) => <span className="!text-gray-500">{text}</span> },
+    { title: "Student", dataIndex: "student", key: "student",width:50,align:"center" ,render:(text) => <span className="bg-Primary/10 p-1 border border-Primary rounded-full text-Primary text-xs">{text}</span>},
+    { title: "revenue", dataIndex: "revenue", key: "revenue",align:"center",render:(text) => <span className="!text-gray-500">{text}</span> },
     {
       title: "Action",
       key: "action",
