@@ -35,8 +35,8 @@ const InstructorCourse = () => {
       <InstructorTable />
       <CustomDrawer open={open} onClose={onClose} onSubmit={handleSubmit} title="Create New Course">
       <div className="grid gap-4 md:gap-6 lg:gap-8">
-          <CustomInput title="Course" placeholder="Enter course name" className="md:w-fit" containerClassName="p-2 bg-gray-50" onChange={(e)=>setCourseData({...courseData,courseName:e.target.value})}/>
-          <CustomInput title="Price" placeholder="Enter price" className="md:w-fit" containerClassName="p-2 bg-gray-50" onChange={(e)=>setCourseData({...courseData,price:parseFloat(e.target.value)})}/>
+          <CustomInput title="Course" placeholder="Enter course name" className="md:w-fit" containerClassName="p-2 bg-gray-50 flex items-center gap-4" onChange={(e)=>setCourseData({...courseData,courseName:e.target.value})}/>
+          <CustomInput title="Price" placeholder="Enter price" className="md:w-fit" containerClassName="p-2 bg-gray-50 flex items-center gap-4" onChange={(e)=>setCourseData({...courseData,price:parseFloat(e.target.value)})}/>
         </div>
       </CustomDrawer>
     </div>
