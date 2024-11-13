@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import CustomButton from "../Common/CustomButton";
 import { DELETE, GET } from "../ApiFunction/ApiFunction";
 import CustomDrawer from "../Common/CustomDrawer";
+import CustomInput from "../Common/CustomInput";
 
 const InstructorTable = () => {
   const [open, setOpen] = useState(false);
+  const [updateId, setUpdateId] = useState(false);
   const showLargeDrawer = () => {
       setOpen(true);
     };
@@ -42,10 +44,9 @@ const InstructorTable = () => {
     width: 120 ,
   }));
   console.log(updatedDataSource);
-  
   const columns = [
     { title: "Course", dataIndex: "course", key: "course" ,render:(text) => <span className="!text-gray-500 ">{text ? text : "- - -"}</span>},
-    { title: "Student", dataIndex: "student", key: "student",width:50,align:"center" ,render:(text) => <small className={text ? "bg-Primary/10 p-1 border-2 border-Primary/50 rounded-full text-Primary text-[10px]" : "text-gray-700"}>{text ? text : "- - -"}</small>},
+    { title: "Student", dataIndex: "student", key: "student",width:50,align:"center" ,render:(text) => <small className={text ? "bg-Primary/10 p-1 py-[3px] font-bold border-2 border-Primary/50 rounded-full text-Primary text-[10px]" : "text-gray-700"}>{text ? text : "- - -"}</small>},
     { title: "revenue", dataIndex: "revenue", key: "revenue",align:"center",render:(text) => <small className={text ? "text-green-600" : "text-gray-700"}>{text ? text : "- - -"}</small> },
     {
       title: "Action",
@@ -74,6 +75,7 @@ const InstructorTable = () => {
   }
   const handleEdit = (data) => {
     setOpen(true)
+    setUpdateId(true)
   }
 
   return (
@@ -88,12 +90,8 @@ const InstructorTable = () => {
         pageSize: 10,
       }}
     />
-    <CustomDrawer open={open} onClose={onClose} onSubmit={handleSubmit} title="Create New Course">
-      <div className="grid gap-4">
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </div>
+    <CustomDrawer open={open} onClose={onClose} onSubmit={handleSubmit} title={updateId ?" Update Course " : "Create New Course"}>
+
     </CustomDrawer>
     </>
   );
