@@ -27,7 +27,7 @@ const insgetData = async (req, res) => {
 
 const inseditData = async(req,res) =>{
     try{
-        console.log("hi")
+        console.log(req.body,"hi")
         
         const userId = req.userId
         const{age} = req.body
@@ -37,8 +37,8 @@ const inseditData = async(req,res) =>{
         if(!data){
             res.json({message:"data not"})
         }
-        const datas = [data]
-        res.json(datas)
+        // const datas = [data]
+        res.json(data)
         
         
     }

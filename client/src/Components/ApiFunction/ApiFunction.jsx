@@ -42,3 +42,19 @@ export const PUT = async (action, params) => {
     console.error(error);
   }
 };
+
+export const DELETE = async (action) => {
+  try {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const result = await axios.put(action, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (result.status === 200) {
+        return result;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

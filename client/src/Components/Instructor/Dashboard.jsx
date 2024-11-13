@@ -9,36 +9,20 @@ import React, { useEffect, useState } from "react";
 import InstructorProfile from "./InstructorProfile";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { GET } from "../ApiFunction/ApiFunction";
-import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const [data, setData] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuId, setMenuId] = useState(1);
   const [instructorName, setInstructorName] = useState("- - -");
-  const fetchData = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
-      if (token) {
-        const result = await axios.get("http://localhost:3000/getinsdata", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setData(result.data);
-        // if (result.data?.length > 0 && result.data[0].gender) {
-        //   setCheckBoxValue(result.data[0].gender);
-        //   setAddress(result.data[0].address);
-        //   setDesignation(result.data[0].designation);
-        // }
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const fetchData = async() => {
+    const result = await GET("http://localhost:3000/getinsdata")
+    setInstructorName(result[0].name)
+  }
   useEffect(()=>{
     fetchData()
   },[])
-  console.log(data)
+  console.log(instructorName)
   const navList = [
     { id: 1, to: "/instructordashboard", title: "Instructor Profile",icon:<UserOutlined className="mr-2" />},
     { id: 2, to: "/instructordashboard/instructorcourse", title: "Courses" ,icon:<ContainerOutlined className="mr-2" />},
@@ -70,6 +54,7 @@ const Dashboard = () => {
     setIsMenuOpen((prev) => !prev);
   };
   const handleSignOut = () => {
+    sessionStorage.clear()
     navigate("/login")
   }
   return (
@@ -110,13 +95,13 @@ const Dashboard = () => {
           </ul>
         </motion.div>
       </div>
-      <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5">
+      <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
           <h1 className="mr-auto">{instructorName}</h1>
           <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-2 rounded-full" onClick={handleSignOut}/>
         </div>
-        <div className="bg-white m-3 shadow-lg rounded-lg p-4">
-          <Outlet/>
+        <div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
+          <Outlet />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import InstructorTable from "./InstructorTable";
 import CustomButton from "../Common/CustomButton";
 import { PlusOutlined } from "@ant-design/icons";
 import { Drawer } from 'antd';
+import CustomDrawer from "../Common/CustomDrawer";
 
 const InstructorCourse = () => {
     const [open, setOpen] = useState(false);
@@ -12,6 +13,9 @@ const InstructorCourse = () => {
       const onClose = () => {
         setOpen(false);
       };
+      const handleSubmit = () => {
+        setOpen(false);
+      }
   return (
     <div className="grid gap-8 lg:gap-12">
       <div className="flex items-center justify-between">
@@ -25,41 +29,13 @@ const InstructorCourse = () => {
         />
       </div>
       <InstructorTable />
-      <Drawer
-        title={
-          <h1 className="capitalize text-xl text-PrimaryDark rounded-lg py-2">
-            Create new course
-          </h1>
-        }
-        placement="left"
-        closable={false}
-        width={"100%"}
-        onClose={onClose}
-        open={open}
-        footer={
-          <div className="flex p-2 gap-4 justify-end">
-            <CustomButton
-              title="cancel"
-              size="large"
-              variant="outlined"
-              onClick={onClose}
-            />
-            <CustomButton
-              title="submit"
-              size="large"
-              className="bg-Primary text-white"
-              variant="default"
-              onClick={onClose}
-            />
-          </div>
-        }
-      >
-        <div className="grid gap-4">
+      <CustomDrawer open={open} onClose={onClose} onSubmit={handleSubmit} title="Create New Course">
+      <div className="grid gap-4">
           <p>Some contents...</p>
           <p>Some contents...</p>
           <p>Some contents...</p>
         </div>
-      </Drawer>
+      </CustomDrawer>
     </div>
   );
 };
