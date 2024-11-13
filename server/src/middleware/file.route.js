@@ -15,7 +15,7 @@ const upload = multer({
   storage
 });
 
-const uploadFiles = upload.fields([{name:image},{name:video}])
+const uploadFiles = upload.fields([{name:"image"},{name:"video"}])
 router.use(verifyToken)
 router.post("/addcourse",uploadFiles,courseCtrl.addCourse);
 router.put("/editcourse/:_id",uploadFiles,courseCtrl.editCourse);

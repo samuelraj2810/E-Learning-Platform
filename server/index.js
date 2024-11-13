@@ -4,7 +4,7 @@ require("dotenv").config();
 const Connection = require("./src/config/connection");
 const router = require("./src/routes/register.route")
 const insrouter = require("./src/routes/instrutor.route")
-const filerouter = require("./src/routes/file.route")
+const filerouter = require("./src/middleware/file.route")
 const cors = require("cors")
 
 app.use(cors('*'))
