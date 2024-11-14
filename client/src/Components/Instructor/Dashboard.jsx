@@ -66,7 +66,7 @@ const Dashboard = () => {
       <div className=" lg:flex items-start lg:bg-Primary ">
         <h1 className="font-bold tracking-widest lg-text-lg p-4 bg-Primary flex text-white lg:w-fit items-center w-full">
           <DashboardOutlined
-            className="mr-2 bg-white text-PrimaryDark rounded-full p-2"
+            className={`mr-2 bg-gray-100/10 hover:bg-white ${isMenuOpen && "bg-white text-black"} hover:text-black transition-all duration-300 text-white rounded-full p-2`}
             onClick={handleMenuClick}
           />
           <span className={` lg:hidden`}>Dashboard</span>
@@ -86,7 +86,7 @@ const Dashboard = () => {
           </h1>
           <ul className="capitalize flex flex-col m-4">
             {navList.map((each)=>
-            <Link to={each.to} key={each.id} onClick={()=>setMenuId(each.id)}>
+            <Link to={each.to} key={each.id} onClick={()=>{setMenuId(each.id)}}>
             <li className={`p-2 text-nowrap rounded-md m-2 border ${menuId === each.id ? "text-Primary bg-Primary/5" : "bg-gray-100/10"} hover:border-Primary hover:text-Primary transition-all duration-500`}>
               {each.icon}
               {each.title}
@@ -97,12 +97,12 @@ const Dashboard = () => {
       </div>
       <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
-          <h1 className="mr-auto capitalize text-gray-600">{instructorName}</h1>
-          <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-2 rounded-full" onClick={handleSignOut}/>
+          <h1 className="mr-auto capitalize text-Primary border-Primary/50 text-xs tracking-widest border-2 p-1 rounded-lg ">{instructorName}</h1>
+          <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-1 rounded-full" onClick={handleSignOut}/>
         </div>
-        <div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
+        <motion.div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
           <Outlet />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

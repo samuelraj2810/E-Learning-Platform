@@ -106,12 +106,8 @@ const InstructorProfile = () => {
       value: "Design",
     },
     {
-      label: "Personal",
-      value: "Personal",
-    },
-    {
-      label: "Development",
-      value: "Development",
+      label: "Personal Development",
+      value: "Personal Development",
     },
   ];
   const onChange1 = ({ target: { value } }) => {
@@ -179,7 +175,7 @@ const InstructorProfile = () => {
           />
         </span>
       </div>
-      {data ? (
+      {data.length > 0 ? (
         <form
           className="grid grid-cols-1 mt-4 md:grid-cols-2
          lg:grid-cols-4 gap-4 rounded-lg shadow border p-8 bg-white"
