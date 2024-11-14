@@ -81,7 +81,7 @@ const Dashboard = () => {
           variants={menuVariants}
           style={{ overflow: "hidden" }}
         >
-          <h1 className="hidden lg:flex justify-center border-b-2 p-4 lg:mt-1 tracking-widest text-lg font-bold ">
+          <h1 className="hidden lg:flex justify-center p-4 lg:mt-1 tracking-widest text-lg font-bold ">
             Dashboard
           </h1>
           <ul className="capitalize flex flex-col m-4">
@@ -97,7 +97,7 @@ const Dashboard = () => {
       </div>
       <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
-          <h1 className="mr-auto">{instructorName}</h1>
+          <h1 className="mr-auto capitalize text-gray-600">{instructorName}</h1>
           <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-2 rounded-full" onClick={handleSignOut}/>
         </div>
         <div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
