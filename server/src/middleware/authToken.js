@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     console.log(token);
     
     if (!token) {
-      return res.status(404).json({Message : "You have to be logged in to create account"});
+      return res.status(404).json({Message : "You have to be logged in"});
     }
     const pureToken = token.split(" ")[1];
     try {
