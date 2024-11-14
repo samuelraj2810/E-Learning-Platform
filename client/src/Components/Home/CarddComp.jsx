@@ -1,6 +1,6 @@
 import React from "react";
 
-function CarddComp({courseName, instructorName,image,index, duration, rating}) {
+function CarddComp({courseName, instructorName,image,index, price, rating}) {
 
     let data = [{
         head:"Course",
@@ -11,8 +11,8 @@ function CarddComp({courseName, instructorName,image,index, duration, rating}) {
         value:instructorName
     },
     {
-        head:"Duration",
-        value:duration
+        head:"Price",
+        value:price
     },
     {
         head:"Rating",
@@ -22,12 +22,12 @@ function CarddComp({courseName, instructorName,image,index, duration, rating}) {
   return (
     <div
       key={index}
-      className={`p-2 text-sm border shadow-lg rounded-lg md:text-base md:w-[250px] md:h-[300px] mx-auto scale-100 transition-all duration-500`}
+      className={`p-2 text-sm border shadow-lg rounded-lg md:text-base md:w-[250px] md:h-[300px] scale-100 transition-all duration-500 mb-10`}
     >
       <div>
         <div className="w-[230px] h-[150px] mb-4 rounded-md md:mb-3 border overflow-hidden">
           <img
-            src={image}
+            src={image} alt=""
             className="rounded-md w-full h-full object-fill"
           ></img>
         </div>

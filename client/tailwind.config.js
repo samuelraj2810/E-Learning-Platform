@@ -4,16 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        Primary: "#0d9488",
-        PrimaryDark: "#083344",
+        Primary: "#4f46e5",
+        PrimaryDark: "#1e1b4b",
       },
       backgroundColor: {
-        Primary: "#0d9488",
-        PrimaryDark: "#083344",
+        Primary: "#4f46e5",
+        PrimaryDark: "#1e1b4b",
       },
       fontFamily: {
         Poppins: ["Poppins", "serif"],
-        Title: ["Koulen", "sans-serif"],
+        Koulen: ["Koulen", "sans-serif"],
       },
     },
   },

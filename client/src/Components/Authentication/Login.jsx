@@ -3,7 +3,7 @@ import loginImg from "../../Assets/Images/login.png";
 import CustomInput from "../Common/CustomInput";
 import CustomButton from "../Common/CustomButton";
 import loginLeftImage from "../../Assets/Images/loginbg.jpg";
-import { Link, useNavigate,useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCustomMessage } from "../Common/CustomMessage";
 import { POST } from "../ApiFunction/ApiFunction";
 
@@ -39,7 +39,9 @@ const Login = () => {
         sessionStorage.setItem("token", result?.data?.token);
         sessionStorage.setItem("name",result?.data?.name); 
         showMessage("success", result?.data?.message);
-        navigate("/");
+        navigate(result?.data?.navigate);
+        console.log(result.data.navigate);
+        
       } else {
         showMessage("error", "Something went wrong");
       }
