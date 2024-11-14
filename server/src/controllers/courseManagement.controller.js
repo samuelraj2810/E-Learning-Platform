@@ -23,6 +23,7 @@ const addCourse =async (req,res) => {
        
         const data1 = await courseDetails.create(data)
         res.json({
+            data,
             message:"New Course Added Successfully"
         })
         
