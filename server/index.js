@@ -4,11 +4,14 @@ require("dotenv").config();
 const Connection = require("./src/config/connection");
 const AuthenitactionRouter = require("./src/routes/register.route");
 const cors = require("cors");
-
+const paymentRouter = require("./src/routes/paymentRoute")
 app.use(cors());
 app.use(express.json());
 Connection();
 app.use(AuthenitactionRouter);
+
+app.use("/api/payment", paymentRouter);
+
 
 app.listen(3000, () => {
   try {

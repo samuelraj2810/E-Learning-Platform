@@ -47,19 +47,15 @@
 // }
 
 // export default MainLayout;
-import React from "react";
 import Nav from "./Nav";
 import { Outlet } from "react-router-dom";
-import LoadingPage from "./LoadingPage";
-import { GET } from "../ApiFunction/ApiFunction";
-import { useCustomMessage } from "../Common/CustomMessage";
-import { SmileTwoTone, UpOutlined } from "@ant-design/icons";
-import Dashboard from "../Instructor/Dashboard";
 import { Footer } from "antd/es/layout/layout";
 import { FloatButton } from "antd";
+import { UpOutlined } from "@ant-design/icons";
 
 function MainLayout() {
   return (
+    
     <div>
       <Nav />
       <Outlet />
