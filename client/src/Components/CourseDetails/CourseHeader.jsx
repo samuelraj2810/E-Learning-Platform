@@ -8,7 +8,8 @@ const CourseHeader = ({
   duration,
   price,
   originalPrice,
-  mediaSrc
+  mediaSrc,
+  
 }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
