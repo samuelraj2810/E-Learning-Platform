@@ -11,9 +11,10 @@ import MainLayout from "./Components/Home/MainLayout";
 import About from "./Components/AboutUs";
 import CoursesCatalog from "./Components/CoursesCatalog/Coursecatalog";
 import CourseDetails from "./Components/CourseDetails/CourseDetails";
-import DashBoard from "./Components/Instructor/Dashboard"; 
+import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
+import AdminPanel from "./Components/AdminPanel/AdminPanel";
 
 const Routers = () => {
   return (
@@ -22,7 +23,7 @@ const Routers = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/courses" element={<CoursesCatalog />} />
-          <Route path="/courses/:courseId" element={<CourseDetails/>} />
+          <Route path="/courses/:courseId" element={<CourseDetails />} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
           <Route path="/about" element={<About />} />
         </Route>
@@ -34,9 +35,14 @@ const Routers = () => {
         <Route path="/verify" element={<VericicationPage />} />
 
         <Route path="/instructordashboard" element={<DashBoard />}>
-          <Route path="/instructordashboard" element={<InstructorProfile/>} />
-          <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
+          <Route path="/instructordashboard" element={<InstructorProfile />} />
+          <Route
+            path="/instructordashboard/instructorcourse"
+            element={<InstructorCourse />}
+          />
         </Route>
+
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </main>
   );

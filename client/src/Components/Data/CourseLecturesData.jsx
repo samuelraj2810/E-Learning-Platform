@@ -45,7 +45,7 @@ const CourseLecturesData = [
       },
       {
         title: "Understanding Components",
-        lectures: "4 lectures",
+        lectures: "4 lectures",    
         duration: "10min",
         media: null,
       },

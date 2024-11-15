@@ -5,12 +5,17 @@ const courseSchema = new mongoose.Schema({
     _id:{
         type:String,
         default:v4
+    },courseName: {
+        type: String,
+        required: true
+    },courseHeaderDescription: {
+        type: String,
+        required: true
+    },courseInstructor: {
+        type: String,
+        required: true
     },
-    courseName:String,
-    duration:String,
-    instructorName:String,
-    instructorId:String,
-    image:String,
+    
 
 },{timestamps:true})
 
