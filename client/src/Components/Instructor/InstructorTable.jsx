@@ -14,6 +14,7 @@ const InstructorTable = () => {
   const [open, setOpen] = useState(false);
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
+  let formData = new FormData()
   const [editdata, setEditdata] = useState({
     courseName: "",
     duration: "",
@@ -31,8 +32,22 @@ const InstructorTable = () => {
   };
   const handleSubmit = async () => {
     setOpen(false);
+    const token = sessionStorage.getItem("")
+    formData.append("courseName", editdata.courseName);
+    formData.append("duration", editdata.duration);
+    formData.append("rating", editdata.rating);
+    formData.append("price", editdata.price);
+    
+    if (image) formData.append("image", editdata.image);
+    if (video) formData.append("video", editdata.video);
+
     const result = await axios.put(
-      `http://localhost:3000/editcourse/${editdata._id}`
+      `http://localhost:3000/editcourse/${editdata._id}`,formData,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   };
 
