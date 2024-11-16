@@ -6,63 +6,86 @@ import { Drawer } from "antd";
 import CustomDrawer from "../Common/CustomDrawer";
 import CustomInput from "../Common/CustomInput";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Upload } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Button, Upload } from "antd";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const InstructorCourse = () => {
   const [open, setOpen] = useState(false);
   const [courseData, setCourseData] = useState({
     courseName: "",
-    price: "",
-    rating: null,
     duration: "",
+    rating: "",
+    price: "",
+    title: [""],
+    lectureDuration: [""],
+    description: [""],
+    requirements: [""],
+    learn: [""],
+    instructorName: "",
+    instructorId: "",
   });
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
-  const navigate = useNavigate()
-  const showLargeDrawer = () => {
-    setOpen(true);
+  const navigate = useNavigate();
+
+  const showLargeDrawer = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
+  const handleArrayChange = (index, key, value) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      [key]: prevData[key].map((item, idx) =>
+        idx === index ? value : item
+      ),
+    }));
   };
-  const onClose = () => {
-    setOpen(false);
+
+  const addArrayItem = (key) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      [key]: [...prevData[key], ""],
+    }));
   };
-  let formData = new FormData();
+
+  const handleaddcourse = () =>{
+    navigate("/instructordashboard/instructorcourse/addCourse")
+  }
+
   const handleSubmit = async () => {
     setOpen(false);
-    const token = sessionStorage.getItem("token")
-    formData.append("courseName", courseData.courseName);
-    formData.append("duration", courseData.duration);
-    formData.append("rating", courseData.rating);
-    formData.append("price", courseData.price);
+
+    const token = sessionStorage.getItem("token");
+    let formData = new FormData();
+
+    Object.keys(courseData).forEach((key) => {
+      if (Array.isArray(courseData[key])) {
+        courseData[key].forEach((item) => formData.append(key, item));
+      } else {
+        formData.append(key, courseData[key]);
+      }
+    });
+
     if (image) formData.append("image", image);
     if (video) formData.append("video", video);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/addcourse",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post("http://localhost:3000/addcourse", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response.data.message || "Course added successfully!");
       navigate("/editdata", { state: response });
     } catch (error) {
-      console.log("Error uploading course");
-      console.error(error);
+      console.error("Error uploading course", error);
     }
   };
-  console.log(courseData);
 
   const props = [
     {
       name: "image",
-      action: "",
-      headers: {},
       onChange(info) {
         if (info.file.status === "done" || info.file.status === "uploading") {
           setImage(info.file.originFileObj);
@@ -71,8 +94,6 @@ const InstructorCourse = () => {
     },
     {
       name: "video",
-      action: "",
-      headers: {},
       onChange(info) {
         if (info.file.status === "done" || info.file.status === "uploading") {
           setVideo(info.file.originFileObj);
@@ -81,14 +102,13 @@ const InstructorCourse = () => {
     },
   ];
 
-
   return (
     <div className="grid gap-8 lg:gap-12">
       <div className="flex items-center justify-between">
         <h1 className="lg:text-lg font-semibold text-gray-700">All Courses</h1>
         <CustomButton
           title="Create new"
-          onClick={showLargeDrawer}
+          onClick={handleaddcourse}
           icon={<PlusOutlined />}
           variant="default"
           className="bg-Primary py-5 font-bold tracking-wider text-white capitalize hover:bg-Primary/80"
@@ -117,10 +137,7 @@ const InstructorCourse = () => {
             className="md:w-fit"
             containerClassName="p-2 bg-gray-50 flex items-center gap-4"
             onChange={(e) =>
-              setCourseData({
-                ...courseData,
-                price: parseFloat(e.target.value),
-              })
+              setCourseData({ ...courseData, price: parseFloat(e.target.value) })
             }
           />
           <CustomInput
@@ -129,48 +146,47 @@ const InstructorCourse = () => {
             className="md:w-fit"
             containerClassName="p-2 bg-gray-50 flex items-center gap-4"
             onChange={(e) =>
-              setCourseData({
-                ...courseData,
-                rating: e.target.value
-              })
+              setCourseData({ ...courseData, rating: e.target.value })
             }
           />
           <CustomInput
-            title="duration"
+            title="Duration"
             placeholder="Enter duration"
             className="md:w-fit"
             containerClassName="p-2 bg-gray-50 flex items-center gap-4"
             onChange={(e) =>
-              setCourseData({
-                ...courseData,
-                duration:e.target.value
-              })
+              setCourseData({ ...courseData, duration: e.target.value })
             }
           />
-          <div className=" bg-gray-50  flex gap-5 text-base p-2">
+          {["title", "lectureDuration", "description", "requirements", "learn"].map(
+            (key) => (
+              <div key={key}>
+                {courseData[key].map((item, index) => (
+                  <CustomInput
+                    key={index}
+                    title={`${key} ${index + 1}`}
+                    placeholder={`Enter ${key}`}
+                    className="md:w-fit"
+                    containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+                    onChange={(e) =>
+                      handleArrayChange(index, key, e.target.value)
+                    }
+                  />
+                ))}
+                <Button onClick={() => addArrayItem(key)}>Add {key}</Button>
+              </div>
+            )
+          )}
+          <div className="bg-gray-50 flex gap-5 text-base p-2">
             <label>Image</label>
             <Upload {...props[0]}>
-              <Button
-                icon={<UploadOutlined />}
-                onChange={(e) => {
-                  setImage(e.target.value);
-                }}
-              >
-                Click to Upload
-              </Button>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
-          <div className=" bg-gray-50  flex gap-5 text-base p-2">
+          <div className="bg-gray-50 flex gap-5 text-base p-2">
             <label>Video</label>
             <Upload {...props[1]}>
-              <Button
-                icon={<UploadOutlined />}
-                onChange={(e) => {
-                  setVideo(e.target.value);
-                }}
-              >
-                Click to Upload
-              </Button>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
         </div>

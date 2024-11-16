@@ -1,44 +1,36 @@
-import { Table } from "antd";
-import React, { useEffect, useState } from "react";
-import CustomButton from "../Common/CustomButton";
-import { GET } from "../ApiFunction/ApiFunction";
-import CustomDrawer from "../Common/CustomDrawer";
+import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
 import CustomInput from "../Common/CustomInput";
+import CustomButton from "../Common/CustomButton";
 import axios from "axios";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useCustomMessage } from '../Common/CustomMessage';
 
-const InstructorTable = () => {
-  const [open, setOpen] = useState(false);
-  const [updateId, setUpdateId] = useState(false);
-  const [coursedata, setCoursedata] = useState([]);
-  const navigate = useNavigate()
+
+function EditCourse() {
+    const location =useLocation()
+    const data = location.state
+    const showMessage = useCustomMessage();
   const [editdata, setEditdata] = useState({
-    courseName: "",
-    duration: "",
-    rating: "",
-    price: "",
-    title: [""],
-    lectureDuration: [""],
-    description: [""],
-    requirements: [""],
-    learn: [""],
-    instructorName: "",
-    instructorId: "",
+    courseName: data.courseName,
+    duration: data.duration,
+    rating: data.rating,
+    price:data.price ,
+    title: data.title,
+    lectureDuration: data.lectureDuration,
+    description:data.description ,
+    requirements:data.requirements ,
+    learn:data.learn,
+    instructorName:data.instructorName,
+    instructorId:data.instructorId,
     image: null,
     video: null,
   });
+  const navigate = useNavigate()
   let formData = new FormData();
 
-  const showLargeDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
+  
   const handleArrayChange = (index, key, value) => {
     setEditdata((prevData) => ({
       ...prevData,
@@ -54,8 +46,6 @@ const InstructorTable = () => {
   };
 
   const handleSubmit = async () => {
-    setOpen(false);
-
     const token = sessionStorage.getItem("token");
 
     Object.keys(editdata).forEach((key) => {
@@ -68,123 +58,31 @@ const InstructorTable = () => {
 
     if (editdata.image) formData.append("image", editdata.image);
     if (editdata.video) formData.append("video", editdata.video);
-    console.log(editdata._id);
+    const _id = data._id
+
     
-
-    const result = await axios.put(
-      `http://localhost:3000/editcourse/${editdata._id}`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await axios.get("http://localhost:3000/getinstcourse", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (result.data) {
-      setCoursedata(result.data);
-    } else {
-      setCoursedata([]);
-    }
-  };
-
-  const updatedDataSource = coursedata.map((item) => ({
-    ...item,
-    width: 120,
-  }));
-
-  const columns = [
-    {
-      title: "Course Name",
-      dataIndex: "courseName",
-      key: "courseName",
-      render: (text) => (
-        <span className="!text-gray-500">{text ? text : "- - -"}</span>
-      ),
-    },
-    {
-      title: "Duration",
-      dataIndex: "duration",
-      key: "duration",
-      width: 50,
-      align: "center",
-      render: (text) => (
-        <small
-          className={
-            text
-              ? "bg-Primary/10 p-1 py-[3px] font-bold border-2 border-Primary/50 rounded-full text-Primary text-[10px]"
-              : "text-gray-700"
+    try {
+        const result = await axios.put(
+          `http://localhost:3000/editcourse/${_id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
           }
-        >
-          {text ? text : "- - -"}
-        </small>
-      ),
-    },
-    {
-      title: "Rating",
-      dataIndex: "rating",
-      key: "rating",
-      align: "center",
-      render: (text) => (
-        <small className={text ? "text-green-600" : "text-gray-700"}>
-          {text ? text : "- - -"}
-        </small>
-      ),
-    },
-    {
-      title: "price",
-      dataIndex: "price",
-      key: "price",
-      align: "center",
-      render: (text) => (
-        <small className={text ? "text-green-600" : "text-gray-700"}>
-          {text ? text : "- - -"}
-        </small>
-      ),
-    },
-    {
-      title: "Action",
-      key: "action",
-      align: "center",
-      width: 100,
-      render: (_, record) => (
-        <div className="flex gap-2 justify-evenly">
-          <CustomButton type="edit" onClick={() => handleEdit(record)} />
-          <CustomButton
-            type="delete"
-            onClick={() => handleDelete(record.key)}
-          />
-        </div>
-      ),
-    },
-  ];
-
-  const handleDelete = (id) => {
-    const url = `/`;
-    GET(url);
+        );
+  
+        if (result.status === 200) {
+          showMessage("success","Course updated successfully!"); 
+          navigate("/instructordashboard/instructorcourse");
+        }
+      } catch (error) {
+        showMessage("error","Error updating course. Please try again."); 
+        console.error("Error updating course:", error);
+      }
   };
-
-  const handleEdit = (data) => {
-    setEditdata(data);
-    setOpen(true);
-    setUpdateId(true);
-    navigate("/instructordashboard/instructorcourse/editCourse",{state:data})
-  };
-
+  
   const props = [
     {
       name: "image",
@@ -208,24 +106,8 @@ const InstructorTable = () => {
   ];
 
   return (
-    <>
-      <Table
-        bordered
-        size="small"
-        className=""
-        columns={columns}
-        dataSource={updatedDataSource}
-        pagination={{
-          pageSize: 10,
-        }}
-      />
-      <CustomDrawer
-        open={open}
-        onClose={onClose}
-        onSubmit={handleSubmit}
-        title={updateId ? "Edit the course" : "Create New Course"}
-      >
         <div className="grid gap-4 md:gap-6 lg:gap-8">
+        <span className="text-xl">Add Course</span>
           <CustomInput
             title="Course Name"
             value={editdata.courseName}
@@ -299,10 +181,14 @@ const InstructorTable = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
+          
+          <CustomButton
+          title="Submit"
+          onClick={handleSubmit}
+          icon
+          variant="default"
+          className="bg-green-400 py-5 font-bold tracking-wider text-white capitalize"
+        />
         </div>
-      </CustomDrawer>
-    </>
-  );
-};
-
-export default InstructorTable;
+  )}
+export default EditCourse

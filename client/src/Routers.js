@@ -12,6 +12,8 @@ import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import InstructorTable from "./Components/Instructor/InstructorTable";
+import AddCourse from "./Components/Instructor/AddCourse";
+import EditCourse from "./Components/Instructor/EditCourse";
 
 const Routers = () => {
   return (
@@ -36,6 +38,8 @@ const Routers = () => {
           {/* <Route index element={<InstructorTable/>} /> */}
           <Route path="/instructordashboard" element={<InstructorProfile/>} />
           <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
+          <Route path="/instructordashboard/instructorcourse/addCourse" element={<AddCourse/>} />
+          <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
         </Route>
       </Routes>
     </main>
