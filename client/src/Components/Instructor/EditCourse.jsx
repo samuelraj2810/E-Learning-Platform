@@ -15,8 +15,8 @@ function EditCourse() {
   const [editdata, setEditdata] = useState({
     courseName: data.courseName,
     duration: data.duration,
-    rating: data.rating,
-    price:data.price ,
+    rating: data.rating||"",
+    price:data.price||"" ,
     title: data.title,
     lectureDuration: data.lectureDuration,
     description:data.description ,
@@ -24,9 +24,11 @@ function EditCourse() {
     learn:data.learn,
     instructorName:data.instructorName,
     instructorId:data.instructorId,
-    image: null,
-    video: null,
+    image:null,
+    video:null
   });
+  console.log("rating",editdata);
+  
   const navigate = useNavigate()
   let formData = new FormData();
 
@@ -48,14 +50,16 @@ function EditCourse() {
   const handleSubmit = async () => {
     const token = sessionStorage.getItem("token");
 
+    
     Object.keys(editdata).forEach((key) => {
       if (Array.isArray(editdata[key])) {
         editdata[key].forEach((item) => formData.append(key, item));
-      } else {
+      } else if (key !== 'image' && key !== 'video') { 
         formData.append(key, editdata[key]);
       }
     });
-
+  
+   
     if (editdata.image) formData.append("image", editdata.image);
     if (editdata.video) formData.append("video", editdata.video);
     const _id = data._id

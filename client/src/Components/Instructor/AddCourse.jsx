@@ -78,7 +78,7 @@ function AddCourse() {
   
     const props = [
       {
-        name: "image",
+        name: "image",    
         onChange(info) {
           if (info.file.status === "done" || info.file.status === "uploading") {
             setImage(info.file.originFileObj);
@@ -86,7 +86,7 @@ function AddCourse() {
         },
       },
       {
-        name: "video",
+        name: "video",     
         onChange(info) {
           if (info.file.status === "done" || info.file.status === "uploading") {
             setVideo(info.file.originFileObj);

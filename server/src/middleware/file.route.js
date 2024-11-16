@@ -16,13 +16,14 @@ const upload = multer({
 });
 
 const uploadFiles = upload.fields([{name:"image"},{name:"video"}])
+
 router.use(verifyToken)
 router.post("/addcourse",uploadFiles,courseCtrl.addCourse);
 router.put("/editcourse/:_id",uploadFiles,courseCtrl.editCourse);
-router.get("/getinstcourse",uploadFiles,courseCtrl.getCoursebyId);
-router.get("/getallcourse",uploadFiles,courseCtrl.getAllCourse);
-router.get("/getcourse/:_id",uploadFiles,courseCtrl.getCourse);
-router.delete("/deletecourse/:_id",uploadFiles,courseCtrl.deleteCourse);
+router.get("/getinstcourse",courseCtrl.getCoursebyId);
+router.get("/getallcourse",courseCtrl.getAllCourse);
+router.get("/getcourse/:_id",courseCtrl.getCourse);
+router.delete("/deletecourse/:_id",courseCtrl.deleteCourse);
 
 
 module.exports = router;
