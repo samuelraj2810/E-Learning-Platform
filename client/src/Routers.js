@@ -14,6 +14,9 @@ import CourseDetails from "./Components/CourseDetails/CourseDetails";
 import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
+import InstructorTable from "./Components/Instructor/InstructorTable";
+import AddCourse from "./Components/Instructor/AddCourse";
+import EditCourse from "./Components/Instructor/EditCourse";
 import AdminPanel from "./Components/AdminPanel/AdminPanel";
 
 const Routers = () => {
@@ -35,6 +38,11 @@ const Routers = () => {
         <Route path="/verify" element={<VericicationPage />} />
 
         <Route path="/instructordashboard" element={<DashBoard />}>
+          {/* <Route index element={<InstructorTable/>} /> */}
+          <Route path="/instructordashboard" element={<InstructorProfile/>} />
+          <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
+          <Route path="/instructordashboard/instructorcourse/addCourse" element={<AddCourse/>} />
+          <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
           <Route path="/instructordashboard" element={<InstructorProfile />} />
           <Route
             path="/instructordashboard/instructorcourse"

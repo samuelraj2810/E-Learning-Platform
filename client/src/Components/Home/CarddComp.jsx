@@ -50,3 +50,4 @@ function CarddComp({courseName, instructorName,image,index, price, rating}) {
 }
 
 export default CarddComp;
+
