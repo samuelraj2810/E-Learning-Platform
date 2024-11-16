@@ -1,11 +1,7 @@
 const mongoose = require("mongoose")
 const {v4} = require("uuid")
 
-const content = new mongoose.Schema({
-    title:String,
-    lectures:Number,
-    duration:String
-})
+
 
 const courseSchema = new mongoose.Schema({
     _id:{
@@ -16,14 +12,28 @@ const courseSchema = new mongoose.Schema({
     duration:String,
     rating:Number,
     price:Number,
-    courseContent:[content],
-    description:String,
+    title:[
+        String
+    ],
+    lectureDuration:[
+        String
+    ],
+    description:[
+        String
+    ],
+    requirements:[
+        String
+    ],
+    learn:[
+        String
+    ],
+
     instructorName:String,
     instructorId:String,
     imagePath:String,
     imageName:String,
     videoPath:String,
-    videoName:String
+    videoName:String,
 
 },{timestamps:true})
 
