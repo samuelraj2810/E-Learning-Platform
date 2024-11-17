@@ -45,6 +45,11 @@ function AddCourse() {
   };
 
   const handleSubmit = async () => {
+    if(image === null){
+      return showMessage("info","image is required")
+    }else if(video === null ){
+      return showMessage("info","video is required")
+    }
     const token = sessionStorage.getItem("token");
     let formData = new FormData();
 
@@ -160,17 +165,19 @@ function AddCourse() {
           </div>
         )
       )}
-      <div className="bg-gray-50 flex gap-5 text-base p-2">
+      <div className="flex gap-5 text-base p-2">
         <label>Image</label>
         <Upload {...props.image}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <CustomButton icon={<UploadOutlined />} title="Upload" variant="filled"/>
         </Upload>
+        <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md h-fit p-1">required</span>
       </div>
-      <div className="bg-gray-50 flex gap-5 text-base p-2">
+      <div className="flex gap-5 text-base p-2">
         <label>Video</label>
         <Upload {...props.video}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <CustomButton icon={<UploadOutlined />} title="Upload" variant="filled"/>
         </Upload>
+        <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md h-fit p-1">required</span>
       </div>
       <CustomButton
         title="Submit"
