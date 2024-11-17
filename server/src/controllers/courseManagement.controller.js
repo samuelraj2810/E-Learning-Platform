@@ -2,6 +2,8 @@ const { log } = require("console");
 const courseDetails = require("../models/course.model");
 const instructorDetails = require("../models/instructorDetails.model");
 const fs = require("fs");
+
+
 const addCourse = async (req, res) => {
   try {
     const instructorId = req.userId;

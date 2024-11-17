@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken")
 const register = require("../models/Register.model")
 
+// generates token
 const tokenGen = async(userId) => {
  return jwt.sign({id:userId},process.env.JWT_KEY)
 }
 
-
+// verifies the token in request
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization;
 console.log(token);

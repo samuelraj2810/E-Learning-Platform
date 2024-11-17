@@ -1,6 +1,6 @@
 const instructorDetails = require("../models/instructorDetails.model")
 
-
+// Get Instructors Details
 const insgetData = async (req, res) => {
     try {
         const userId = req.userId;
@@ -25,6 +25,7 @@ const insgetData = async (req, res) => {
     }
 };
 
+//Edit Instructors Details
 const inseditData = async(req,res) =>{
     try{
         console.log(req.body,"hi")

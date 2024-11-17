@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 const {v4} = require("uuid")
 
 
-
 const courseSchema = new mongoose.Schema({
     _id:{
         type:String,
