@@ -49,16 +49,16 @@ const Course = () => {
     <div className="w-[90%] mx-auto ">
       <div className="md:w-full p-6 ">
         <h1 className=" text-2xl md:text-3xl font-semibold mb-8 relative ">
-          <span className="text-white relative z-10 ">Course</span>Catalog
-          <div className="h-10 w-[110px] rounded-tr-lg absolute top-0 rotate-12 z-1 bg-Primary" />
+          <span className="text-white relative z-10 ">Popular</span>Courses
+          <div className="h-10 w-[120px] rounded-tr-lg absolute top-0 rotate-12 z-1 bg-Primary" />
         </h1>
 
-        <div className=" p-14 flex flex-wrap justify-evenly ">
+        <div className="flex flex-wrap justify-evenly gap-5">
           {courses.length > 0 ? (
             courses.map((course) => (
               <div
                 key={course.id}
-                className="bg-white flex-col w-[350px] shadow-md rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-blue-50"
+                className="bg-white flex-col md:w-[280px] shadow-md rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-blue-50"
               >
                 <img
                   src={course.image}
