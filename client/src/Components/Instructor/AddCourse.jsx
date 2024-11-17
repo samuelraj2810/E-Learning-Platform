@@ -78,25 +78,25 @@ function AddCourse() {
   };
 
   const props = {
-    // Image upload props
+
     image: {
       beforeUpload: (file) => {
         setImage(file);
-        return false; // Prevents the upload from being triggered automatically
+        return false; 
       },
       onRemove: () => {
-        setImage(null); // Clears the selected image
+        setImage(null); 
       },
       fileList: image ? [image] : [],
     },
-    // Video upload props
+
     video: {
       beforeUpload: (file) => {
         setVideo(file);
-        return false; // Prevents the upload from being triggered automatically
+        return false;
       },
       onRemove: () => {
-        setVideo(null); // Clears the selected video
+        setVideo(null); 
       },
       fileList: video ? [video] : [],
     },

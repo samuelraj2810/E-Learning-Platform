@@ -187,19 +187,15 @@ const InstructorTable = () => {
     const {_id} = data;
     
     try {
-      // Send delete request
       await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
-      // After successful deletion, refresh the table data
       getData();
   
     } catch (error) {
       console.error("Error deleting course:", error);
-      // Optionally show a message to the user if deletion fails
       showMessage("error", "Failed to delete course. Please try again.");
     }
   };
@@ -209,7 +205,7 @@ const InstructorTable = () => {
     setEditdata(data,);
     setOpen(true);
     setUpdateId(true);
-    // navigate("/instructordashboard/instructorcourse/editCourse",{state:data})
+    navigate("/instructordashboard/instructorcourse/editCourse",{state:data})
   };
 
   const props = [

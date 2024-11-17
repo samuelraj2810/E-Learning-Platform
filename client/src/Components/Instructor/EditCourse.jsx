@@ -24,9 +24,13 @@ function EditCourse() {
     learn:data.learn,
     instructorName:data.instructorName,
     instructorId:data.instructorId,
-    image:null,
-    video:null
+
   });
+  const [image, setImage] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [uploading, setUploading] = useState(false); // For the upload button state
+  const [loading, setLoading] = useState(false); // For the upload button sta
+
   console.log("rating",editdata);
   
   const navigate = useNavigate()
@@ -54,14 +58,14 @@ function EditCourse() {
     Object.keys(editdata).forEach((key) => {
       if (Array.isArray(editdata[key])) {
         editdata[key].forEach((item) => formData.append(key, item));
-      } else if (key !== 'image' && key !== 'video') { 
+      } else { 
         formData.append(key, editdata[key]);
       }
     });
   
    
-    if (editdata.image) formData.append("image", editdata.image);
-    if (editdata.video) formData.append("video", editdata.video);
+    if (image) formData.append("image", image);
+    if (video) formData.append("video", video);
     const _id = data._id
 
     
@@ -87,27 +91,30 @@ function EditCourse() {
       }
   };
   
-  const props = [
-    {
-      name: "image",
-      onChange(info) {
-        if (info.file.status === "done" || info.file.status === "uploading") {
-          setEditdata((prev) => ({
-            ...prev,
-            image: info.file.originFileObj,
-          }));
-        }
+  const props = {
+
+    image: {
+      beforeUpload: (file) => {
+        setImage(file);
+        return false; 
       },
-    },
-    {
-      name: "video",
-      onChange(info) {
-        if (info.file.status === "done" || info.file.status === "uploading") {
-          setEditdata((prev) => ({ ...prev, video: info.file.originFileObj }));
-        }
+      onRemove: () => {
+        setImage(null); 
       },
+      fileList: image ? [image] : [],
     },
-  ];
+
+    video: {
+      beforeUpload: (file) => {
+        setVideo(file);
+        return false;
+      },
+      onRemove: () => {
+        setVideo(null); 
+      },
+      fileList: video ? [video] : [],
+    },
+  };
 
   return (
         <div className="grid gap-4 md:gap-6 lg:gap-8">
@@ -175,13 +182,13 @@ function EditCourse() {
           )}
           <div className="bg-gray-50 flex gap-5 text-base p-2">
             <label>Image</label>
-            <Upload {...props[0]}>
+            <Upload {...props.image}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
           <div className="bg-gray-50 flex gap-5 text-base p-2">
             <label>Video</label>
-            <Upload {...props[1]}>
+            <Upload {...props.video}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
