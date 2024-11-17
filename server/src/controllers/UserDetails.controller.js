@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt")
 const getData = async(req,res) =>{
     try{
         const userId = req.userId
-        console.log(userId);
+        // console.log(userId);
         
         const data = await userDetails.findOne({userId})
         const datas = [data]

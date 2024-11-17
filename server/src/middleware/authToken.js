@@ -9,7 +9,7 @@ const tokenGen = async(userId) => {
 // verifies the token in request
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization;
-console.log(token);
+// console.log(token);
 
     
     if (!token) {
@@ -24,7 +24,7 @@ console.log(token);
       if(!checkUser){
           return res.status(404).json({message : "user not found"})
       }
-      console.log(checkUser.userId)
+      // console.log(checkUser.userId)
       req.userId = checkUser.userId;
       
       

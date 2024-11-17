@@ -57,7 +57,7 @@ const loginPost = async(req,res) => {
         }
 
         const token =await tokenGen(checkmail.userId)
-        console.log(token)
+        // console.log(token)
         let navigate
 
         checkmail.designation==="Student"?navigate="/":checkmail.designation==="Instructor"?navigate="/instructordashboard":navigate="/admin"
