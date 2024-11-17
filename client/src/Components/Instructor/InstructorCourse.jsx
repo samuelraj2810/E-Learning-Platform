@@ -86,6 +86,7 @@ const InstructorCourse = () => {
   const props = [
     {
       name: "image",
+      beforeUpload: () => false,
       onChange(info) {
         if (info.file.status === "done" || info.file.status === "uploading") {
           setImage(info.file.originFileObj);
@@ -94,6 +95,7 @@ const InstructorCourse = () => {
     },
     {
       name: "video",
+      beforeUpload: () => false,
       onChange(info) {
         if (info.file.status === "done" || info.file.status === "uploading") {
           setVideo(info.file.originFileObj);

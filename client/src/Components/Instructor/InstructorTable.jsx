@@ -29,7 +29,11 @@ const InstructorTable = () => {
     image: null,
     video: null,
   });
+
+
+  
   let formData = new FormData();
+  const token = sessionStorage.getItem("token");
 
   const showLargeDrawer = () => {
     setOpen(true);
@@ -53,22 +57,26 @@ const InstructorTable = () => {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setOpen(false);
-
-    const token = sessionStorage.getItem("token");
+    console.log("hi");
+    
+   
 
     Object.keys(editdata).forEach((key) => {
       if (Array.isArray(editdata[key])) {
         editdata[key].forEach((item) => formData.append(key, item));
-      } else {
+      } else if (key !== 'image' && key !== 'video') { 
         formData.append(key, editdata[key]);
       }
     });
-
+  
+   
     if (editdata.image) formData.append("image", editdata.image);
     if (editdata.video) formData.append("video", editdata.video);
-    console.log(editdata._id);
+  
+    console.log(formData);
     
 
     const result = await axios.put(
@@ -166,23 +174,27 @@ const InstructorTable = () => {
           <CustomButton type="edit" onClick={() => handleEdit(record)} />
           <CustomButton
             type="delete"
-            onClick={() => handleDelete(record.key)}
+            onClick={() => handleDelete(record)}
           />
         </div>
       ),
     },
   ];
 
-  const handleDelete = (id) => {
-    const url = `/`;
-    GET(url);
+  const handleDelete = async(data) => {
+    const {_id} = data
+    const result = axios.delete(`http://localhost:3000/deletecourse/${_id}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
   };
 
   const handleEdit = (data) => {
-    setEditdata(data);
+    setEditdata(data,);
     setOpen(true);
     setUpdateId(true);
-    navigate("/instructordashboard/instructorcourse/editCourse",{state:data})
+    // navigate("/instructordashboard/instructorcourse/editCourse",{state:data})
   };
 
   const props = [
@@ -201,7 +213,7 @@ const InstructorTable = () => {
       name: "video",
       onChange(info) {
         if (info.file.status === "done" || info.file.status === "uploading") {
-          setEditdata((prev) => ({ ...prev, video: info.file.originFileObj }));
+          setEditdata((prev) => ({...prev,  video: info.file.originFileObj }));
         }
       },
     },
@@ -253,7 +265,7 @@ const InstructorTable = () => {
             className="md:w-fit"
             containerClassName="p-2 bg-gray-50 flex items-center gap-4"
             onChange={(e) =>
-              setEditdata({ ...editdata, rating: e.target.value })
+              setEditdata({ ...editdata, rating: e.target.value===null?"":e.target.value })
             }
           />
           <CustomInput
@@ -263,7 +275,7 @@ const InstructorTable = () => {
             className="md:w-fit"
             containerClassName="p-2 bg-gray-50 flex items-center gap-4"
             onChange={(e) =>
-              setEditdata({ ...editdata, price: e.target.value })
+              setEditdata({ ...editdata, price: e.target.value===null?"":e.target.value })
             }
           />
           
@@ -292,6 +304,7 @@ const InstructorTable = () => {
             <Upload {...props[0]}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
+            
           </div>
           <div className="bg-gray-50 flex gap-5 text-base p-2">
             <label>Video</label>
