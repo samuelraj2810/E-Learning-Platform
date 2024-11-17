@@ -8,12 +8,14 @@ import axios from "axios";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useCustomMessage } from "../Common/CustomMessage";
 
 const InstructorTable = () => {
   const [open, setOpen] = useState(false);
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
   const navigate = useNavigate()
+  const showMessage = useCustomMessage(); 
   const [editdata, setEditdata] = useState({
     courseName: "",
     duration: "",
@@ -181,14 +183,27 @@ const InstructorTable = () => {
     },
   ];
 
-  const handleDelete = async(data) => {
-    const {_id} = data
-    const result = axios.delete(`http://localhost:3000/deletecourse/${_id}`,{
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-    })
+  const handleDelete = async (data) => {
+    const {_id} = data;
+    
+    try {
+      // Send delete request
+      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      // After successful deletion, refresh the table data
+      getData();
+  
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      // Optionally show a message to the user if deletion fails
+      showMessage("error", "Failed to delete course. Please try again.");
+    }
   };
+  
 
   const handleEdit = (data) => {
     setEditdata(data,);
