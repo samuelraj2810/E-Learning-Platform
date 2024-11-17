@@ -41,8 +41,6 @@ const editCourse = async (req, res) => {
     const { _id } = req.params;
     const imagefile = req.files["image"] ? req.files["image"][0] : null;
     const videofile = req.files["video"] ? req.files["video"][0] : null;
-
-    console.log(imagefile);
     
     const oldData = await courseDetails.findById(_id);
     if (!oldData) {
