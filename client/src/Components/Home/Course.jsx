@@ -49,8 +49,7 @@ const Course = () => {
     <div className="w-[90%] mx-auto ">
       <div className="md:w-full p-6 ">
         <h1 className=" text-2xl md:text-3xl font-semibold mb-8 relative ">
-          <span className="text-white relative z-10 ">Popular</span>Courses
-          <div className="h-10 w-[120px] rounded-tr-lg absolute top-0 rotate-12 z-1 bg-Primary" />
+          Popular Courses
         </h1>
 
         <div className="flex flex-wrap justify-evenly gap-5">
