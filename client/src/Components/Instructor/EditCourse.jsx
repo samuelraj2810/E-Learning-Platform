@@ -28,8 +28,7 @@ function EditCourse() {
   });
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
-  const [uploading, setUploading] = useState(false); // For the upload button state
-  const [loading, setLoading] = useState(false); // For the upload button sta
+  const [loading, setLoading] = useState(false); 
 
   console.log("rating",editdata);
   
@@ -52,6 +51,7 @@ function EditCourse() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     const token = sessionStorage.getItem("token");
 
     
@@ -82,10 +82,14 @@ function EditCourse() {
         );
   
         if (result.status === 200) {
+          setLoading(false)
+
           showMessage("success","Course updated successfully!"); 
           navigate("/instructordashboard/instructorcourse");
         }
       } catch (error) {
+        setLoading(false)
+
         showMessage("error","Error updating course. Please try again."); 
         console.error("Error updating course:", error);
       }
@@ -196,7 +200,7 @@ function EditCourse() {
           <CustomButton
           title="Submit"
           onClick={handleSubmit}
-          icon
+          loading={loading}
           variant="default"
           className="bg-green-400 py-5 font-bold tracking-wider text-white capitalize"
         />

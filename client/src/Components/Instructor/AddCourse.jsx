@@ -45,6 +45,7 @@ function AddCourse() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     const token = sessionStorage.getItem("token");
     let formData = new FormData();
 
@@ -67,12 +68,15 @@ function AddCourse() {
         },
       });
       if (response.status === 200) {
+        setLoading(false)
         showMessage("success", "Course added successfully");
         navigate("/instructordashboard/instructorcourse");
       } else {
+        setLoading(false)
         showMessage("error", "Course addition failed");
       }
     } catch (error) {
+      setLoading(false)
       console.error("Error uploading course", error);
     }
   };
