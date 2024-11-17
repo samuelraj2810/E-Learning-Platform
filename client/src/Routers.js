@@ -15,6 +15,7 @@ import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AdminPanel from "./Components/AdminPanel/AdminPanel";
+import CourseHeader from "./Components/CourseDetails/CourseHeader";
 
 const Routers = () => {
   return (

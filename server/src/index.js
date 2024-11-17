@@ -5,7 +5,7 @@ const Connection = require("./config/connection");
 const router = require("./routes/register.route")
 const insrouter = require("./routes/instrutor.route")
 const filerouter = require("./routes/file.route")
-const paymentRouter = require("./routes/paymentRoute")
+const paymentrouter = require("./routes/paymentRoute")
 const cors = require("cors")
 
 app.use(cors())
@@ -14,13 +14,13 @@ Connection()
 app.use(router)
 app.use(insrouter)
 app.use(filerouter)
-app.use(paymentRouter)
+app.use("/payment",paymentrouter)
 
-app.listen(3000, () => {
-    try {
-        console.log("Server Connected");
-        
-    } catch (error) {
-        console.log("Connection Failed");
-    }
+
+
+const port = 3000
+app.get('/', (req,res)=> {
+    res.send('Server is Running')
 })
+
+app.listen(port, ()=> console.log("Server is Running on:",port))
