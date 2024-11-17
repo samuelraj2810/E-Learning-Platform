@@ -1,5 +1,5 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
 
 const CourseHeader = ({
   title,
@@ -8,8 +8,78 @@ const CourseHeader = ({
   duration,
   price,
   originalPrice,
-  mediaSrc
+  mediaSrc,
+  userId, // Pass the logged-in user's ID as a prop
 }) => {
+  const handlePayment = async () => {
+    try {
+      // Step 1: Create Order
+      const { data } = await axios.post("http://localhost:3000/payment/order", {
+        amount: price,
+        userId,
+      });
+
+      if (!data?.order) {
+        alert("Failed to create payment order. Please try again.");
+        return;
+      }
+
+      const { id: order_id, amount, currency } = data.order;
+
+      // Step 2: Open Razorpay Checkout
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Use REACT_APP_
+        amount: amount,
+        currency: currency,
+        name: "E-Learning Platform",
+        description: `Payment for ${title}`,
+        image: "",
+        order_id: order_id,
+        handler: async (response) => {
+          // Step 3: Verify Payment
+          const paymentData = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
+
+          try {
+            const verifyResponse = await axios.post(
+              "http://localhost:3000/payment/verify",
+              paymentData
+            );
+
+            if (verifyResponse.data.success) {
+              alert("Payment successful!");
+            } else {
+              alert("Payment verification failed!");
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error.response?.data || error.message);
+            alert("An error occurred during payment verification.");
+          }
+        },
+        prefill: {
+          name: "",
+          email: "",
+          contact: "",
+        },
+        notes: {
+          course_name: title,
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Payment error:", error.response?.data || error.message);
+      alert("An error occurred during the payment process. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <h1 className="text-3xl font-semibold text-gray-800 mb-4">{title}</h1>
@@ -29,11 +99,12 @@ const CourseHeader = ({
           </span>
         </div>
         <div>
-          <Link to={"/payment"}>
-            <button className="px-6 py-2 bg-Primary text-white rounded-full hover:bg-blue-700 transition">
-              Buy Now
-            </button>
-          </Link>
+          <button
+            className="px-6 py-2 bg-primary text-white rounded-full hover:bg-blue-700 transition"
+            onClick={handlePayment}
+          >
+            Buy Now
+          </button>
         </div>
       </div>
 
@@ -48,4 +119,3 @@ const CourseHeader = ({
 };
 
 export default CourseHeader;
-  

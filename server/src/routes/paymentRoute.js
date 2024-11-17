@@ -1,12 +1,9 @@
-const express = require("express")
-const paymentRouter = express.Router();
-const { paymentGateWay, verifyRazorpay } = require('../controllers/paymentController');
+const express = require("express");
+const paymentrouter = express.Router();
+const paymentController = require("../controllers/paymentController");
 
+paymentrouter.post("/order", paymentController.createOrder);
+paymentrouter.post("/verify", paymentController.verifyPayment);
+paymentrouter.get("/details/:id", paymentController.getPaymentDetails); // Updated route
 
-
-paymentRouter.post("/payment", paymentGateWay);
-paymentRouter.post("/verify", verifyRazorpay);
-
-
-
-module.exports = paymentRouter;
+module.exports = paymentrouter;

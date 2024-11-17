@@ -18,6 +18,7 @@ import InstructorTable from "./Components/Instructor/InstructorTable";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import AdminPanel from "./Components/AdminPanel/AdminPanel";
+import CourseHeader from "./Components/CourseDetails/CourseHeader";
 
 const Routers = () => {
   return (
