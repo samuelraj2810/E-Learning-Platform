@@ -101,7 +101,7 @@ const Dashboard = () => {
           <h1 className="mr-auto capitalize text-Primary text-xs tracking-widest rounded-lg bg-gray-50 p-1">{instructorName}</h1>
           <LogoutOutlined  className="text-white hidden lg:block bg-red-500 p-1 rounded-full" onClick={handleSignOut}/>
         </div>
-        <motion.div className="bg-white m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
+        <motion.div className="bg-white md:m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
           <Outlet />
         </motion.div>
       </div>

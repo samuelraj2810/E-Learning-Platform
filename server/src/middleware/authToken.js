@@ -8,6 +8,7 @@ const tokenGen = async(userId) => {
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization;
+console.log(token);
 
     
     if (!token) {

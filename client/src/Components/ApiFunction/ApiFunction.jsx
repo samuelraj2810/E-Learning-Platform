@@ -10,6 +10,23 @@ export const POST = async (action, params) => {
     console.error(error);
   }
 };
+export const POSTFILE = async (action, params) => {
+  const token = sessionStorage.getItem("token")
+
+  try {
+      const result = await axios.post(action, params,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      if (result.status === 200) {
+        return result;
+      }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const GET = async (action) => {
   try {
@@ -33,6 +50,23 @@ export const PUT = async (action, params) => {
     if (token) {
       const result = await axios.put(action, params, {
         headers: { Authorization: `Bearer ${token}` },
+      });
+      if (result.status === 200) {
+        return result;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const PUTFILE = async (action, params) => {
+  try {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const result = await axios.put(action, params, {
+        headers: { Authorization: `Bearer ${token}` ,
+        "Content-Type": "multipart/form-data"
+      },
       });
       if (result.status === 200) {
         return result;
