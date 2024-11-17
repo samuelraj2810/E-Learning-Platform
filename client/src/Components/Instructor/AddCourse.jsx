@@ -112,52 +112,52 @@ function AddCourse() {
       <span className="text-xl">Add Course</span>
       <table className="table-auto w-fit">
   <tbody>
-    <tr className="flex flex-col md:flex-row">
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Course Name</td>
       <td className="md:px-4 py-2">
         <CustomInput
           placeholder="Enter course name"
           className="w-full"
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2 flex items-center gap-4"
           onChange={(e) =>
             setCourseData({ ...courseData, courseName: e.target.value })
           }
         />
       </td>
     </tr>
-    <tr className="flex flex-col md:flex-row">
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Price</td>
       <td className="md:px-4 py-2">
         <CustomInput
           placeholder="Enter price"
           className="w-full"
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2 flex items-center gap-4"
           onChange={(e) =>
             setCourseData({ ...courseData, price: parseFloat(e.target.value) })
           }
         />
       </td>
     </tr>
-    <tr className="flex flex-col md:flex-row">
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Rating</td>
       <td className="md:px-4 py-2">
         <CustomInput
           placeholder="Enter rating"
           className="w-full"
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2 flex items-center gap-4"
           onChange={(e) =>
             setCourseData({ ...courseData, rating: e.target.value })
           }
         />
       </td>
     </tr>
-    <tr className="flex flex-col md:flex-row">
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Duration</td>
       <td className="md:px-4 py-2">
         <CustomInput
           placeholder="Enter duration"
           className="w-full"
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2 flex items-center gap-4"
           onChange={(e) =>
             setCourseData({ ...courseData, duration: e.target.value })
           }
@@ -168,7 +168,7 @@ function AddCourse() {
       (key) => (
         <React.Fragment key={key}>
           {courseData[key]?.map((item, index) => (
-            <tr className="flex flex-col md:flex-row" key={`${key}-${index}`}>
+            <tr className="grid grid-cols-1 md:grid-cols-2" key={`${key}-${index}`}>
               <td className="px-4 py-2">
                 {key} {index + 1}
               </td>
@@ -176,7 +176,7 @@ function AddCourse() {
                 <CustomInput
                   placeholder={`Enter ${key}`}
                   className="w-full"
-                  containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+                  containerClassName="p-2 flex items-center gap-4"
                   onChange={(e) =>
                     handleArrayChange(index, key, e.target.value)
                   }
@@ -210,7 +210,7 @@ function AddCourse() {
                 title={`${key} ${index + 1}`}
                 placeholder={`Enter ${key}`}
                 className="md:w-fit"
-                containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+                containerClassName="p-2 flex items-center gap-4"
                 onChange={(e) => handleArrayChange(index, key, e.target.value)}
               />
             ))}

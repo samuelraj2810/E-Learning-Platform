@@ -110,61 +110,59 @@ function EditCourse() {
 
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
-      <span className="text-xl">Edit Course</span>
-      <table className="table-auto w-fit">
+      <span className="text-xl border-b pb-4">Edit Course</span>
+      <table className="table-auto w-fit ">
   <tbody className="">
-    <tr className="text-xs md:text-lg">
-      <td className="md:block hidden px-4 py-2 font-medium">Course Name</td>
-      <td className="px-4 py-2 w-96">
+    <tr className="grid grid-cols-1 md:grid-cols-2 ">
+      <td className=" px-4 py-2 font-medium">Course Name</td>
+      <td className="px-4 py-2 ">
         <CustomInput
-        title="curseName"
-        titleClassName="md:hidden"
           placeholder="Enter course name"
           className="w-full "
           value={editdata.courseName}
-          containerClassName="p-2 bg-gray-50 grid items-center gap-4"
+          containerClassName="p-2  flex items-center gap-4"
           onChange={(e) =>
             setEditdata({ ...editdata, courseName: e.target.value })
           }
         />
       </td>
     </tr>
-    <tr>
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Price</td>
       <td className="px-4 py-2">
         <CustomInput
           placeholder="Enter price"
           className="w-full"
           value={editdata.price}
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2  flex items-center gap-4"
           onChange={(e) =>
             setEditdata({ ...editdata, price: parseFloat(e.target.value) })
           }
         />
       </td>
     </tr>
-    <tr>
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Rating</td>
       <td className="px-4 py-2">
         <CustomInput
           placeholder="Enter rating"
           className="w-full"
           value={editdata.rating}
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2  flex items-center gap-4"
           onChange={(e) =>
             setEditdata({ ...editdata, rating: e.target.value })
           }
         />
       </td>
     </tr>
-    <tr>
+    <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Duration</td>
       <td className="px-4 py-2">
         <CustomInput
           placeholder="Enter duration"
           className="w-full"
           value={editdata.duration}
-          containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+          containerClassName="p-2  flex items-center gap-4"
           onChange={(e) =>
             setEditdata({ ...editdata, duration: e.target.value })
           }
@@ -174,13 +172,8 @@ function EditCourse() {
     {["title", "lectureDuration", "description", "requirements", "learn"].map(
       (key) => (
         <React.Fragment key={key}>
-          <tr>
-            <td className="px-4 py-2 font-medium" colSpan={2}>
-            edit
-            </td>
-          </tr>
           {editdata[key]?.map((item, index) => (
-            <tr key={`${key}-${index}`}>
+            <tr key={`${key}-${index}`} className="grid grid-cols-1 md:grid-cols-2">
               <td className="px-4 py-2">
                 {key} {index + 1}
               </td>
@@ -189,7 +182,7 @@ function EditCourse() {
                   placeholder={`Enter ${key}`}
                   className="w-full"
                   value={editdata[key][index]}
-                  containerClassName="p-2 bg-gray-50 flex items-center gap-4"
+                  containerClassName="p-2  flex items-center gap-4"
                   onChange={(e) =>
                     handleArrayChange(index, key, e.target.value)
                   }
@@ -212,13 +205,13 @@ function EditCourse() {
     )}
   </tbody>
 </table>
-      <div className="bg-gray-50 flex gap-5 text-base p-2">
+      <div className=" flex gap-5 text-base p-2">
         <label>Image</label>
         <Upload {...props.image}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
       </div>
-      <div className="bg-gray-50 flex gap-5 text-base p-2">
+      <div className=" flex gap-5 text-base p-2">
         <label>Video</label>
         <Upload {...props.video}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
