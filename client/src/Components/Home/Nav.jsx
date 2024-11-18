@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import CustomDropdown from "../Common/CustomDropdown";
-
+import Logo from "../../Assets/Logo.jpg"
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
@@ -66,7 +66,7 @@ const Nav = () => {
   return (
     <nav className="sticky lg:text-xl bg-Primary text-white top-0 font-Poppins flex h-[10vh] shadow-lg px-2 z-40">
       <div className="p-2 flex items-center w-full">
-      <h1 className="">Logo</h1>
+      <img className="w-20" src={Logo} alt="E-Learning" />
         <span className={isMenu ? "hidden" : "fixed right-4 p-1 z-40"}>
           <MenuOutlined onClick={handleMenuClick} className={`md:hidden`} />
         </span>

@@ -37,12 +37,12 @@ const ContactPage = () => {
 
           <div>
             <h3 className="font-bold">Phone:</h3>
-            <p className="text-gray-700">+91 98765 43210</p>
+            <p className="text-gray-700">+91 6369914235</p>
           </div>
 
           <div>
             <h3 className="font-bold">Email:</h3>
-            <p className="text-gray-700">support@example.com</p>
+            <p className="text-gray-700">samuelraj2810@gmail.com</p>
           </div>
 
           <div>
@@ -50,7 +50,7 @@ const ContactPage = () => {
             <p className="text-gray-700">
               123, ABC Street,
               <br />
-              Kanyakumari, India
+              Chennai, India
             </p>
           </div>
         </div>
