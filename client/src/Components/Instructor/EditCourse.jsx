@@ -14,6 +14,7 @@ function EditCourse() {
   const showMessage = useCustomMessage();
   const [editdata, setEditdata] = useState({
     courseName: data.courseName,
+    subTopic:data.subTopic,
     duration: data.duration,
     rating: data.rating || "",
     price: data.price || "",
@@ -24,12 +25,18 @@ function EditCourse() {
     learn: data.learn,
     instructorName: data.instructorName,
     instructorId: data.instructorId,
+    imagePath: data.imagePath,
+    imageName:data.imageName,
+    videoName:data.videoName,
+    videoPath:data.videoPath,
   });
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  console.log("rating", editdata);
+  const baseurl = "http://localhost:3000"
+  console.log("rating", editdata.imagePath);
+
 
   const navigate = useNavigate();
   let formData = new FormData();
@@ -94,6 +101,16 @@ function EditCourse() {
         setImage(null);
       },
       fileList: image ? [image] : [],
+      defaultFileList: editdata.imagePath
+      ? [
+          {
+            uid: "-1", // Unique ID for the file
+            name: editdata.imagePath.split("/").pop(), // Extract the image name from the path
+            status: "done", // Indicates the file is already uploaded
+            url: `${baseurl}${editdata.imagePath}`, // URL to display the file
+          },
+        ]
+      : [],
     },
 
     video: {
@@ -105,12 +122,20 @@ function EditCourse() {
         setVideo(null);
       },
       fileList: video ? [video] : [],
+      defaultFileList: editdata.videoName
+      ? [
+          {
+            name: editdata.videoName
+          },
+        ]
+      : [],
     },
   };
 
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl border-b pb-4">Edit Course</span>
+      <img src={`${baseurl}${editdata.imagePath}`}></img>
       <table className="table-auto w-fit ">
   <tbody className="">
     <tr className="grid grid-cols-1 md:grid-cols-2 ">
@@ -123,6 +148,20 @@ function EditCourse() {
           containerClassName="p-2  flex items-center gap-4"
           onChange={(e) =>
             setEditdata({ ...editdata, courseName: e.target.value })
+          }
+        />
+      </td>
+    </tr>
+    <tr className="grid grid-cols-1 md:grid-cols-2 ">
+      <td className=" px-4 py-2 font-medium">Sub Topic</td>
+      <td className="px-4 py-2 ">
+        <CustomInput
+          placeholder="Enter sub topic"
+          className="w-full "
+          value={editdata.subTopic}
+          containerClassName="p-2  flex items-center gap-4"
+          onChange={(e) =>
+            setEditdata({ ...editdata, subTopic: e.target.value })
           }
         />
       </td>
@@ -210,12 +249,22 @@ function EditCourse() {
         <Upload {...props.image}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
+        {editdata.imageName && (
+    <div className="text-gray-500 text-sm">
+      FileName: <span className="font-medium">{editdata.imageName}</span>
+    </div>
+  )}
       </div>
       <div className=" flex gap-5 text-base p-2">
         <label>Video</label>
         <Upload {...props.video}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
+        {editdata.videoName && (
+    <div className="text-gray-500 text-sm">
+      FileName: <span className="font-medium">{editdata.videoName}</span>
+    </div>
+  )}
       </div>
 
       <CustomButton

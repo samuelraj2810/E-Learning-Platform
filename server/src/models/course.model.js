@@ -8,6 +8,7 @@ const courseSchema = new mongoose.Schema({
         default:v4
     },
     courseName:String,
+    subTopic:String,
     duration:String,
     rating:String,
     price:String,
