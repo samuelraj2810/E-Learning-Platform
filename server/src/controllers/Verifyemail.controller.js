@@ -34,7 +34,6 @@ const verifyEmail = async (req, res) => {
     }
     else {
       await adminDetails.create(data)
-      res.redirect("http://localhost:3001/instructordashboard")
     }
 
     res.redirect("http://localhost:3001/verify");
