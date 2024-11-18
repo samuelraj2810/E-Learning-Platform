@@ -101,16 +101,6 @@ function EditCourse() {
         setImage(null);
       },
       fileList: image ? [image] : [],
-      defaultFileList: editdata.imagePath
-      ? [
-          {
-            uid: "-1", // Unique ID for the file
-            name: editdata.imagePath.split("/").pop(), // Extract the image name from the path
-            status: "done", // Indicates the file is already uploaded
-            url: `${baseurl}${editdata.imagePath}`, // URL to display the file
-          },
-        ]
-      : [],
     },
 
     video: {
@@ -121,21 +111,12 @@ function EditCourse() {
       onRemove: () => {
         setVideo(null);
       },
-      fileList: video ? [video] : [],
-      defaultFileList: editdata.videoName
-      ? [
-          {
-            name: editdata.videoName
-          },
-        ]
-      : [],
     },
   };
 
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl border-b pb-4">Edit Course</span>
-      <img src={`${baseurl}${editdata.imagePath}`}></img>
       <table className="table-auto w-fit ">
   <tbody className="">
     <tr className="grid grid-cols-1 md:grid-cols-2 ">

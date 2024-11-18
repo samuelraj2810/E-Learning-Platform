@@ -108,14 +108,10 @@ function AddCourse() {
     },
   };
 
-const imageurl ="http://localhost:3000"
-const imagepath ="/upload/1731912088623-Frame 3.jpg"
+
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl">Add Course</span>
-
-      <img src={`${imageurl}${imagepath}`}></img>
-      
       <table className="table-auto w-fit">
   <tbody>
     <tr className="grid grid-cols-1 md:grid-cols-2">
@@ -131,6 +127,7 @@ const imagepath ="/upload/1731912088623-Frame 3.jpg"
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Sub Topic</td>
       <td className="md:px-4 py-2">
@@ -144,6 +141,7 @@ const imagepath ="/upload/1731912088623-Frame 3.jpg"
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Price</td>
       <td className="md:px-4 py-2">
@@ -157,6 +155,7 @@ const imagepath ="/upload/1731912088623-Frame 3.jpg"
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Rating</td>
       <td className="md:px-4 py-2">
@@ -170,6 +169,7 @@ const imagepath ="/upload/1731912088623-Frame 3.jpg"
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Duration</td>
       <td className="md:px-4 py-2">
@@ -183,6 +183,7 @@ const imagepath ="/upload/1731912088623-Frame 3.jpg"
         />
       </td>
     </tr>
+    
     {["title", "lectureDuration", "description", "requirements", "learn"].map(
       (key) => (
         <React.Fragment key={key}>
