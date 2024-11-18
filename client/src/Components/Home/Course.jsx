@@ -1,10 +1,12 @@
-import javaScriptBaicsImage from "../../Assets/CourseCatalogMedia/image1.png";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import javaScriptBaicsImage from "../../Assets/CourseCatalogMedia/image1.png"
 import Reactfundamental from "../../Assets/CourseCatalogMedia/pngwing.png";
 import nodejs from "../../Assets/CourseCatalogMedia/image3.png";
 import css from "../../Assets/CourseCatalogMedia/image4.png";
-import API from "../../Assets/CourseCatalogMedia/image5.png";
-import CarddComp from "./CarddComp";
-const CourseCardData = [
+import API from "../../Assets/CourseCatalogMedia/image5.png"
+
+const courses = [
   {
     id: 1,
     image: javaScriptBaicsImage,
@@ -61,26 +63,44 @@ const CourseCardData = [
 
 const Course = () => {
   return (
-    <div className="w-[90%] mx-auto mb-10 flex flex-col gap-5 md:gap-14 ">
-      <h1 className="text-2xl font-semibold md:text-3xl relative z-10 "><span className="text-white">Popular</span> Courses</h1>
-      <div className="h-10 w-[120px] rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
-      <div className="flex flex-row flex-wrap justify-evenly w-full mx-auto ">
-        {CourseCardData.length >= 1 ? (
-          CourseCardData.map((value, index) => (
-            <CarddComp
-              index={index}
-              image={value.image}
-              courseName={value.title}
-              instructorName={value.instructor}
-              price={value.price}
-              rating={value.rating}
-            />
-          ))
-        ) : (
-          <>
-            <h1>data not found</h1>
-          </>
-        )}
+    <div className="w-[90%] mx-auto ">
+      <div className="md:w-full p-6 ">
+        <h1 className=" text-2xl md:text-3xl font-semibold mb-8 relative ">
+          Popular Courses
+        </h1>
+
+        <div className="flex flex-wrap justify-evenly gap-5">
+          {courses.length > 0 ? (
+            courses.map((course) => (
+              <div
+                key={course.id}
+                className="bg-white flex-col md:w-[280px] shadow-md rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-blue-50"
+              >
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-48 object-contain rounded-md mb-4"
+                />
+                <h2 className="text-xl font-semibold">{course.title}</h2>
+                <p className="text-gray-700">Instructor: {course.instructor}</p>
+                <p className="text-green-500 font-bold">{course.price}</p>
+                <p className="text-yellow-500 font-semibold">
+                  Rating: {course.rating} ⭐
+                </p>
+                <Link
+                  to={`/courses/${course.id}`}
+                  className="inline-block mt-4 text-blue-500"
+                >
+                  View Details
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-full text-center">
+              No courses found based on your filters.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

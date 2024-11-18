@@ -1,10 +1,11 @@
 const userDetails = require("../models/UserDetails..model")
 const bcrypt = require("bcrypt")
 
+// Get User Data
 const getData = async(req,res) =>{
     try{
         const userId = req.userId
-        console.log(userId);
+        // console.log(userId);
         
         const data = await userDetails.findOne({userId})
         const datas = [data]
@@ -18,6 +19,8 @@ const getData = async(req,res) =>{
         res.json(error.message)
     }
 }
+
+// Edit User Data
 const editData = async(req,res) =>{
     try{
         const userId = req.userId

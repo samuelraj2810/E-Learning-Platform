@@ -6,6 +6,7 @@ const {sendVerificationEmail} = require("../utils/verifyemail")
 
 const jwt = require("jsonwebtoken")
 
+// Registers the user data
 const regPost = async(req,res) =>{
     try {
         const{email , password,username}=req.body
@@ -37,6 +38,7 @@ const regPost = async(req,res) =>{
     }
 }
 
+// login function
 const loginPost = async(req,res) => {
     try {
         const {email,password} = req.body
@@ -55,7 +57,7 @@ const loginPost = async(req,res) => {
         }
 
         const token =await tokenGen(checkmail.userId)
-        console.log(token)
+        // console.log(token)
         let navigate
 
         checkmail.designation==="Student"?navigate="/":checkmail.designation==="Instructor"?navigate="/instructordashboard":navigate="/admin"

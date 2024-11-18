@@ -3,6 +3,9 @@ const register = require("../models/Register.model");
 const jwt = require("jsonwebtoken");
 const userDetails = require("../models/UserDetails..model");
 const instDetails = require("../models/instructorDetails.model");
+
+// Verifies email of User
+
 const verifyEmail = async (req, res) => {
   try {
     const { token } = req.params;

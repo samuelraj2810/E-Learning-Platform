@@ -1,10 +1,10 @@
 const instructorDetails = require("../models/instructorDetails.model")
 
-
+// Get Instructors Details
 const insgetData = async (req, res) => {
     try {
         const userId = req.userId;
-        console.log(userId)
+        // console.log(userId)
         // Check if userId exists in the request
         if (!userId) {
             return res.status(400).json({ message: "User ID is required" });
@@ -18,13 +18,14 @@ const insgetData = async (req, res) => {
         }
 
         const datas = [data];
-        console.log(datas);
+        // console.log(datas);
         res.json(datas);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+//Edit Instructors Details
 const inseditData = async(req,res) =>{
     try{
         console.log(req.body,"hi")

@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 const {v4} = require("uuid")
 
 
-
 const courseSchema = new mongoose.Schema({
     _id:{
         type:String,
@@ -10,8 +9,8 @@ const courseSchema = new mongoose.Schema({
     },
     courseName:String,
     duration:String,
-    rating:Number,
-    price:Number,
+    rating:String,
+    price:String,
     title:[
         String
     ],
