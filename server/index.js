@@ -6,6 +6,8 @@ const router = require("./src/routes/register.route")
 const insrouter = require("./src/routes/instrutor.route")
 const filerouter = require("./src/middleware/file.route")
 const cors = require("cors")
+const AuthenitactionRouter = require("./src/routes/register.route");
+const paymentrouter = require("./src/routes/paymentRoute");
 
 app.use(cors('*'))
 app.use(express.json())
@@ -15,24 +17,17 @@ Connection()
 app.use(router)
 app.use(insrouter)
 app.use(filerouter)
-
-app.listen(3000, () => {
-    try {
-        console.log("Server Connected");
-        
-    } catch (error) {
-        console.log("Connection Failed");
-    }
-})
-const AuthenitactionRouter = require("./src/routes/register.route");
-const cors = require("cors");
-const paymentrouter = require("./src/routes/paymentRoute")
-app.use(cors());
-app.use(express.json());
-Connection();
 app.use(AuthenitactionRouter);
-
 app.use(paymentrouter);
+
+// app.listen(3000, () => {
+//     try {
+//         console.log("Server Connected");
+        
+//     } catch (error) {
+//         console.log("Connection Failed");
+//     }
+// })
 
 const port = 3000
 app.get('/', (req,res)=> {

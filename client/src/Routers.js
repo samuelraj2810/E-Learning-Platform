@@ -14,12 +14,10 @@ import CourseDetails from "./Components/CourseDetails/CourseDetails";
 import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
-import InstructorTable from "./Components/Instructor/InstructorTable";
+// import InstructorTable from "./Components/Instructor/InstructorTable";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import AdminPanel from "./Components/AdminPanel/AdminPanel";
-import CourseHeader from "./Components/CourseDetails/CourseHeader";
-
 const Routers = () => {
   return (
     <main className="font-Poppins">

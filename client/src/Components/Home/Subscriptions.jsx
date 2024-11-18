@@ -25,7 +25,7 @@ function Subscriptions() {
   ];
 
   return (
-    <div className="w-[90%] m-auto flex flex-col gap-5 mb-10 md:gap-14 md:mt-20 md:mb-20 ">
+    <div className="w-[90%] m-auto flex flex-col gap-4 mb-10 md:gap-14 md:mt-20 md:mb-20 ">
       <h1 className="text-2xl font-semibold md:text-[28px] md:text-3xl relative z-10"><span className="text-white">Plan</span> Details</h1>
       <div className="h-10 w-16 rounded-tr-lg absolute rotate-12 -z-1 bg-Primary"/>
       <div className="flex flex-row flex-wrap p-14 mx-auto items-center justify-evenly w-full">
