@@ -4,7 +4,6 @@ import javaScriptBaicsImage from "../../Assets/CourseCatalogMedia/image1.png"
 import Reactfundamental from "../../Assets/CourseCatalogMedia/pngwing.png";
 import nodejs from "../../Assets/CourseCatalogMedia/image3.png";
 import css from "../../Assets/CourseCatalogMedia/image4.png";
-import API from "../../Assets/CourseCatalogMedia/image5.png"
 
 const courses = [
   {
@@ -47,18 +46,7 @@ const courses = [
     category: "Frontend Development",
     rating: 4.8,
     description: "Learn how to style your website using CSS.",
-  },
-  {
-    id: 5,
-    image: API,
-    title: "API Learning",
-    instructor: "Michael Clark",
-    price: 799,
-    category: "Backend Development",
-    rating: 4.6,
-    description:
-      "Understand how to work with APIs and integrate them into your apps.",
-  },
+  }
 ];
 
 const Course = () => {

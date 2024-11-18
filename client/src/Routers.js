@@ -18,6 +18,7 @@ import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import AdminPanel from "./Components/AdminPanel/AdminPanel";
+import ContactPage from "./Components/Home/Contact";
 const Routers = () => {
   return (
     <main className="font-Poppins">
@@ -28,6 +29,7 @@ const Routers = () => {
           <Route path="/courses/:courseId" element={<CourseDetails />} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Route>
 
         <Route path="/signup" element={<Signup />} />
@@ -38,15 +40,21 @@ const Routers = () => {
 
         <Route path="/instructordashboard" element={<DashBoard />}>
           {/* <Route index element={<InstructorTable/>} /> */}
-          <Route path="/instructordashboard" element={<InstructorProfile/>} />
-          <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
-          <Route path="/instructordashboard/instructorcourse/addCourse" element={<AddCourse/>} />
-          <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
           <Route path="/instructordashboard" element={<InstructorProfile />} />
           <Route
             path="/instructordashboard/instructorcourse"
             element={<InstructorCourse />}
           />
+          <Route
+            path="/instructordashboard/instructorcourse/addCourse"
+            element={<AddCourse />}
+          />
+          <Route
+            path="/instructordashboard/instructorcourse/editCourse"
+            element={<EditCourse />}
+          />
+          <Route path="/instructordashboard" element={<InstructorProfile />} />
+          
         </Route>
 
         <Route path="/admin" element={<AdminPanel />} />
