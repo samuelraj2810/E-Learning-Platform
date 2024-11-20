@@ -20,7 +20,7 @@ const verifyEmail = async (req, res) => {
     user.isVerified = true;
     await user.save();
     const data = {
-      name: user.username,
+      username: user.username,
       email: user.email,
       phonenumber: user.number,
       designation: user.designation,
@@ -34,7 +34,6 @@ const verifyEmail = async (req, res) => {
     }
     else {
       await adminDetails.create(data)
-      res.redirect("http://localhost:3001/instructordashboard")
     }
 
     res.redirect("http://localhost:3001/verify");

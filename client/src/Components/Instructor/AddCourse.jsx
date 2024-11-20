@@ -12,6 +12,7 @@ function AddCourse() {
   const showMessage = useCustomMessage();
   const [courseData, setCourseData] = useState({
     courseName: "",
+    subTopic:"",
     duration: "",
     rating: "",
     price: "",
@@ -107,6 +108,7 @@ function AddCourse() {
     },
   };
 
+
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl">Add Course</span>
@@ -125,6 +127,21 @@ function AddCourse() {
         />
       </td>
     </tr>
+
+    <tr className="grid grid-cols-1 md:grid-cols-2">
+      <td className="px-4 py-2 font-medium">Sub Topic</td>
+      <td className="md:px-4 py-2">
+        <CustomInput
+          placeholder="Enter sub topic"
+          className="w-full"
+          containerClassName="p-2 flex items-center gap-4"
+          onChange={(e) =>
+            setCourseData({ ...courseData, subTopic: e.target.value })
+          }
+        />
+      </td>
+    </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Price</td>
       <td className="md:px-4 py-2">
@@ -138,6 +155,7 @@ function AddCourse() {
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Rating</td>
       <td className="md:px-4 py-2">
@@ -151,6 +169,7 @@ function AddCourse() {
         />
       </td>
     </tr>
+
     <tr className="grid grid-cols-1 md:grid-cols-2">
       <td className="px-4 py-2 font-medium">Duration</td>
       <td className="md:px-4 py-2">
@@ -164,6 +183,7 @@ function AddCourse() {
         />
       </td>
     </tr>
+    
     {["title", "lectureDuration", "description", "requirements", "learn"].map(
       (key) => (
         <React.Fragment key={key}>

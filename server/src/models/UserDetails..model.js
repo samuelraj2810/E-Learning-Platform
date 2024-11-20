@@ -4,7 +4,8 @@ const { v4 } = require("uuid");
 const userSch = new mongoose.Schema(
 
 {
-    name:String,
+    username:String,
+    fullName:String,
     phonenumber: Number,
     age:Number,
     gender:String,
@@ -13,7 +14,7 @@ const userSch = new mongoose.Schema(
     designation: String,
     title: {
       type: [String],
-      default: ["name","phonenumber","age","email"]
+      default: ["username","fullname","phonenumber","age","email"]
     },
     _id: {
       type: String,

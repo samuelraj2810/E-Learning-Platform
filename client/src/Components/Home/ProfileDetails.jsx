@@ -67,14 +67,17 @@ const ProfileDetails = () => {
           setCheckBoxValue(result.data[0].gender);
           setAddress(result.data[0].address);
           setDesignation(result.data[0].designation);
+          
+          
         }
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  console.log(designation);
 
-  console.log(data, "dddd");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -117,25 +120,17 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
     const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
-  
-    // Ensure no required fields are empty or just whitespace
-    if (
-      !data[0].email.trim() ||
-      !String(data[0].phonenumber).trim() ||
-      !data[0].address.trim() ||
-      !data[0].name.trim() ||
-      !String(data[0].age).trim() ||
-      !data[0].designation.trim()
-    ) {
-      showMessage("error", "Please fill in all fields");
-      return;
-    } else if (!emailPattern.test(data[0].email)) {
-      showMessage("error", "Please enter a valid email");
-      return;
-    } else if (!phonePattern.test(data[0].phonenumber)) {
+
+    Object.keys(data[0]).forEach((key) => {
+      if (typeof data[0][key] === "string") {
+        data[0][key] = data[0][key].trim(); // Trim strings
+      }
+    });
+    
+     
+    if (!phonePattern.test(data[0].phonenumber)) {
       showMessage("error", "Please enter a valid 10-digit mobile number");
       return;
     } else if (!agePattern.test(data[0].age)) {
@@ -231,7 +226,7 @@ const ProfileDetails = () => {
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               Designation
             </p>
-            <CustomDropdown type="select" className="w-full" defaultValue={designation} disabled={isupdate} menus={designationLists}/>
+            <CustomDropdown type="select" className="w-full" value={designation} disabled= {true} menus={designationLists} onChange={(e) => {setDesignation(e.target.value)}}/>
           </span>
         </div>
       ) : (
