@@ -20,7 +20,7 @@ const verifyEmail = async (req, res) => {
     user.isVerified = true;
     await user.save();
     const data = {
-      username: user.username,
+      name: user.username,
       email: user.email,
       phonenumber: user.number,
       designation: user.designation,
