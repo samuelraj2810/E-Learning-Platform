@@ -1,9 +1,14 @@
 const express = require("express");
-const paymentrouter = express.Router();
+const paymentRouter = express.Router();
 const paymentController = require("../controllers/paymentController");
 
-paymentrouter.post("/order", paymentController.createOrder);
-paymentrouter.post("/verify", paymentController.verifyPayment);
-paymentrouter.get("/details/:id", paymentController.getPaymentDetails); // Updated route
+// Create a new Razorpay order
+paymentRouter.post("/create-order", paymentController.createOrder);
 
-module.exports = paymentrouter;
+// Verify a Razorpay payment
+paymentRouter.post("/verify-payment", paymentController.verifyPayment);
+
+// Get payment details by payment ID
+paymentRouter.get("/payment-details/:id", paymentController.getPaymentDetails);
+
+module.exports = paymentRouter;
