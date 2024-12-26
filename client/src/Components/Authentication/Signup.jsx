@@ -139,7 +139,7 @@ function Signup() {
           type="select"
           containerClassName="mx-4"
           menus={designationLists}
-          className="w-full pr-2 py-5 border border-gray-300 rounded"
+          className="w-full h-10 pr-2 border border-gray-300 rounded "
           placeholder="select"
           variant="borderless"
           title="Designation"

@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CloseOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import CustomDropdown from "../Common/CustomDropdown";
+import CustomDropdown from "../../Common/CustomDropdown";
 
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuId, setMenuId] = useState(null);
   const [signOut, setSignOut] = useState(!sessionStorage.getItem("token"));
-
 
   const navList = [
     { id: 1, to: "/", title: "Home" },
@@ -58,7 +57,7 @@ const Nav = () => {
     handleMenuClick();
     if (id === 6) {
       sessionStorage.removeItem("token");
-      sessionStorage.removeItem("name")
+      sessionStorage.removeItem("name");
       setSignOut(true);
     }
   };
@@ -77,7 +76,9 @@ const Nav = () => {
             onClick={() => setMenuId(each.id)}
             to={each.to}
             key={each.id}
-            className={`hover:bg-PrimaryDark/10 p-4 rounded scale-100 transition-all hover:drop-shadow duration-500 ${each.id === menuId && " bg-PrimaryDark/30" }`}
+            className={`hover:bg-PrimaryDark/10 p-4 rounded scale-100 transition-all hover:drop-shadow duration-500 ${
+              each.id === menuId && " bg-PrimaryDark/30"
+            }`}
           >
             {each.title}
           </Link>

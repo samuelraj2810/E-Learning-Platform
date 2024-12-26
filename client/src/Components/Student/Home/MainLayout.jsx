@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { Outlet } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
-import { GET } from "../ApiFunction/ApiFunction";
-import { useCustomMessage } from "../Common/CustomMessage";
+import { GET } from "../../ApiFunction/ApiFunction";
+import { useCustomMessage } from "../../Common/CustomMessage";
 import { SmileTwoTone } from "@ant-design/icons";
-import Dashboard from "../Instructor/Dashboard";
+import Dashboard from "../../Instructor/Dashboard";
 
 function MainLayout() {
   const [data, setData] = useState([]);
