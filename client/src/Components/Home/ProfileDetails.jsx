@@ -226,7 +226,7 @@ const ProfileDetails = () => {
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               Designation
             </p>
-            <CustomDropdown type="select" className="w-full" value={designation} disabled= {true} menus={designationLists} onChange={(e) => {setDesignation(e.target.value)}}/>
+            <CustomDropdown type="select" className="w-full" value={designation} disabled= {true} menus={designationLists} />
           </span>
         </div>
       ) : (

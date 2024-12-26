@@ -17,6 +17,8 @@ const Dashboard = () => {
   const [instructorName, setInstructorName] = useState("- - -");
   const fetchData = async() => {
     const result = await GET("http://localhost:3000/getinsdata")
+    console.log(result.data);
+    
     setInstructorName(result[0]?.name)
   }
   useEffect(()=>{
