@@ -1,7 +1,7 @@
 import React from 'react';
-import studentOne from "../../Assets/Images/student-1.jpg"
-import studentTwo from "../../Assets/Images/student-2.jpg"
-import studentThree from "../../Assets/Images/student-3.jpg"
+import studentOne from "../../../Assets/Images/student-1.jpg"
+import studentTwo from "../../../Assets/Images/student-2.jpg"
+import studentThree from "../../../Assets/Images/student-3.jpg"
 function Testimonial(){
     
 const testimonials = [

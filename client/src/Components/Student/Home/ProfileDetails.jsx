@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
-import CustomInput from "../Common/CustomInput";
-import { GET, PUT } from "../ApiFunction/ApiFunction";
-import CustomButton from "../Common/CustomButton";
+import CustomInput from "../../Common/CustomInput";
+import { GET, PUT } from "../../ApiFunction/ApiFunction";
+import CustomButton from "../../Common/CustomButton";
 import { Checkbox, Radio, Switch } from "antd";
-import { useCustomMessage } from "../Common/CustomMessage";
+import { useCustomMessage } from "../../Common/CustomMessage";
 import TextArea from "antd/es/input/TextArea";
-import CustomProgressBar from "../Common/CustomProgressBar";
-import CustomSkeleton from "../Common/CustomSkeleton";
+import CustomProgressBar from "../../Common/CustomProgressBar";
+import CustomSkeleton from "../../Common/CustomSkeleton";
 import axios from "axios";
-import CustomDropdown from "../Common/CustomDropdown";
+import CustomDropdown from "../../Common/CustomDropdown";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();

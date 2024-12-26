@@ -1,8 +1,8 @@
 import React from "react";
-import mentorImg from "../../Assets/Images/mentor-1.jpg";
-import mentorOne from "../../Assets/Images/mentor-2.jpg";
-import mentorTwo from "../../Assets/Images/mentor-4.png";
-import mentorThree from "../../Assets/Images/mentor-3.jpg";
+import mentorImg from "../../../Assets/Images/mentor-1.jpg";
+import mentorOne from "../../../Assets/Images/mentor-2.jpg";
+import mentorTwo from "../../../Assets/Images/mentor-4.png";
+import mentorThree from "../../../Assets/Images/mentor-3.jpg";
 const Mentors = () => {
   const mentorsList = [
     { image: mentorImg, name: "Vignesh", status: "developer" },

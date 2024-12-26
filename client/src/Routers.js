@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Components/Home/Home";
+import Home from "./Components/Student/Home/Home";
 import Signup from "./Components/Authentication/Signup";
 import Login from "./Components/Authentication/Login";
 import ResetPassword from "./Components/Authentication/ResetPass";
 import ForgotPassword from "./Components/Authentication/Forgotpass";
 import VericicationPage from "./Components/Authentication/VericicationPage";
-import ProfileDetails from "./Components/Home/ProfileDetails";
-import MainLayout from "./Components/Home/MainLayout"; 
+import ProfileDetails from "./Components/Student/Home/ProfileDetails";
+import MainLayout from "./Components/Student/Home/MainLayout"; 
 import DashBoard from "./Components/Instructor/Dashboard"; 
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
