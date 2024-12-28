@@ -33,7 +33,7 @@ function MainLayout() {
   return (
     <>
       <Nav />
-      {!data ? <LoadingPage /> : <Outlet />}
+      {data ? <LoadingPage /> : <Outlet />}
     </>
   );
 }
