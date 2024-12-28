@@ -19,6 +19,8 @@ const Dashboard = () => {
     const result = await GET("http://localhost:3000/getinsdata")
     setInstructorName(result[0]?.name)
   }
+  console.log(instructorName);
+  
   useEffect(()=>{
     fetchData()
   },[])

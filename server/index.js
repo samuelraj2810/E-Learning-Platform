@@ -5,6 +5,7 @@ const Connection = require("./src/config/connection");
 const router = require("./src/routes/register.route")
 const insrouter = require("./src/routes/instrutor.route")
 const filerouter = require("./src/middleware/file.route")
+const courserouter = require("./src/routes/course.routes")
 const cors = require("cors")
 
 app.use(cors('*'))
@@ -15,6 +16,7 @@ Connection()
 app.use(router)
 app.use(insrouter)
 app.use(filerouter)
+app.use(courserouter)
 
 app.listen(3000, () => {
     try {

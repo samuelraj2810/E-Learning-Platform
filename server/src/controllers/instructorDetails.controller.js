@@ -18,7 +18,8 @@ const insgetData = async (req, res) => {
         }
 
         const datas = [data];
-        // console.log(datas);
+        
+        console.log(datas);
         res.json(datas);
     } catch (error) {
         res.status(500).json({ message: error.message });
