@@ -2,12 +2,15 @@ const { log } = require("console");
 const courseDetails = require("../models/course.model");
 const instructorDetails = require("../models/instructorDetails.model");
 const fs = require("fs");
+
+
 const addCourse = async (req, res) => {
   try {
     const instructorId = req.userId;
     const insdata = await instructorDetails.findOne({ userId: instructorId });
-    console.log(insdata);
+    // console.log(insdata);
     const instructorName = insdata.name;
+    
     const imagefile = req.files["image"] ? req.files["image"][0] : null;
     const videofile = req.files["video"] ? req.files["video"][0] : null;
     const data = {
@@ -120,12 +123,12 @@ const getCourse = async (req, res) => {
   try {
     const { _id } = req.params;
     const data = await courseDetails.findOne({ _id });
-    console.log(data);
+    // console.log(data);
 
     if (!data) {
       return res.status(403).json({ message: "no data found" });
     }
-    res.json(data);
+    res.json([data]);
   } catch (error) {
     res.json(error.message);
   }
@@ -135,7 +138,7 @@ const deleteCourse = async (req, res) => {
   try {
     const { _id } = req.params;
     const data = await courseDetails.findById({ _id });
-    console.log(data);
+    // console.log(data);
 
     const data1 = await courseDetails.findByIdAndDelete(_id);
     res.json({
