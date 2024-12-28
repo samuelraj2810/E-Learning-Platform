@@ -106,6 +106,8 @@ const getAllCourse = async (req, res) => {
     if (!data) {
       return res.status(403).json({ message: "no data found" });
     }
+    console.log(data);
+    
     res.json(data);
   } catch (error) {
     res.json(error.message);

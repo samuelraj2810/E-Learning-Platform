@@ -24,12 +24,13 @@ const CustomInput = ({
 
   return (
     <span className={containerClassName}>
+      {title &&
       <p className={`text-base font-normal capitalize mb-4 text-gray-700 ${titleClassName}`}>
         {title}
         {required && (
             <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">required</span>
         )}
-      </p>
+      </p>}
       {type !== "password" ?
       <Input
         type={type === "number" ? "number" : type}
