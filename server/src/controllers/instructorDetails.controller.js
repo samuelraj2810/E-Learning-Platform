@@ -33,7 +33,7 @@ const inseditData = async(req,res) =>{
         const{age} = req.body
         age==null||undefined? null : parseInt(age)
         const data = await instructorDetails.findOneAndUpdate({userId},{...req.body,age},{new:true})
-        console.log(data);
+        // console.log(data);
         if(!data){
             res.json({message:"data not"})
         }

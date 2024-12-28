@@ -64,7 +64,7 @@ const editCourse = async (req, res) => {
         newdata.videoName = videofile.filename
     }
 
-    console.log("success");
+    // console.log("success");
 
     const updatedData = await courseDetails.findOneAndUpdate({ _id }, newdata, {
       new: true,
@@ -106,7 +106,7 @@ const getAllCourse = async (req, res) => {
     if (!data) {
       return res.status(403).json({ message: "no data found" });
     }
-    console.log(data);
+    // console.log(data);
     
     res.json(data);
   } catch (error) {

@@ -12,9 +12,9 @@ function MainLayout() {
   const [data, setData] = useState([]);
   const showMessage = useCustomMessage();
 
-  const token = sessionStorage.getItem("token");
   const fetchData = async () => {
     try {
+      const token = sessionStorage.getItem("token");
       if (token) {
         const result = await axios.get("http://localhost:3000/getData", {
           headers: { Authorization: `Bearer ${token}` },
@@ -30,7 +30,7 @@ function MainLayout() {
   useEffect(() => {
     fetchData();
   }, []);
- console.log(data);
+//  console.log(data);
  
   return (
     <>

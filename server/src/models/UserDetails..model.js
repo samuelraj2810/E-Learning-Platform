@@ -28,4 +28,4 @@ const userSch = new mongoose.Schema(
 
 const userDetails = mongoose.model("UserDetails",userSch)
 
-module.exports= userDetails
+module.exports = userDetails
