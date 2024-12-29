@@ -6,6 +6,7 @@ import { GET } from "../../ApiFunction/ApiFunction";
 import { useCustomMessage } from "../../Common/CustomMessage";
 import { SmileTwoTone } from "@ant-design/icons";
 import Dashboard from "../../Instructor/Dashboard";
+import axios from "axios";
 
 function MainLayout() {
   const [data, setData] = useState([]);
@@ -15,7 +16,7 @@ function MainLayout() {
     try {
       const token = sessionStorage.getItem("token");
       if (token) {
-        const result = await GET("http://localhost:3000/getData", {
+        const result = await axios.get("http://localhost:3000/getData", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setData(result);
@@ -29,7 +30,8 @@ function MainLayout() {
   useEffect(() => {
     fetchData();
   }, []);
-
+//  console.log(data);
+ 
   return (
     <>
       <Nav />

@@ -14,6 +14,7 @@ import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import InstructorTable from "./Components/Instructor/InstructorTable";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
+import Course from "./Components/Student/Course/Course";
 
 const Routers = () => {
   return (
@@ -22,7 +23,7 @@ const Routers = () => {
         {/* Main layout with nested routes */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
-          <Route path="/courses" element={<div>Courses Page</div>} />
+          <Route path="/courses" element={<Course/>} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 

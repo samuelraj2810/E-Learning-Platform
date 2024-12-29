@@ -26,7 +26,7 @@ const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
     const { password } = req.body;
-    console.log(token);
+    // console.log(token);
 
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const user = await register.findOne({
