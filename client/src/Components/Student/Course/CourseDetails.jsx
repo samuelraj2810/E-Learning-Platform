@@ -20,14 +20,14 @@ const CourseDetails = () => {
       label: (
         <div className="flex justify-between items-center">
           <p className="text-Primary font-Poppins ">{title} </p>
-          <small className="text-gray-500 font-Poppins ">{item.lectureDuration[index]}</small>
+          <small className="text-gray-500 font-Poppins ">
+            {item.lectureDuration[index]}
+          </small>
         </div>
       ),
       children: (
         <div className="py-2 sm:px-4 grid">
-          <p className="font-medium font-Koulen">
-            Course description
-          </p>
+          <p className="font-medium font-Koulen">Course description</p>
           <p className="p-2 text-gray-500 border min-h-28 rounded-lg mt-2">
             {item.description[index]}
           </p>
@@ -46,13 +46,13 @@ const CourseDetails = () => {
     <>
       {temp.length > 0 &&
         temp.map((item, index) => (
-          <div className="sm:flex bg-gray-100 sm:h-[90vh] w-full border relative">
+          <div className="sm:flex bg-gray-100 h-full md:h-[90vh] w-full border relative">
             <div className="sm:w-fit bg-white border flex flex-col">
               <h1 className="lg:text-xl font-semibold border-b p-4">
                 {item.courseName}
               </h1>
             </div>
-            <div className=" h-full p-2 sm:pr-0 flex-1 overflow-y-scroll">
+            <div className=" h-full sm:py-2 md:p-2 sm:pr-0 flex-1 overflow-y-scroll">
               <p className="bg-white p-4 text-sm lg:text-base text-Primary">
                 video <VideoCameraOutlined className="ml-2" />
               </p>
@@ -65,7 +65,7 @@ const CourseDetails = () => {
                 <video
                   controls={item.isPaid}
                   muted
-                  className="sm:h-[85%] sm:w-[85%] mx-auto"
+                  className="h-full w-full mx-auto"
                 >
                   <source
                     src={`http://localhost:3000${item.videoPath}`}
@@ -73,11 +73,6 @@ const CourseDetails = () => {
                   />
                   Your browser does not support the video tag.
                 </video>
-                <div className="hidden md:block flex-1 relative">
-                <div className="border h-full">sdas</div>
-                <CustomButton title="buy" color="solid" className="bg-Primary w-full"/>
-
-                </div>
               </div>
               <Collapse
                 bordered={false}
@@ -89,16 +84,20 @@ const CourseDetails = () => {
                   />
                 )}
                 items={subItems(item, index)}
-                className="bg-white"
+                className="bg-white lg:px-4 py-4"
               />
+              <div className="drop-shadow-lg border text-white flex items-center justify-between bg-Primary p-2 backdrop-blur-sm w-full sticky left-0 bottom-0 ">
+                <p className="font-bold font-Poppins !tracking-wider">Price</p>
+                <p className="mr-auto ml-4 font-medium ">{temp[0].price}</p>
+                <CustomButton
+                  title="buy"
+                  color="solid"
+                  className="bg-white text-Primary"
+                />
+              </div>
             </div>
           </div>
         ))}
-              <div className="drop-shadow-lg flex items-center justify-between p-2 backdrop-blur-sm w-full fixed bottom-0 sm:hidden">
-                <p className="font-bold font-Poppins !tracking-wider">Price</p>
-                <p className="mr-auto ml-4 font-medium text-red-700 ">{temp[0].price}</p>
-                <CustomButton title="buy" color="solid" className="bg-Primary "/>
-              </div>
     </>
   );
 };
