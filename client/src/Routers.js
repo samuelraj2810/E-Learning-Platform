@@ -15,6 +15,7 @@ import InstructorTable from "./Components/Instructor/InstructorTable";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
+import CourseDetails from "./Components/Student/Course/CourseDetails";
 
 const Routers = () => {
   return (
@@ -24,6 +25,7 @@ const Routers = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
           <Route path="/courses" element={<Course/>} />
+          <Route path="/courses/coursedetails/:_id" element={<CourseDetails/>} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 

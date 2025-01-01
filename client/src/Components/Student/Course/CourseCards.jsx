@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Rate } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const CourseCards = ({ coursedata }) => {
+  const navigate = useNavigate()
   const [card, setCard] = useState(null);
   const url = "http://localhost:3000";
 
@@ -12,7 +14,7 @@ const CourseCards = ({ coursedata }) => {
           <button
             key={i}
             className="border rounded-lg p-4 max-h-64 min-h-48 lg:max-h-72 lg:min-h-80 lg:max-w-72 lg:min-w-72 hover:shadow-md transition-all duration-500 bg-white flex flex-col gap-2 relative"
-            onClick={() => setCard(v)}
+            onClick={() => navigate(`/courses/coursedetails/${v._id}`)}
           >
             <div className=" bg-gray-50 h-full">
               <img src={url + v.imagePath} className="rounded-md h-full" />

@@ -122,8 +122,8 @@ const getAllCourse = async (req, res) => {
 const getCourse = async (req, res) => {
   try {
     const { _id } = req.params;
-    const data = await courseDetails.findOne({ _id });
-    // console.log(data);
+    const data = await courseDetails.findOne({_id: _id });
+    console.log(data);
 
     if (!data) {
       return res.status(403).json({ message: "no data found" });
