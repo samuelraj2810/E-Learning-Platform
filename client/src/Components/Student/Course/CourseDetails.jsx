@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GET } from "../../ApiFunction/ApiFunction";
 import { Collapse } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
+import { CaretRightOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import CustomButton from "../../Common/CustomButton";
 
 const CourseDetails = () => {
   const { _id } = useParams();
@@ -14,42 +15,88 @@ const CourseDetails = () => {
   useEffect(() => {
     getCourse();
   }, []);
-  const subItems = (item,index) => {
+  const subItems = (item, index) => {
     return item.title.map((title, index) => ({
-        label:title,
-        children:
-        <div>
-            <p>{item.description[index]}</p>
-            <p>{item.learn[index]}</p>
-            <p>{item.lectureDuration[index]}</p>
-        </div>,
-      }));
-  }
+      label: (
+        <div className="flex justify-between items-center">
+          <p className="text-Primary font-Poppins ">{title} </p>
+          <small className="text-gray-500 font-Poppins ">{item.lectureDuration[index]}</small>
+        </div>
+      ),
+      children: (
+        <div className="py-2 sm:px-4 grid">
+          <p className="font-medium font-Koulen">
+            Course description
+          </p>
+          <p className="p-2 text-gray-500 border min-h-28 rounded-lg mt-2">
+            {item.description[index]}
+          </p>
+          <p className="font-medium font-Koulen mt-2">
+            What will you learn this section ?
+          </p>
+          <p className="p-2 text-gray-500 border min-h-28 rounded-lg mt-2">
+            {item.learn[index]}
+          </p>
+        </div>
+      ),
+    }));
+  };
   console.log(temp);
   return (
     <>
       {temp.length > 0 &&
         temp.map((item, index) => (
-          <div className="grid sm:grid-flow-col md:h-[90vh] w-full border">
-            <div className="p-4 flex flex-col gap-4">
-              <h1 className="text-xl font-bold ">Course details</h1>
+          <div className="sm:flex bg-gray-100 sm:h-[90vh] w-full border relative">
+            <div className="sm:w-fit bg-white border flex flex-col">
+              <h1 className="lg:text-xl font-semibold border-b p-4">
+                {item.courseName}
+              </h1>
+            </div>
+            <div className=" h-full p-2 sm:pr-0 flex-1 overflow-y-scroll">
+              <p className="bg-white p-4 text-sm lg:text-base text-Primary">
+                video <VideoCameraOutlined className="ml-2" />
+              </p>
+              <div className="p-4 flex bg-white relative ">
+                {!item.isPaid && (
+                  <div
+                    className={`h-full backdrop-grayscale w-full top-0 left-0 absolute`}
+                  />
+                )}
+                <video
+                  controls={item.isPaid}
+                  muted
+                  className="sm:h-[85%] sm:w-[85%] "
+                >
+                  <source
+                    src={`http://localhost:3000${item.videoPath}`}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="hidden md:block flex-1 border">
+                    das
+                </div>
+              </div>
               <Collapse
                 bordered={false}
                 defaultActiveKey={["1"]}
                 expandIcon={({ isActive }) => (
-                  <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                  <CaretRightOutlined
+                    className="!text-Primary"
+                    rotate={isActive ? 90 : 0}
+                  />
                 )}
-                items={subItems(item,index)}
+                items={subItems(item, index)}
                 className="bg-white"
               />
             </div>
-            <div className="bg-gray-100 p-4 col-span-6">
-            </div>
-            <div className="p-4 col-span-1">
-              <h1 className="p-2 text-xl font-bold">{temp?.courseName}</h1>
-            </div>
           </div>
         ))}
+              <div className="drop-shadow-lg flex items-center justify-between p-2 backdrop-blur-sm w-full fixed bottom-0 sm:hidden">
+                <p className="font-bold font-Poppins !tracking-wider">Price</p>
+                <p className="mr-auto ml-4 font-medium text-red-700 ">{temp[0].price}</p>
+                <CustomButton title="buy" color="solid" className="bg-Primary "/>
+              </div>
     </>
   );
 };
