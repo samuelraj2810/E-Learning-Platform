@@ -56,7 +56,7 @@ const CourseDetails = () => {
               <p className="bg-white p-4 text-sm lg:text-base text-Primary">
                 video <VideoCameraOutlined className="ml-2" />
               </p>
-              <div className="p-4 flex bg-white relative ">
+              <div className="p-4 flex gap-1 bg-white relative ">
                 {!item.isPaid && (
                   <div
                     className={`h-full backdrop-grayscale w-full top-0 left-0 absolute`}
@@ -65,7 +65,7 @@ const CourseDetails = () => {
                 <video
                   controls={item.isPaid}
                   muted
-                  className="sm:h-[85%] sm:w-[85%] "
+                  className="sm:h-[85%] sm:w-[85%] mx-auto"
                 >
                   <source
                     src={`http://localhost:3000${item.videoPath}`}
@@ -73,8 +73,10 @@ const CourseDetails = () => {
                   />
                   Your browser does not support the video tag.
                 </video>
-                <div className="hidden md:block flex-1 border">
-                    das
+                <div className="hidden md:block flex-1 relative">
+                <div className="border h-full">sdas</div>
+                <CustomButton title="buy" color="solid" className="bg-Primary w-full"/>
+
                 </div>
               </div>
               <Collapse
