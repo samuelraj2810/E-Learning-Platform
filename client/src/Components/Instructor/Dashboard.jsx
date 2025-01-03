@@ -21,6 +21,8 @@ const Dashboard = () => {
     
     setInstructorName(result[0]?.name)
   }
+  console.log(instructorName);
+  
   useEffect(()=>{
     fetchData()
   },[])
