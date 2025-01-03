@@ -105,7 +105,7 @@ const CourseDetails = () => {
                   title="buy"
                   color="solid"
                   className="bg-Primary"
-                  onClick={() => navigate(`/courses/coursepayment/${_id}`)}
+                  onClick={() => navigate(`/courses/coursepayment/${_id}`,{state:item})}
                 />
               </div>}
             </div>
