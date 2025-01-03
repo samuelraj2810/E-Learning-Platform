@@ -19,7 +19,7 @@ const CourseCards = ({ coursedata }) => {
             <div className=" bg-gray-50 h-full">
               <img src={url + v.imagePath} className="rounded-md h-full" />
             </div>
-            <div className="text-xs md:text-base flex items-center justify-between font-bold tracking-widest text-gray-600">
+            <div className="text-xs md:text-base flex w-full items-center justify-between font-bold tracking-widest text-gray-600">
               <p>{v?.courseName.trim()}</p>
               <p className="font-normal text-[10px]">{v?.duration.trim()}</p>
             </div>

@@ -16,6 +16,7 @@ import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
 import CourseDetails from "./Components/Student/Course/CourseDetails";
+import CoursePayment from "./Components/Student/Course/CoursePayment";
 
 const Routers = () => {
   return (
@@ -26,6 +27,7 @@ const Routers = () => {
           <Route index element={<Home />} /> {/* Default route for / */}
           <Route path="/courses" element={<Course/>} />
           <Route path="/courses/coursedetails/:_id" element={<CourseDetails/>} />
+          <Route path="/courses/coursepayment/:_id" element={<CoursePayment/>} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GET } from "../../ApiFunction/ApiFunction";
 import { Collapse } from "antd";
 import { CaretRightOutlined, DoubleLeftOutlined, VideoCameraOutlined } from "@ant-design/icons";
@@ -7,6 +7,7 @@ import CustomButton from "../../Common/CustomButton";
 
 const CourseDetails = () => {
   const { _id } = useParams();
+  const navigate = useNavigate()
   const [temp, setTemp] = useState([]);
   const getCourse = async () => {
     const data = await GET(`http://localhost:3000/getcourse/${_id}`);
@@ -15,6 +16,7 @@ const CourseDetails = () => {
   useEffect(() => {
     getCourse();
   }, []);
+
   const subItems = (item, index) => {
     return item.title.map((title, index) => ({
       label: (
@@ -41,7 +43,7 @@ const CourseDetails = () => {
       ),
     }));
   };
-  console.log(temp);
+//   console.log(temp);
   return (
     <>
       {temp.length > 0 &&
@@ -49,7 +51,7 @@ const CourseDetails = () => {
           <div className="sm:flex h-full md:h-[90vh] w-full border relative">
             <div className="sm:w-fit bg-white border flex gap-4 p-4 flex-col">
               <h1 className="lg:text-xl font-semibold pb-2 ">
-                <DoubleLeftOutlined className="text-Primary bg-Primary/10 hover:scale-125 duration-300 mr-2 rounded-full p-1 border-Primary !text-base"/>
+                <DoubleLeftOutlined onClick={()=>navigate(-1)} className="text-Primary bg-Primary/10 hover:scale-125 duration-300 mr-2 rounded-full p-1 border-Primary !text-base"/>
                 Course Details
               </h1>
               <p className="bg-Primary/10 rounded-md text-Primary p-2 text-center mb-2 tracking-widest">{item.courseName}</p>
@@ -98,11 +100,12 @@ const CourseDetails = () => {
               {!item.isPaid &&
               <div className="drop-shadow-lg flex items-center justify-between p-2 bg-gradient-to-r from-white to-transparent backdrop-blur-sm w-full border-t sticky left-0 bottom-0 ">
                 <p className="font-bold font-Poppins !tracking-wider">Price</p>
-                <p className="mr-auto ml-4 font-medium ">{temp[0].price}</p>
+                <p className="mr-auto ml-4 font-medium ">{temp[0].price || "free"}</p>
                 <CustomButton
                   title="buy"
                   color="solid"
                   className="bg-Primary"
+                  onClick={() => navigate(`/courses/coursepayment/${_id}`)}
                 />
               </div>}
             </div>
