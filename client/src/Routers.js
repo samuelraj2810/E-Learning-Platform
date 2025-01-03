@@ -28,8 +28,8 @@ const Routers = () => {
           <Route path="/courses/coursedetails/:_id" element={<CourseDetails/>} />
           <Route path="/courses/coursepayment/:_id" element={<CoursePayment/>} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactPage />} />
+          {/* <Route path="/about" element={<About />} /> */}
+          {/* <Route path="/contact" element={<ContactPage />} /> */}
         </Route>
 
         <Route path="/signup" element={<Signup />} />
@@ -57,7 +57,7 @@ const Routers = () => {
           
         </Route>
 
-        <Route path="/admin" element={<AdminPanel />} />
+        {/* <Route path="/admin" element={<AdminPanel />} /> */}
       </Routes>
     </main>
   );
