@@ -126,6 +126,7 @@ function AddCourse() {
       requirements: updatedRequirements, // Update the requirements array by removing the item at the specified index
     });
   };
+  
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl">Add Course</span>
