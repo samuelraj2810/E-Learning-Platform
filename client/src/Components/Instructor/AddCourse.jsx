@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CustomButton from "../Common/CustomButton";
 import CustomInput from "../Common/CustomInput";
-import { UploadOutlined } from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +12,7 @@ function AddCourse() {
   const showMessage = useCustomMessage();
   const [courseData, setCourseData] = useState({
     courseName: "",
-    subTopic:"",
+    subTopic: "",
     duration: "",
     rating: "",
     price: "",
@@ -108,88 +108,141 @@ function AddCourse() {
     },
   };
 
+  const handleInputChange = (field, index, value) => {
+    setCourseData({
+      ...courseData,
+      [field]: courseData[field].map((item, idx) =>
+        idx === index ? value : item
+      ),
+    });
+    console.log(courseData)
+  };
 
+  const handleDeleteRequirement = (index) => {
+    const updatedRequirements = [...courseData.requirements]; // Create a copy of the array
+    updatedRequirements.pop(); // Remove the last item from the array
+    setCourseData({
+      ...courseData,
+      requirements: updatedRequirements, // Update the requirements array by removing the item at the specified index
+    });
+  };
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
       <span className="text-xl">Add Course</span>
       <table className="table-auto w-fit">
-  <tbody>
-    <tr className="grid grid-cols-1 md:grid-cols-2">
-      <td className="px-4 py-2 font-medium">Course Name</td>
-      <td className="md:px-4 py-2">
-        <CustomInput
-          placeholder="Enter course name"
-          className="w-full"
-          containerClassName="p-2 flex items-center gap-4"
-          onChange={(e) =>
-            setCourseData({ ...courseData, courseName: e.target.value })
-          }
-        />
-      </td>
-    </tr>
+        <tbody>
+          <tr className="grid grid-cols-1 md:grid-cols-2">
+            <td className="px-4 py-2 font-medium">Course Name</td>
+            <td className="md:px-4 py-2">
+              <CustomInput
+                placeholder="Enter course name"
+                className="w-full"
+                containerClassName="p-2 flex items-center gap-4"
+                onChange={(e) =>
+                  setCourseData({ ...courseData, courseName: e.target.value })
+                }
+              />
+            </td>
+          </tr>
 
-    <tr className="grid grid-cols-1 md:grid-cols-2">
-      <td className="px-4 py-2 font-medium">Sub Topic</td>
-      <td className="md:px-4 py-2">
-        <CustomInput
-          placeholder="Enter sub topic"
-          className="w-full"
-          containerClassName="p-2 flex items-center gap-4"
-          onChange={(e) =>
-            setCourseData({ ...courseData, subTopic: e.target.value })
-          }
-        />
-      </td>
-    </tr>
+          <tr className="grid grid-cols-1 md:grid-cols-2">
+            <td className="px-4 py-2 font-medium">Sub Topic</td>
+            <td className="md:px-4 py-2">
+              <CustomInput
+                placeholder="Enter sub topic"
+                className="w-full"
+                containerClassName="p-2 flex items-center gap-4"
+                onChange={(e) =>
+                  setCourseData({ ...courseData, subTopic: e.target.value })
+                }
+              />
+            </td>
+          </tr>
 
-    <tr className="grid grid-cols-1 md:grid-cols-2">
-      <td className="px-4 py-2 font-medium">Price</td>
-      <td className="md:px-4 py-2">
-        <CustomInput
-          placeholder="Enter price"
-          className="w-full"
-          containerClassName="p-2 flex items-center gap-4"
-          onChange={(e) =>
-            setCourseData({ ...courseData, price: parseFloat(e.target.value) })
-          }
-        />
-      </td>
-    </tr>
+          <tr className="grid grid-cols-1 md:grid-cols-2">
+            <td className="px-4 py-2 font-medium">Price</td>
+            <td className="md:px-4 py-2">
+              <CustomInput
+                placeholder="Enter price"
+                className="w-full"
+                containerClassName="p-2 flex items-center gap-4"
+                onChange={(e) =>
+                  setCourseData({
+                    ...courseData,
+                    price: parseFloat(e.target.value),
+                  })
+                }
+              />
+            </td>
+          </tr>
 
-    <tr className="grid grid-cols-1 md:grid-cols-2">
-      <td className="px-4 py-2 font-medium">Rating</td>
-      <td className="md:px-4 py-2">
-        <CustomInput
-          placeholder="Enter rating"
-          className="w-full"
-          containerClassName="p-2 flex items-center gap-4"
-          onChange={(e) =>
-            setCourseData({ ...courseData, rating: e.target.value })
-          }
-        />
-      </td>
-    </tr>
+          <tr className="grid grid-cols-1 md:grid-cols-2">
+            <td className="px-4 py-2 font-medium">Rating</td>
+            <td className="md:px-4 py-2">
+              <CustomInput
+                placeholder="Enter rating"
+                className="w-full"
+                containerClassName="p-2 flex items-center gap-4"
+                onChange={(e) =>
+                  setCourseData({ ...courseData, rating: e.target.value })
+                }
+              />
+            </td>
+          </tr>
 
-    <tr className="grid grid-cols-1 md:grid-cols-2">
-      <td className="px-4 py-2 font-medium">Duration</td>
-      <td className="md:px-4 py-2">
-        <CustomInput
-          placeholder="Enter duration"
-          className="w-full"
-          containerClassName="p-2 flex items-center gap-4"
-          onChange={(e) =>
-            setCourseData({ ...courseData, duration: e.target.value })
-          }
-        />
-      </td>
-    </tr>
-    
-    {["title", "lectureDuration", "description", "requirements", "learn"].map(
-      (key) => (
-        <React.Fragment key={key}>
-          {courseData[key]?.map((item, index) => (
-            <tr className="grid grid-cols-1 md:grid-cols-2" key={`${key}-${index}`}>
-              <td className="px-4 py-2">
+          <tr className="grid grid-cols-1 md:grid-cols-2">
+            <td className="px-4 py-2 font-medium">Duration</td>
+            <td className="md:px-4 py-2">
+              <CustomInput
+                placeholder="Enter duration"
+                className="w-full"
+                containerClassName="p-2 flex items-center gap-4"
+                onChange={(e) =>
+                  setCourseData({ ...courseData, duration: e.target.value })
+                }
+              />
+            </td>
+          </tr>
+          {courseData.requirements.map((requirement, index) => 
+            <tr key={index} className="grid grid-cols-1 md:grid-cols-2 items-center">
+              <td className={`px-4 py-2 font-medium ${index !== 0 && "text-right"}`}>{index === 0 ? "Requirement" : <div className="flex justify-between items-center"><span className="p-1 px-2 text-sm rounded-full text-Primary bg-Primary/10">{index+1}</span><DeleteOutlined onClick={() => handleDeleteRequirement(index)}/></div>}</td>
+              <td className="md:px-4 py-2">
+                <CustomInput
+                  placeholder="Enter requirement"
+                  className="w-full"
+                  containerClassName="p-2 flex items-center gap-4"
+                  value={requirement}
+                  onChange={(e) => handleInputChange('requirements', index, e.target.value)}
+                />
+              </td>
+            </tr>
+          )}
+          <tr>
+            <td className="col-span-1">
+              <Button
+                icon={<PlusOutlined />}
+                onClick={() => setCourseData({...courseData,requirements: [...courseData.requirements, ""]})}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Add Requirement
+              </Button>
+            </td>
+          </tr>
+
+          {[
+            "title",
+            "lectureDuration",
+            "description",
+            "requirements",
+            "learn",
+          ].map((key) => (
+            <React.Fragment key={key}>
+              {courseData[key]?.map((item, index) => (
+                <tr
+                  className="grid grid-cols-1 md:grid-cols-2"
+                  key={`${key}-${index}`}
+                >
+                  {/* <td className="px-4 py-2">
                 {key} {index + 1}
               </td>
               <td className="md:px-4 py-2">
@@ -201,43 +254,23 @@ function AddCourse() {
                     handleArrayChange(index, key, e.target.value)
                   }
                 />
-              </td>
-            </tr>
-          ))}
-          <tr>
-            <td className="px-4 py-2" colSpan={2}>
-              <Button
+              </td> */}
+                </tr>
+              ))}
+              <tr>
+                <td className="px-4 py-2" colSpan={2}>
+                  {/* <Button
                 onClick={() => addArrayItem(key)}
                 className="bg-blue-500 text-white px-4 py-2 rounded"
               >
                 Add {key}
-              </Button>
-            </td>
-          </tr>
-        </React.Fragment>
-      )
-    )}
-  </tbody>
-</table>
-
-{/* 
-      {["title", "lectureDuration", "description", "requirements", "learn"].map(
-        (key) => (
-          <div key={key}>
-            {courseData[key].map((item, index) => (
-              <CustomInput
-                key={index}
-                title={`${key} ${index + 1}`}
-                placeholder={`Enter ${key}`}
-                className="md:w-fit"
-                containerClassName="p-2 flex items-center gap-4"
-                onChange={(e) => handleArrayChange(index, key, e.target.value)}
-              />
-            ))}
-            <Button onClick={() => addArrayItem(key)}>Add {key}</Button>
-          </div>
-        )
-      )} */}
+              </Button> */}
+                </td>
+              </tr>
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
       <div className="flex gap-5 text-base p-2">
         <label>Image</label>
         <Upload {...props.image}>
