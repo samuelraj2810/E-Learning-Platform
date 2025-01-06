@@ -1,42 +1,36 @@
-const mongoose = require("mongoose")
-const {v4} = require("uuid")
+const mongoose = require("mongoose");
+const { v4 } = require("uuid");
 
-
-const courseSchema = new mongoose.Schema({
-    _id:{
-        type:String,
-        default:v4
+const courseSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: String,
+      default: v4,
     },
-    courseName:String,
-    subTopic:String,
-    duration:String,
-    rating:String,
-    price:String,
-    title:[
-        String
+    courseName: String,
+    subTopic: String,
+    duration: String,
+    rating: String,
+    price: String,
+    rows: [
+      {
+        title: String,
+        lectureDuration: String,
+        description: String,
+        learn: String,
+      },
     ],
-    lectureDuration:[
-        String
-    ],
-    description:[
-        String
-    ],
-    requirements:[
-        String
-    ],
-    learn:[
-        String
-    ],
+    requirements: [String],
+    instructorName: String,
+    instructorId: String,
+    imagePath: String,
+    imageName: String,
+    videoPath: String,
+    videoName: String,
+  },
+  { timestamps: true }
+);
 
-    instructorName:String,
-    instructorId:String,
-    imagePath:String,
-    imageName:String,
-    videoPath:String,
-    videoName:String,
+const courseDetails = mongoose.model("courses", courseSchema);
 
-},{timestamps:true})
-
-const courseDetails = mongoose.model("courses",courseSchema)
-
-module.exports = courseDetails
+module.exports = courseDetails;

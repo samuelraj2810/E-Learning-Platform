@@ -20,8 +20,7 @@ app.use(courserouter)
 
 app.listen(3000, () => {
     try {
-        console.log("Server Connected");
-        
+        console.log("Server Connected");      
     } catch (error) {
         console.log("Connection Failed");
     }

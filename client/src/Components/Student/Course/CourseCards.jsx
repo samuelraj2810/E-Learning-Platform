@@ -1,37 +1,41 @@
 import React, { useEffect, useState } from "react";
-import {GET} from "../../ApiFunction/ApiFunction"
-import axios from "axios";
+import { Rate } from "antd";
+import { useNavigate } from "react-router-dom";
 
-const CourseCards = () => {
-
-  const [coursedata, setCoursedata] = useState([]);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await GET("http://localhost:3000/getinstcourse", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (result.data) {
-      setCoursedata(result.data);
-    } else {
-      setCoursedata([]);
-    }
-  };
-  console.log(coursedata)
+const CourseCards = ({ coursedata }) => {
+  const navigate = useNavigate()
+  const [card, setCard] = useState(null);
+  const url = "http://localhost:3000";
 
   return (
-    <div className="h-fit w-full p-2 lg:pt-4 grid gap-2 lg:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-      <div className="border rounded-lg p-4 max-h-48 min-h-48 lg:max-h-72 lg:min-h-80 hover:shadow-md transition-all duration-500 bg-white">
-        <div className="border h-1/2 w-full">1</div>
-        <p className="h-fit">title</p>
-      </div>
+    <div className="h-fit w-full p-2 lg:pt-4 grid gap-2 lg:gap-4 grid-cols-2 md:grid-cols-3 lg:flex lg:flex-wrap transition-all duration-700">
+      {coursedata.length > 0 &&
+        coursedata?.map((v, i) => (
+          <button
+            key={i}
+            className="border rounded-lg p-4 max-h-64 min-h-48 lg:max-h-72 lg:min-h-80 lg:max-w-72 lg:min-w-72 hover:shadow-md transition-all duration-500 bg-white flex flex-col gap-2 relative"
+            onClick={() => navigate(`/courses/coursedetails/${v._id}`)}
+          >
+            <div className=" bg-gray-50 h-full">
+              <img src={url + v.imagePath} className="rounded-md h-full" />
+            </div>
+            <div className="text-xs md:text-base flex w-full items-center justify-between font-bold tracking-widest text-gray-600">
+              <p>{v?.courseName.trim()}</p>
+              <p className="font-normal text-[10px]">{v?.duration.trim()}</p>
+            </div>
+            <Rate
+              defaultValue={parseInt(v.rating)}
+              disabled
+              className="text-xs"
+            />
+            <div className="w-full text-xs md:text-base flex items-center justify-between mt-4">
+              <p className="font-bold tracking-wider text-gray-500">Price</p>
+              <p className="font-mono text-Primary">
+                {v?.price ? "$" + " " + v?.price : "free"}
+              </p>
+            </div>
+          </button>
+        ))}
     </div>
   );
 };
