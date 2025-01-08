@@ -60,7 +60,7 @@ const loginPost = async(req,res) => {
         // console.log(token)
         let navigate
 
-        checkmail.designation==="Student"?navigate="/":checkmail.designation==="Instructor"?navigate="/instructordashboard":navigate="/instructordashboard"
+        checkmail.designation==="Student"?navigate="/":checkmail.designation==="Instructor"?navigate="/instructordashboard":navigate="/adminpanel"
 
         res.json({
             message:"Login Successfully",

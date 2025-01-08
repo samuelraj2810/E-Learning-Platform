@@ -17,6 +17,7 @@ import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
 import CourseDetails from "./Components/Student/Course/CourseDetails";
 import CoursePayment from "./Components/Student/Course/CoursePayment";
+import AdminProfile from "./Components/Admin/AdminProfile";
 
 const Routers = () => {
   return (
@@ -45,6 +46,9 @@ const Routers = () => {
           <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
           <Route path="/instructordashboard/instructorcourse/addCourse" element={<AddCourse/>} />
           <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
+        </Route>
+        <Route path="/adminpanel" element={<DashBoard />}>
+          <Route path="/adminpanel/profile" element={<AdminProfile/>} />
         </Route>
       </Routes>
     </main>
