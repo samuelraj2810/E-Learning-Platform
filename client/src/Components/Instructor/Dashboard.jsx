@@ -29,7 +29,7 @@ const Dashboard = () => {
   const navList = [
     {
       id: 1,
-      to: userData.designation === "Admin" ? "/adminpanel/profile" : "/instructordashboard",
+      to: userData.designation === "Admin" ? "/adminpanel" : "/instructordashboard",
       title: userData.designation === "Admin" ? "Profile" : "Instructor Profile",
       icon:<UserOutlined className="mr-2" />,
     },

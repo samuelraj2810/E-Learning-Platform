@@ -48,7 +48,7 @@ const Routers = () => {
           <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
         </Route>
         <Route path="/adminpanel" element={<DashBoard />}>
-          <Route path="/adminpanel/profile" element={<AdminProfile/>} />
+          <Route path="/adminpanel" element={<AdminProfile/>} />
         </Route>
       </Routes>
     </main>
