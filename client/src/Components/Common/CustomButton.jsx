@@ -14,6 +14,7 @@ const CustomButton = ({
   onClick,
   className = "",
   loading,
+  children
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const CustomButton = ({
           onClick={onClick}
         >
           {title}
+          {children}
         </Button>
       ) : (
         <Button
@@ -45,6 +47,7 @@ const CustomButton = ({
           onClick={onClick}
         >
           {title}
+          {children}
         </Button>
       )}
     </>

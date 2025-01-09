@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import CustomButton from "../Common/CustomButton";
 
 const AdminProfile = () => {
+    const [active, setActive] = useState(0)
   const adminData = [
     {
       title: "Course",
@@ -16,17 +18,21 @@ const AdminProfile = () => {
       <p>Admin Profile</p>
       <div className="grid grid-cols-2 items-center gap-4">
         {adminData.map((v, i) => (
-          <div
+          <CustomButton
+            title={v.title}
             key={i}
-            className="min-h-40 border text-center rounded-lg relative p-2"
+            onClick={()=>setActive(i)}
+            variant={active !== i ? "outlined" : "filled"}
+            className={`min-h-40 w-full rounded-lg relative p-2 ${active === i && "border-Primary border"}`}
           >
-            <strong className="bg-Primary p-2 absolute rounded-b-full rounded-l-full right-0 top-0 text-white">
+            <strong className="bg-Primary text-xs p-2 text-center absolute rounded-tr-lg right-0 top-0 text-white">
               {v.count}
             </strong>
-            <div className="border">{v.title}</div>
-          </div>
+          </CustomButton>
         ))}
       </div>
+      {active === 0 && <div className="border p-2 min-h-full">Course Data</div>}
+      {active === 1 && <div>Lecture Data</div>}
     </div>
   );
 };
