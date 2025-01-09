@@ -9,8 +9,8 @@ const AdminProfile = () => {
       count: 100,
     },
     {
-      title: "Lecture",
-      count: 100,
+        title: "Lecture",
+        count: 100,
     },
   ];
   return (
@@ -19,15 +19,17 @@ const AdminProfile = () => {
       <div className="grid grid-cols-2 items-center gap-4">
         {adminData.map((v, i) => (
           <CustomButton
-            title={v.title}
             key={i}
+            titleC
             onClick={()=>setActive(i)}
-            variant={active !== i ? "outlined" : "filled"}
-            className={`min-h-40 w-full rounded-lg relative p-2 ${active === i && "border-Primary border"}`}
-          >
-            <strong className="bg-Primary text-xs p-2 text-center absolute rounded-tr-lg right-0 top-0 text-white">
+            variant={"default"}
+            color="solid"
+            className={`min-h-40 w-full rounded-lg relative p-2 ${active === i ? `border-Primary backdrop-grayscale border` : "bg-Primary/10"}`}
+          >      
+            <strong className="bg-Primary text-xs p-2 text-center absolute rounded-tr right-0 top-0 text-white">
               {v.count}
             </strong>
+            <p className="text-sm font-bold tracking-widest">{v.title}</p>
           </CustomButton>
         ))}
       </div>
