@@ -1,43 +1,34 @@
 import React from 'react'
-import { Chart } from "react-google-charts";
+import { Chart } from 'primereact/chart';
 
 const CustomDonut = ({
-    title,
-    chartType,
+    type = "doughnut",
+    labels,
     data,
-    pieSliceText='none',
-    is3D,
-    pieHole=0.4,
-    legendToggle,
+    legendDisplay = false, 
     className,
-    colors,
-    height = "200px",
-    width = "fit",
 }) => {
-    const sliceColors = colors?.map((v,i) => ({offset: i, color: v}))
+    const chartData = {
+        labels:labels,
+        datasets: [
+            {
+                data: data,
+                backgroundColor: ["#ede9fe","#4338ca","#6d28d9"],
+                hoverBackgroundColor: ["#ede9fe","#4f46e5","#7c3aed"],
+            }
+        ]
+    };
     const options = {
-        pieHole: pieHole,
-        is3D: is3D,
-        pieSliceText:pieSliceText,
-        slices: sliceColors,
-        backgroundColor: 'transparent' ,
-        chartArea: {
-            left: 0,   // No margin on the left side
-            top: 0,    // No margin on the top side
-            right: 0,  // No margin on the right side
-            bottom: 0  // No margin on the bottom side
-        },
-      };
+        cutout: '60%',
+        plugins: {
+            legend: {
+                display: legendDisplay,
+            },
+        }
+    };
   return (
-    <div className={`shadow rounded-md border ${className}`}>
-    <Chart
-      chartType={chartType}
-      data={data}
-      height={height}
-      width={width}
-      options={options}
-      legendToggle={legendToggle}
-    />
+    <div className={`shadow rounded-md border h-full w-full`}>
+    <Chart type={type} data={chartData} options={options} className={className}/>     
     </div>
   )
 }

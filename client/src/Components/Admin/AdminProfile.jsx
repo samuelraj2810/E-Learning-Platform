@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../Common/CustomButton";
 import CustomDonut from "../Common/CustomDonut";
+import { GET } from "../ApiFunction/ApiFunction";
 
 const AdminProfile = () => {
+ const [userData, setUserData] = useState([])
   const [active, setActive] = useState(0);
   const adminData = [
     {
@@ -14,14 +16,15 @@ const AdminProfile = () => {
       count: 100,
     },
   ];
-  const data = [
-    ["Task", "Hours per Day"],
-    ["Work", 11],
-    ["Eat", 2],
-    ["Commute", 2],
-    ["Watch TV", 2],
-    ["Sleep", 7], // CSS-style declaration
-  ];
+    const fetchData = async () => {
+      const result = await GET("http://localhost:3000/getallcourse");
+      setUserData(result);
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
+
   return (
     <div className="text-gray-700 flex flex-col gap-4 h-full">
       <p className="">Admin Profile</p>
@@ -45,7 +48,7 @@ const AdminProfile = () => {
           </CustomButton>
         ))}
       </div>
-      <CustomDonut data={data} chartType="PieChart" title={active === 0 ? "Course" : "Lecture"} className="h-full p-8"/>
+      <CustomDonut  className="h-fit w-fit p-4"/>
     </div>
   );
 };
