@@ -1,34 +1,8 @@
 import React from "react";
 import CustomDonut from "../Common/CustomDonut";
-import InstructorTable from "../Instructor/InstructorTable";
-import { useCustomMessage } from "../Common/CustomMessage";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CourseProfile = ({ courseData, allCourse, refresh = () => {} }) => {
-  const showMessage = useCustomMessage();
-  const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
-
-  const deleteData = async (params) => {
-    const { _id } = params;
-    try {
-      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      refresh();
-    } catch (error) {
-      console.error("Error deleting course:", error);
-      showMessage("error", "Failed to delete course. Please try again.");
-    }
-  };
-  const editData = (params) => {
-    navigate("/instructordashboard/instructorcourse/editCourse", {
-      state: params,
-    });
-  };
   return (
     <div className="flex flex-col md:flex-row h-full relative items-center gap-10">
       <p className="absolute top-2 left-2">Trending</p>
@@ -43,19 +17,27 @@ const CourseProfile = ({ courseData, allCourse, refresh = () => {} }) => {
             {courseData?.map((v, i) => (
               <div className="flex items-center gap-4 text-xs">
                 <span
-                  className={`h-3 w-7`}
+                  className={`h-3 min-w-7`}
                   style={{ backgroundColor: v.color }}
                 />
-                <span>{v.name}</span>
+                <span className="flex-1">{v.name}</span>
               </div>
             ))}
           </div>
-          <div className=" w-full grid max-h-96 bg-Primary/5">
-            {/* {allCourse?.map((v) => (
-              <ul className="shadow p-2 text-xs">
-                <li>{v.courseName}</li>
+          <div className=" w-full grid gap-3 max-h-80 overflow-y-auto p-2 pt-0 relative">
+            <div className="top-0 sticky bg-white p-2">
+              <Link
+                to="/adminpanel/course"
+                className="text-Primary underline-offset-4 underline"
+              >
+                view all courses
+              </Link>
+            </div>
+            {allCourse?.map((v) => (
+              <ul className="text-xs bg-Primary/5 p-2">
+                <li className="px-2">{v.courseName}</li>
               </ul>
-            ))} */}
+            ))}
           </div>
         </div>
       </div>

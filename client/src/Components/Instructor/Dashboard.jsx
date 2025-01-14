@@ -12,7 +12,7 @@ import { GET } from "../ApiFunction/ApiFunction";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuId, setMenuId] = useState(1);
+  const [menuId, setMenuId] = useState(0);
   const [userData, setUserData] = useState("- - -");
 
   const fetchData = async () => {
@@ -39,7 +39,10 @@ const Dashboard = () => {
     },
     {
       id: 2,
-      to: "/instructordashboard/instructorcourse",
+      to:
+        userData.designation === "Admin"
+          ? "/adminpanel/course"
+          : "/instructordashboard/instructorcourse",
       title: "Courses",
       icon: <ContainerOutlined className="mr-2" />,
     },
@@ -108,12 +111,13 @@ const Dashboard = () => {
             Dashboard
           </h1>
           <ul className="capitalize flex flex-col m-4">
-            {navList.map((each) => (
+            {navList.map((each, i) => (
               <Link to={each.to} key={each.id} onClick={handleMenuClick}>
                 <li
+                  key={each.id}
                   className={`p-2 text-nowrap rounded-md m-2 border ${
                     menuId === each.id
-                      ? "text-Primary bg-Primary/5"
+                      ? "!text-Primary !bg-Primary/5"
                       : "bg-gray-100/10"
                   } hover:border-Primary hover:text-Primary transition-all duration-300`}
                 >

@@ -21,6 +21,8 @@ import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
 import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
+import AdminProfile from "./Components/Admin/AdminProfile";
+import AdminCourse from "./Components/Admin/AdminCourse";
 
 const Routers = () => {
   return (
@@ -67,6 +69,12 @@ const Routers = () => {
         </Route>
         <Route path="/adminpanel" element={<DashBoard />}>
           <Route path="/adminpanel" element={<AdminProfile />} />
+          <Route path="/adminpanel/course" element={<AdminCourse />} />
+          <Route path="/adminpanel/course/addCourse" element={<AddCourse />} />
+          <Route
+            path="/adminpanel/course/editCourse"
+            element={<EditCourse />}
+          />
         </Route>
       </Routes>
     </main>

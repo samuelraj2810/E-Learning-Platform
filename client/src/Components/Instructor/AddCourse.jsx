@@ -149,7 +149,7 @@ function AddCourse() {
       if (response.status === 200) {
         setLoading(false);
         showMessage("success", "Course added successfully");
-        navigate("/instructordashboard/instructorcourse");
+        navigate(-1);
       } else {
         setLoading(false);
         showMessage("error", "Course addition failed");
