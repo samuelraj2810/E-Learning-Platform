@@ -1,20 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InstructorTable from "./InstructorTable";
 import CustomButton from "../Common/CustomButton";
 import { PlusOutlined } from "@ant-design/icons";
-import { Drawer } from "antd";
-import CustomDrawer from "../Common/CustomDrawer";
-import CustomInput from "../Common/CustomInput";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCustomMessage } from "../Common/CustomMessage";
 
 const InstructorCourse = () => {
+  const [coursedata, setCoursedata] = useState([]);
+  const showMessage = useCustomMessage();
   const navigate = useNavigate();
+
+  const token = sessionStorage.getItem("token");
 
   const handleaddcourse = () => {
     navigate("/instructordashboard/instructorcourse/addCourse");
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const token = sessionStorage.getItem("token");
+    const result = await axios.get("http://localhost:3000/getinstcourse", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (result.data) {
+      setCoursedata(result.data);
+    } else {
+      setCoursedata([]);
+    }
+  };
+  const deleteData = async (params) => {
+    const { _id } = params;
+    try {
+      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      getData();
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      showMessage("error", "Failed to delete course. Please try again.");
+    }
+  };
+  const editData = (params) => {
+    navigate("/instructordashboard/instructorcourse/editCourse", {
+      state: params,
+    });
   };
 
   return (
@@ -29,7 +66,11 @@ const InstructorCourse = () => {
           className="bg-Primary py-5 font-bold tracking-wider text-white capitalize hover:bg-Primary/80"
         />
       </div>
-      <InstructorTable />
+      <InstructorTable
+        data={coursedata}
+        deleteFunction={(paeams) => deleteData(paeams)}
+        editFunction={(paeams) => editData(paeams)}
+      />
     </div>
   );
 };

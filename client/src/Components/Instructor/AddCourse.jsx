@@ -12,13 +12,41 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCustomMessage } from "../Common/CustomMessage";
 import { POST, POSTFILE } from "../ApiFunction/ApiFunction";
+import CustomDropdown from "../Common/CustomDropdown";
 
 function AddCourse() {
   const showMessage = useCustomMessage();
+  const expertiseLists = [
+    {
+      label: "Select",
+      value: "select",
+    },
+    {
+      label: "Technology",
+      value: "Technology",
+    },
+    {
+      label: "Business",
+      value: "Business",
+    },
+    {
+      label: "Programming",
+      value: "Programming",
+    },
+    {
+      label: "Design",
+      value: "Design",
+    },
+    {
+      label: "Personal Development",
+      value: "Personal Development",
+    },
+  ];
   const [courseData, setCourseData] = useState({
     courseName: "",
     subTopic: "",
     duration: "",
+    courseType: "select",
     rating: "",
     price: "",
     rows: [{ title: "", lectureDuration: "", description: "", learn: "" }],
@@ -73,6 +101,9 @@ function AddCourse() {
 
   const handleSubmit = async () => {
     // Check if all rows and all fields inside rows have values
+    if (courseData.courseType === "select") {
+      return showMessage("info", "course type is required");
+    }
     let allRowsValid = false;
     allRowsValid = courseData.rows.every((row) => {
       return ["title", "lectureDuration", "description", "learn"].every(
@@ -207,6 +238,25 @@ function AddCourse() {
               </td>
             </tr>
           ))}
+          <tr className="grid grid-cols-1 md:grid-cols-2 ">
+            <td className="px-4 py-2 font-medium">
+              Course Type{" "}
+              <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">
+                required
+              </span>
+            </td>
+            <td className="md:px-6 py-2">
+              <CustomDropdown
+                type="select"
+                className="w-full"
+                value={courseData.courseType}
+                menus={expertiseLists}
+                onChange={(e) =>
+                  setCourseData({ ...courseData, courseType: e })
+                }
+              />
+            </td>
+          </tr>
           {courseData.requirements.map((requirement, index) => (
             <tr
               key={index}

@@ -7,13 +7,17 @@ import ResetPassword from "./Components/Authentication/ResetPass";
 import ForgotPassword from "./Components/Authentication/Forgotpass";
 import VericicationPage from "./Components/Authentication/VericicationPage";
 import ProfileDetails from "./Components/Student/Home/ProfileDetails";
-import MainLayout from "./Components/Student/Home/MainLayout"; 
-import DashBoard from "./Components/Instructor/Dashboard"; 
+import MainLayout from "./Components/Student/Home/MainLayout";
+import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1d6b4935ea21e89b8737424463462afbb5a8aac5
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
@@ -27,6 +31,7 @@ const Routers = () => {
         {/* Main layout with nested routes */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
+<<<<<<< HEAD
           <Route path="/courses" element={<Course/>} />
           <Route path="/contact" element={<Contact/>} />
           <Route path="/about" element={<Aboutus/>} />
@@ -34,6 +39,17 @@ const Routers = () => {
           <Route path="/success" element={<Success/>} />
           <Route path="/cancel" element={<Cancel/>} />
           
+=======
+          <Route path="/courses" element={<Course />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<Aboutus />} />
+          <Route
+            path="/courses/coursedetails/:_id"
+            element={<CourseContent />}
+          />
+          <Route path="/success/:session_id" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
+>>>>>>> 1d6b4935ea21e89b8737424463462afbb5a8aac5
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 
@@ -47,10 +63,22 @@ const Routers = () => {
         {/* Instructor Dashboard */}
         <Route path="/instructordashboard" element={<DashBoard />}>
           {/* <Route index element={<InstructorTable/>} /> */}
-          <Route path="/instructordashboard" element={<InstructorProfile/>} />
-          <Route path="/instructordashboard/instructorcourse" element={<InstructorCourse/>} />
-          <Route path="/instructordashboard/instructorcourse/addCourse" element={<AddCourse/>} />
-          <Route path="/instructordashboard/instructorcourse/editCourse" element={<EditCourse/>} />
+          <Route path="/instructordashboard" element={<InstructorProfile />} />
+          <Route
+            path="/instructordashboard/instructorcourse"
+            element={<InstructorCourse />}
+          />
+          <Route
+            path="/instructordashboard/instructorcourse/addCourse"
+            element={<AddCourse />}
+          />
+          <Route
+            path="/instructordashboard/instructorcourse/editCourse"
+            element={<EditCourse />}
+          />
+        </Route>
+        <Route path="/adminpanel" element={<DashBoard />}>
+          <Route path="/adminpanel" element={<AdminProfile />} />
         </Route>
       </Routes>
     </main>
