@@ -21,6 +21,7 @@ import CourseCards from "./Components/Student/Course/CourseCards";
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
+import Aboutus from "./Components/Student/Home/Aboutus";
 
 const Routers = () => {
   return (
@@ -30,6 +31,7 @@ const Routers = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
           <Route path="/courses" element={<Course/>} />
+          <Route path="/about" element={<Aboutus/>} />
           <Route path="/courses/coursedetails/:_id" element={<CourseContent/>} />
           <Route path="/success/:session_id" element={<Success/>} />
           <Route path="/cancel" element={<Cancel/>} />
