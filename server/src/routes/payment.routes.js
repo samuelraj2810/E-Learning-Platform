@@ -1,15 +1,14 @@
 const express = require('express');
 const Stripe = require('stripe');
 const stripe = Stripe("sk_test_51Qg1M4GCzgYKCEZbEgytiEe5CUzjQxDxnZwWsZX0SbjxqzmZ3j6daBfTEY0KyI9YXx0d3gRhfehdqCzZF4yYFZSt00bcEjp21D"); // Replace with your secret key
-const {verifyToken} = require("../middleware/authToken")
+const {verifyToken} = require("../middleware/authToken");
+const { sendVerificationEmail, sendReciptEmail } = require('../utils/verifyemail');
 const router = express.Router();
-
-router.post('/create-checkout-session', verifyToken ,async (req, res) => {
+router.post('/create-checkout-session', verifyToken, async (req, res) => {
   try {
-    const {  price } = req.body;
-    console.log(req.body);
-    
+    const { price,course } = req.body;
 
+    // Create the Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -17,7 +16,7 @@ router.post('/create-checkout-session', verifyToken ,async (req, res) => {
           price_data: {
             currency: 'inr',
             product_data: {
-              name: 'Course:',  // Use course details here
+              name: course,  // Use course details here
             },
             unit_amount: price * 100,  // Stripe requires the amount in cents
           },
@@ -29,16 +28,22 @@ router.post('/create-checkout-session', verifyToken ,async (req, res) => {
       cancel_url: `http://localhost:3001/cancel`,
     });
 
+    // Send session ID to the client
     res.json({ id: session.id });
   } catch (error) {
+    console.error("Error creating checkout session:", error);
     res.status(500).json({ error: error.message });
   }
 });
+
 
 router.get('/checkout-session/:sessionId', async (req, res) => {
     try {
       const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
       res.json(session);
+      console.log(session);
+      await sendReciptEmail(session.customer_details.name,session.customer_details.email,session.id,session.amount_total)
+      
     } catch (error) {
       console.error("Error retrieving session:", error);
       res.status(500).json({ error: error.message });

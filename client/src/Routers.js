@@ -31,7 +31,7 @@ const Routers = () => {
           <Route path="/contact" element={<Contact/>} />
           <Route path="/about" element={<Aboutus/>} />
           <Route path="/courses/coursedetails/:_id" element={<CourseContent/>} />
-          <Route path="/success/:session_id" element={<Success/>} />
+          <Route path="/success" element={<Success/>} />
           <Route path="/cancel" element={<Cancel/>} />
           
           <Route path="/profiledetails" element={<ProfileDetails />} />

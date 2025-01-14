@@ -59,7 +59,9 @@ const CourseDetails = () => {
     const token = sessionStorage.getItem("token")
      const response = await axios.post(
             'http://localhost:3000/create-checkout-session',
-            { price: item.price },
+            { price: item.price ,
+              course:item.courseName
+            },
             { headers: { Authorization: `Bearer ${token}` } }
           );
           
