@@ -2,29 +2,55 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../Common/CustomButton";
 import CustomDonut from "../Common/CustomDonut";
 import { GET } from "../ApiFunction/ApiFunction";
+import CourseProfile from "./CourseProfile";
 
 const AdminProfile = () => {
- const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState([]);
+  const [courseData, setCourseData] = useState([]);
   const [active, setActive] = useState(0);
+
   const adminData = [
     {
       title: "View Course",
-      count: 100,
+      count: userData?.length,
     },
     {
       title: "View Lecture",
       count: 100,
     },
   ];
-    const fetchData = async () => {
-      const result = await GET("http://localhost:3000/getallcourse");
-      setUserData(result);
-    };
-  
-    useEffect(() => {
-      fetchData();
-    }, []);
+  const fetchData = async () => {
+    const colorMap = new Map([
+      ["Technology", "#ede9fe"],
+      ["Business", "#4338ca"],
+      ["Design", "#6d28d9"],
+      ["Programming", "#e11d48"],
+      ["Marketing", "#ca8a04"],
+      ["Other", "#16a34a"],
+    ]);
+    const result = await GET("http://localhost:3000/getallcourse");
+    setUserData(result);
+    const course = result
+      ?.map((v) => v.courseType)
+      .reduce((acc, category, i) => {
+        const existing = acc.find((item) => item.name === category);
+        if (existing) {
+          existing.count += 1;
+        } else {
+          acc.push({
+            name: category,
+            count: 1,
+            color: colorMap.get(category) || "#000000",
+          });
+        }
+        return acc;
+      }, []);
+    setCourseData(course);
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="text-gray-700 flex flex-col gap-4 h-full">
       <p className="">Admin Profile</p>
@@ -48,7 +74,15 @@ const AdminProfile = () => {
           </CustomButton>
         ))}
       </div>
-      <CustomDonut  className="h-fit w-fit p-4"/>
+      {active === 0 ? (
+        <CourseProfile
+          courseData={courseData}
+          allCourse={userData}
+          refresh={() => fetchData()}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

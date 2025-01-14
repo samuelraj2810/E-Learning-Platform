@@ -12,13 +12,41 @@ import {
 import { Button, Upload } from "antd";
 import { useCustomMessage } from "../Common/CustomMessage";
 import { PUTFILE } from "../ApiFunction/ApiFunction";
+import CustomDropdown from "../Common/CustomDropdown";
 
 function EditCourse() {
+  const expertiseLists = [
+    {
+      label: "Select",
+      value: "select",
+    },
+    {
+      label: "Technology",
+      value: "Technology",
+    },
+    {
+      label: "Business",
+      value: "Business",
+    },
+    {
+      label: "Programming",
+      value: "Programming",
+    },
+    {
+      label: "Design",
+      value: "Design",
+    },
+    {
+      label: "Personal Development",
+      value: "Personal Development",
+    },
+  ];
   const location = useLocation();
   const data = location.state;
   const showMessage = useCustomMessage();
   const [editdata, setEditdata] = useState({
     courseName: data.courseName,
+    courseType: data.courseType,
     subTopic: data.subTopic,
     duration: data.duration,
     rating: data.rating || "",
@@ -109,6 +137,9 @@ function EditCourse() {
   };
 
   const handleSubmit = async () => {
+    if (editdata.courseType === "select") {
+      return showMessage("info", "course Type is required");
+    }
     let allRowsValid = false;
     allRowsValid = editdata.rows.every((row) => {
       return ["title", "lectureDuration", "description", "learn"].every(
@@ -151,7 +182,7 @@ function EditCourse() {
         setLoading(false);
 
         showMessage("success", "Course updated successfully!");
-        navigate("/instructordashboard/instructorcourse");
+        navigate(-1);
       }
     } catch (error) {
       setLoading(false);
@@ -211,6 +242,23 @@ function EditCourse() {
               </td>
             </tr>
           ))}
+          <tr className="grid grid-cols-1 md:grid-cols-2 ">
+            <td className="px-4 py-2 font-medium">
+              Course Type{" "}
+              <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">
+                required
+              </span>
+            </td>
+            <td className="md:px-6 py-2">
+              <CustomDropdown
+                type="select"
+                className="w-full"
+                value={editdata.courseType}
+                menus={expertiseLists}
+                onChange={(e) => setEditdata({ ...editdata, courseType: e })}
+              />
+            </td>
+          </tr>
           {editdata.requirements.map((requirement, index) => (
             <tr
               key={index}

@@ -14,22 +14,32 @@ const CustomButton = ({
   onClick,
   className = "",
   loading,
-  children
+  children,
 }) => {
   return (
     <>
       {type === "edit" || type === "delete" ? (
         <Button
-          className={`uppercase w-fit ${className} ${type === "edit" ? "hover:bg-blue-100" : "hover:bg-red-100"}`}
+          className={`uppercase w-fit ${className} ${
+            type === "edit" ? "hover:bg-blue-100" : "hover:bg-red-100"
+          }`}
           color={color}
           variant={"default"}
           disabled={disabled}
           size={"small"}
-          icon={type === "edit" ? <EditTwoTone shape="circle"/>: <DeleteTwoTone shape="circle" twoToneColor="#dc2626"/>}
           shape={"circle"}
           loading={loading}
           onClick={onClick}
         >
+          {type === "edit" ? (
+            <EditTwoTone shape="circle" className="absolute" />
+          ) : (
+            <DeleteTwoTone
+              shape="circle"
+              twoToneColor="#dc2626"
+              className="absolute"
+            />
+          )}
           {title}
           {children}
         </Button>

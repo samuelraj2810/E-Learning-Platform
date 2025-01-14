@@ -1,50 +1,31 @@
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
 import CustomButton from "../Common/CustomButton";
-import { GET } from "../ApiFunction/ApiFunction";
-import CustomDrawer from "../Common/CustomDrawer";
-import CustomInput from "../Common/CustomInput";
 import axios from "axios";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useCustomMessage } from "../Common/CustomMessage";
-import {message, Popconfirm } from "antd";
+import { message, Popconfirm } from "antd";
 
-const InstructorTable = () => {
+const InstructorTable = ({
+  data,
+  columns,
+  deleteFunction = (data) => {},
+  editFunction = (data) => {},
+}) => {
   const [open, setOpen] = useState(false);
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
   const navigate = useNavigate();
-  const showMessage = useCustomMessage();
 
-
-
-  const token = sessionStorage.getItem("token");
-
+  useEffect(() => {
+    if (data?.length > 0) {
+      setCoursedata(data);
+    }
+  }, [data]);
 
   const cancel = (e) => {
     console.log(e);
     message.error("Click on No");
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await axios.get("http://localhost:3000/getinstcourse", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (result.data) {
-      setCoursedata(result.data);
-    } else {
-      setCoursedata([]);
-    }
   };
 
   const updatedDataSource = coursedata.map((item) => ({
@@ -52,7 +33,7 @@ const InstructorTable = () => {
     width: 120,
   }));
 
-  const columns = [
+  const defaultColumn = [
     {
       title: "Course Name",
       dataIndex: "courseName",
@@ -112,12 +93,12 @@ const InstructorTable = () => {
           <Popconfirm
             title="Delete the task"
             description="Are you sure to delete this task?"
-            onConfirm={() =>handleDelete(record)}
+            onConfirm={() => handleDelete(record)}
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
-            <CustomButton type="delete"/>
+            <CustomButton type="delete" />
           </Popconfirm>
         </div>
       ),
@@ -125,30 +106,13 @@ const InstructorTable = () => {
   ];
 
   const handleDelete = async (data) => {
-    const { _id } = data;
-
-
-    try {
-      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      getData();
-    } catch (error) {
-      console.error("Error deleting course:", error);
-      showMessage("error", "Failed to delete course. Please try again.");
-    }
+    deleteFunction(data);
   };
 
   const handleEdit = (data) => {
     setUpdateId(true);
-    navigate("/instructordashboard/instructorcourse/editCourse", {
-      state: data,
-    });
+    editFunction(data);
   };
-
- 
 
   return (
     <>
@@ -156,7 +120,7 @@ const InstructorTable = () => {
         bordered
         size="small"
         className=""
-        columns={columns}
+        columns={columns ? columns : defaultColumn}
         dataSource={updatedDataSource}
         pagination={{
           pageSize: 10,

@@ -29,9 +29,13 @@ const Dashboard = () => {
   const navList = [
     {
       id: 1,
-      to: userData.designation === "Admin" ? "/adminpanel" : "/instructordashboard",
-      title: userData.designation === "Admin" ? "Profile" : "Instructor Profile",
-      icon:<UserOutlined className="mr-2" />,
+      to:
+        userData.designation === "Admin"
+          ? "/adminpanel"
+          : "/instructordashboard",
+      title:
+        userData.designation === "Admin" ? "Profile" : "Instructor Profile",
+      icon: <UserOutlined className="mr-2" />,
     },
     {
       id: 2,
@@ -131,7 +135,7 @@ const Dashboard = () => {
             onClick={handleSignOut}
           />
         </div>
-        <motion.div className="bg-white md:m-3 mr-0 shadow-lg rounded-lg p-4 overflow-y-auto">
+        <motion.div className="bg-white md:m-3 mr-0 shadow-lg rounded-lg md:p-4 p-2 overflow-y-auto">
           <Outlet />
         </motion.div>
       </div>
