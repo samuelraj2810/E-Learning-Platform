@@ -16,7 +16,11 @@ import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
 import CourseDetails from "./Components/Student/Course/CourseDetails";
-import CoursePayment from "./Components/Student/Course/CoursePayment";
+
+import CourseCards from "./Components/Student/Course/CourseCards";
+import CourseContent from "./Components/Student/Course/CourseContent";
+import Success from "./Components/Student/Course/SuccessPage";
+import Cancel from "./Components/Student/Course/CancelPage";
 
 const Routers = () => {
   return (
@@ -26,8 +30,10 @@ const Routers = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
           <Route path="/courses" element={<Course/>} />
-          <Route path="/courses/coursedetails/:_id" element={<CourseDetails/>} />
-          <Route path="/courses/coursepayment/:_id" element={<CoursePayment/>} />
+          <Route path="/courses/coursedetails/:_id" element={<CourseContent/>} />
+          <Route path="/success/:session_id" element={<Success/>} />
+          <Route path="/cancel" element={<Cancel/>} />
+          
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 
