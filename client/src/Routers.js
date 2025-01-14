@@ -11,17 +11,18 @@ import MainLayout from "./Components/Student/Home/MainLayout";
 import DashBoard from "./Components/Instructor/Dashboard"; 
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
-import InstructorTable from "./Components/Instructor/InstructorTable";
+
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
-import CourseDetails from "./Components/Student/Course/CourseDetails";
 
-import CourseCards from "./Components/Student/Course/CourseCards";
+
+
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
 import Aboutus from "./Components/Student/Home/Aboutus";
+import Contact from "./Components/Student/Home/Contact";
 
 const Routers = () => {
   return (
@@ -31,6 +32,7 @@ const Routers = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
           <Route path="/courses" element={<Course/>} />
+          <Route path="/contact" element={<Contact/>} />
           <Route path="/about" element={<Aboutus/>} />
           <Route path="/courses/coursedetails/:_id" element={<CourseContent/>} />
           <Route path="/success/:session_id" element={<Success/>} />
