@@ -24,6 +24,7 @@ const courseSchema = new mongoose.Schema(
     requirements: [String],
     instructorName: String,
     instructorId: String,
+    boughtBy:[String],
     imagePath: String,
     imageName: String,
     videoPath: String,

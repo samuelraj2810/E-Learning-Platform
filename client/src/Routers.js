@@ -11,11 +11,9 @@ import MainLayout from "./Components/Student/Home/MainLayout";
 import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
 import InstructorCourse from "./Components/Instructor/InstructorCourse";
-
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
-
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
@@ -38,7 +36,7 @@ const Routers = () => {
             path="/courses/coursedetails/:_id"
             element={<CourseContent />}
           />
-          <Route path="/success/:session_id" element={<Success />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>

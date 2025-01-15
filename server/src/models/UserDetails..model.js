@@ -5,13 +5,14 @@ const userSch = new mongoose.Schema(
 
 {
     username:String,
-    fullName:String,
+    fullname:String,
     phonenumber: Number,
     age:Number,
     gender:String,
     email: String,
     address:String,
     designation: String,
+    myCourses:[String],
     title: {
       type: [String],
       default: ["username","fullname","phonenumber","age","email"]

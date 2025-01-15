@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { GET } from "../../ApiFunction/ApiFunction";
 
 const Success = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  const courseId = searchParams.get("courseId");
   const [sessionDetails, setSessionDetails] = useState(null);
 
   useEffect(() => {
     const fetchSessionDetails = async () => {
+      console.log(courseId);
+      
       if (sessionId) {
         try {
-          const response = await fetch(`http://localhost:3000/checkout-session/${sessionId}`);
-          const data = await response.json();
-          setSessionDetails(data);
+          const response = await GET(`http://localhost:3000/checkout-session/${sessionId}`,{courseId:courseId});
+          console.log("ajima");
+          
+          setSessionDetails(response.data);
         } catch (error) {
           console.error("Error fetching session details:", error);
         }
@@ -24,15 +29,9 @@ const Success = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       <h1 className="text-4xl font-semibold text-green-600">Payment Successful!</h1>
+      <h2 className="text-3xl font-semibold text-green-600">  Check you mail for receipt</h2>
       <p className="text-gray-700 mt-2">Thank you for your purchase.</p>
-      {sessionDetails && (
-        <div className="mt-4 p-4 border rounded-lg bg-white shadow">
-          <h2 className="text-lg font-medium">Order Summary</h2>
-          <p className="text-gray-600">Session ID: {sessionDetails.id}</p>
-          <p className="text-gray-600">Customer Email: {sessionDetails.customer_email}</p>
-          <p className="text-gray-600">Amount: ${sessionDetails.amount_total / 100}</p>
-        </div>
-      )}
+     
       <button
         className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         onClick={() => window.location.href = "/"}

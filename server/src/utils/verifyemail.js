@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendVerificationEmail = async (email, token,name) => {
+const sendVerificationEmail = async (email, token,name,sessionid,sessionemail,price) => {
     try {
         const verificationUrl = `http://localhost:3000/verify-email/${token}`;
         await transporter.sendMail({
@@ -22,6 +22,23 @@ const sendVerificationEmail = async (email, token,name) => {
         console.log(error)
     }
 };
+
+const sendReciptEmail = async (name,email,id,price) => {
+    const amount = price/100
+    try {
+        await transporter.sendMail({
+            from: process.env.USER_MAIL,
+            to: email,
+            subject: "Reciept ",
+            html: `<h2>Hi ${name} </h2>
+            <h3> Your payment for the course with the payment Id :${id} for the price of ${amount} is Successfull.<br></h3>`,
+        });
+        console.log("mail sent Successfull ")
+    } catch (error) {
+        console.log(error)
+    }
+};
+
 
 const forgotPassEmail = async (email, token) => {
     try {
@@ -40,5 +57,5 @@ const forgotPassEmail = async (email, token) => {
 
 
 module.exports = {sendVerificationEmail
-    ,forgotPassEmail
+    ,forgotPassEmail,sendReciptEmail
 };
