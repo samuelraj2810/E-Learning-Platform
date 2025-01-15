@@ -16,7 +16,6 @@ const Course = () => {
   }, []);
 
   const getData = async () => {
-
     const result = await GET("http://localhost:3000/getallcourse");
     if (result) {
       setCoursedata(result);
@@ -24,6 +23,7 @@ const Course = () => {
       setCoursedata([]);
     }
   };
+  console.log(coursedata);
 
   const filteredData = useMemo(() => {
     return coursedata.filter((course) => {
