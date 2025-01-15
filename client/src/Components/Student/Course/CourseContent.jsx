@@ -16,7 +16,7 @@ const CourseDetails = () => {
   const [temp, setTemp] = useState([]);
   
   // Load Stripe outside of a component’s render to avoid reloading the Stripe object
-  const stripePromise = loadStripe("pk_test_51Qg1M4GCzgYKCEZbxNMcZ5qBmQTQRtJYKW9xkPiiTHvwSR7R4eBwnmsLcK1Xnl1py7MmovAcUZ7NGlumleRLMSJG00DfMZaaOx");
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
   const getCourse = async () => {
     const data = await GET(`http://localhost:3000/getcourse/${_id}`);
@@ -54,13 +54,16 @@ const CourseDetails = () => {
     }));
   };
 
+
   // Function to handle the buy button click
   const handleBuyClick = async (item) => {
     const token = sessionStorage.getItem("token")
+    console.log(item._id);
+    
      const response = await axios.post(
             'http://localhost:3000/create-checkout-session',
             { price: item.price ,
-              course:item.courseName
+              course:item._id
             },
             { headers: { Authorization: `Bearer ${token}` } }
           );

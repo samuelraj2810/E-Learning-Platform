@@ -29,7 +29,7 @@ const sendReciptEmail = async (name,email,id,price) => {
         await transporter.sendMail({
             from: process.env.USER_MAIL,
             to: email,
-            subject: "Verify Your Email",
+            subject: "Reciept ",
             html: `<h2>Hi ${name} </h2>
             <h3> Your payment for the course with the payment Id :${id} for the price of ${amount} is Successfull.<br></h3>`,
         });
@@ -39,7 +39,7 @@ const sendReciptEmail = async (name,email,id,price) => {
     }
 };
 
-sendVerificationEmail("sai")
+
 const forgotPassEmail = async (email, token) => {
     try {
         const verificationUrl = `http://localhost:3001/resetpass/${token}`;

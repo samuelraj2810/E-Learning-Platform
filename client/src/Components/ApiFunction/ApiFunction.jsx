@@ -28,12 +28,13 @@ export const POSTFILE = async (action, params) => {
   }
 };
 
-export const GET = async (action) => {
+export const GET = async (action,params={}) => {
   try {
     const token = sessionStorage.getItem("token");
     if (token) {
       const result = await axios.get(action,{
         headers: { Authorization: `Bearer ${token}` },
+        params:params
       });
       if (result.status === 200) {
         return result.data;

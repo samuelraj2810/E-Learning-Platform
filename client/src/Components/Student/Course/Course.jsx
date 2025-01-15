@@ -16,8 +16,8 @@ const Course = () => {
   }, []);
 
   const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await GET("http://localhost:3000/getallcourse", token);
+
+    const result = await GET("http://localhost:3000/getallcourse");
     if (result) {
       setCoursedata(result);
     } else {

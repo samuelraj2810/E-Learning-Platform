@@ -12,6 +12,7 @@ const userSch = new mongoose.Schema(
     email: String,
     address:String,
     designation: String,
+    myCourses:[String],
     title: {
       type: [String],
       default: ["username","fullname","phonenumber","age","email"]

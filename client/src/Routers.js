@@ -14,15 +14,12 @@ import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
-<<<<<<< HEAD
-=======
-
->>>>>>> 1d6b4935ea21e89b8737424463462afbb5a8aac5
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
 import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
+import AdminProfile from "./Components/Admin/AdminProfile";
 
 const Routers = () => {
   return (
@@ -31,7 +28,6 @@ const Routers = () => {
         {/* Main layout with nested routes */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} /> {/* Default route for / */}
-<<<<<<< HEAD
           <Route path="/courses" element={<Course/>} />
           <Route path="/contact" element={<Contact/>} />
           <Route path="/about" element={<Aboutus/>} />
@@ -39,17 +35,6 @@ const Routers = () => {
           <Route path="/success" element={<Success/>} />
           <Route path="/cancel" element={<Cancel/>} />
           
-=======
-          <Route path="/courses" element={<Course />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<Aboutus />} />
-          <Route
-            path="/courses/coursedetails/:_id"
-            element={<CourseContent />}
-          />
-          <Route path="/success/:session_id" element={<Success />} />
-          <Route path="/cancel" element={<Cancel />} />
->>>>>>> 1d6b4935ea21e89b8737424463462afbb5a8aac5
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 
@@ -78,7 +63,7 @@ const Routers = () => {
           />
         </Route>
         <Route path="/adminpanel" element={<DashBoard />}>
-          <Route path="/adminpanel" element={<AdminProfile />} />
+          <Route path="/adminpanel" element={<AdminProfile/>} />
         </Route>
       </Routes>
     </main>

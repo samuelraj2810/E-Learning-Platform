@@ -5,14 +5,17 @@ import { GET } from "../../ApiFunction/ApiFunction";
 const Success = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  const courseId = searchParams.get("courseId");
   const [sessionDetails, setSessionDetails] = useState(null);
 
   useEffect(() => {
     const fetchSessionDetails = async () => {
+      console.log(courseId);
+      
       if (sessionId) {
         try {
-          const response = await GET(`http://localhost:3000/checkout-session/${sessionId}`);
-          console.log(response.data);
+          const response = await GET(`http://localhost:3000/checkout-session/${sessionId}`,{courseId:courseId});
+          console.log("ajima");
           
           setSessionDetails(response.data);
         } catch (error) {

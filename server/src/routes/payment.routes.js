@@ -3,11 +3,14 @@ const Stripe = require('stripe');
 const stripe = Stripe("sk_test_51Qg1M4GCzgYKCEZbEgytiEe5CUzjQxDxnZwWsZX0SbjxqzmZ3j6daBfTEY0KyI9YXx0d3gRhfehdqCzZF4yYFZSt00bcEjp21D"); // Replace with your secret key
 const {verifyToken} = require("../middleware/authToken");
 const { sendVerificationEmail, sendReciptEmail } = require('../utils/verifyemail');
+const courseDetails = require('../models/course.model');
+const userDetails = require('../models/UserDetails..model');
 const router = express.Router();
 router.post('/create-checkout-session', verifyToken, async (req, res) => {
   try {
     const { price,course } = req.body;
-
+    console.log(course);
+    
     // Create the Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -16,7 +19,7 @@ router.post('/create-checkout-session', verifyToken, async (req, res) => {
           price_data: {
             currency: 'inr',
             product_data: {
-              name: course,  // Use course details here
+              name:"course",  // Use course details here
             },
             unit_amount: price * 100,  // Stripe requires the amount in cents
           },
@@ -24,7 +27,7 @@ router.post('/create-checkout-session', verifyToken, async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `http://localhost:3001/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `http://localhost:3001/success?session_id={CHECKOUT_SESSION_ID}&courseId=${course}`,
       cancel_url: `http://localhost:3001/cancel`,
     });
 
@@ -39,9 +42,25 @@ router.post('/create-checkout-session', verifyToken, async (req, res) => {
 
 router.get('/checkout-session/:sessionId', async (req, res) => {
     try {
+      const userId = req.userId
+      const {courseId} = req.query
+
       const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
       res.json(session);
-      console.log(session);
+      // console.log(session);
+      const data = await courseDetails.findOne({_id:courseId})
+      const data1 = await userDetails.findOne({userId})
+      if(data.boughtBy.includes(userId)){
+        return
+      }else{
+        data.boughtBy.push(userId)
+        data1.myCourses.push(courseId)
+        await data.save()
+        await data1.save()
+      }
+     
+      console.log(data);
+      
       await sendReciptEmail(session.customer_details.name,session.customer_details.email,session.id,session.amount_total)
       
     } catch (error) {
