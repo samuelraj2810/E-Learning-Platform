@@ -75,6 +75,7 @@ const Course = () => {
         setRate={(e) => setFilterText((prev) => ({ ...prev, rate: e }))}
       />
       <CourseCards coursedata={filteredData} />
+      {}
     </main>
   );
 };
