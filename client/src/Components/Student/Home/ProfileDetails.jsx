@@ -19,6 +19,8 @@ const ProfileDetails = () => {
   const [checkBoxValue, setCheckBoxValue] = useState("male");
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
+  const [pieData, setPieData] = useState([]);
+
   const options = [
     {
       label: "male",
@@ -54,6 +56,7 @@ const ProfileDetails = () => {
   };
 
   const fetchData = async () => {
+    let count = 0
     try {
       const token = sessionStorage.getItem("token");
       if (token) {
@@ -61,20 +64,30 @@ const ProfileDetails = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setData(result.data);
+        const filteredData = result.data.map(user => ({
+          username: user.username ? 10 : 0,
+          fullname: user.fullname ? 10 : 0,
+          phonenumber:user.phonenumber ? 10 : 0,
+          designation: user.designation ? 10 : 0,
+          age:user.age ? 10 : 0,
+          gender:user.gender ? 10 : 0,
+          email:user.email ? 10 : 0,
+          address:user.address ? 10 : 0,
+        }));
+        const count = filteredData[0].username + filteredData[0].fullname + filteredData[0].phonenumber + filteredData[0].age + filteredData[0].gender + filteredData[0].email + filteredData[0].designation + filteredData[0].address + 20;
+        setPieData(count)
         if (result.data?.length > 0 && result.data[0].gender) {
           setCheckBoxValue(result.data[0].gender);
           setAddress(result.data[0].address);
           setDesignation(result.data[0].designation);
-          
-          
         }
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  console.log(designation);
 
+  console.log(pieData);
 
   useEffect(() => {
     fetchData();
@@ -118,16 +131,15 @@ const ProfileDetails = () => {
   };
 
   const handleButtonClick = () => {
-    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
-    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
+    const phonePattern = /^\d{10}$/; // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/; // Ensures the age is exactly 2 digits
 
     Object.keys(data[0]).forEach((key) => {
       if (typeof data[0][key] === "string") {
         data[0][key] = data[0][key].trim(); // Trim strings
       }
     });
-    
-     
+
     if (!phonePattern.test(data[0].phonenumber)) {
       showMessage("error", "Please enter a valid 10-digit mobile number");
       return;
@@ -141,16 +153,13 @@ const ProfileDetails = () => {
       setChecked(true);
     }
   };
-  
-  
 
   return (
-    <form className=" lg:mx-auto rounded-lg p-4 lg:p-6">
+    <form className=" lg:mx-auto rounded-lg grid gap-2 p-4 lg:p-6">
       <div className="flex items-center gap-4 h-fit ">
         <h1 className="lg:text-2xl text-base border-l-8 border-Primary pl-2 font-semibold text-PrimaryDark my-4 tracking-widest">
           Profile details
         </h1>
-        {/* <CustomProgressBar totalfield={titles} percent={titles} className="" /> */}
         <CustomButton
           title={"submit"}
           onClick={handleButtonClick}
@@ -162,45 +171,53 @@ const ProfileDetails = () => {
           loading={isLoading}
         />
       </div>
-      <Checkbox
-        checked={checked}
-        onChange={() => {
-          setIsupdate(!isupdate);
-          setChecked(!checked);
-        }}
-        className={`text-xs my-4 ${checked ? "" : ""}`}
-      >
-        Update
-      </Checkbox>
+      <div className="flex items-center gap-4 justify-between">
+          <CustomProgressBar
+            percent={pieData || 20}
+            defaultColor
+            strokeWidth={12}
+            strokeLinecap="butt"
+            className="w-4/5"
+          />
+        <Checkbox
+          checked={checked}
+          onChange={() => {
+            setIsupdate(!isupdate);
+            setChecked(!checked);
+          }}
+          className={`text-xs text-Primary focus:ring-Primary bg-Primary/10 p-1 ${checked ? "" : ""}`}
+        >
+          Edit
+        </Checkbox>
+      </div>
       {data.length > 0 ? (
         <div
           className="grid grid-cols-1 mt-4 md:grid-cols-2
-         lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
+          lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
         >
-        {data.map((each) =>
-          each.title
-            .filter((field) => !["gender"].includes(field))
-            .map((field) => (
-              <CustomInput
-                key={field}
-                disabled={isupdate}
-                className="text-xs"
-                containerClassName="mx-2"
-                titleClassName="text-xs"
-                title={field}
-                type={field === "age" ? "number" : field}
-                value={each[field] || ""}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  handleInputChange(field, newValue);
-                }}
-              />
-            )))}
+          {data.map((each) =>
+            each.title
+              .filter((field) => !["gender"].includes(field))
+              .map((field) => (
+                <CustomInput
+                  key={field}
+                  disabled={isupdate}
+                  className="text-xs"
+                  containerClassName="mx-2"
+                  titleClassName="text-xs"
+                  title={field}
+                  type={field === "age" ? "number" : field}
+                  value={each[field] || ""}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    handleInputChange(field, newValue);
+                  }}
+                />
+              ))
+          )}
 
           <span className="mx-2">
-            <p className="text-xs font-normal mb-4 text-gray-700">
-              gender
-            </p>
+            <p className="text-xs font-normal mb-4 text-gray-700">gender</p>
             <Radio.Group
               options={options}
               onChange={onChange1}
@@ -224,7 +241,16 @@ const ProfileDetails = () => {
             <p className="text-xs font-normal mb-4 capitalize text-gray-700">
               Designation
             </p>
-            <CustomDropdown type="select" className="w-full" value={designation} disabled= {true} menus={designationLists} onChange={(e) => {setDesignation(e.target.value)}}/>
+            <CustomDropdown
+              type="select"
+              className="w-full"
+              value={designation}
+              disabled={true}
+              menus={designationLists}
+              onChange={(e) => {
+                setDesignation(e.target.value);
+              }}
+            />
           </span>
         </div>
       ) : (
