@@ -5,6 +5,7 @@ const {verifyToken} = require("../middleware/authToken");
 const { sendVerificationEmail, sendReciptEmail } = require('../utils/verifyemail');
 const courseDetails = require('../models/course.model');
 const userDetails = require('../models/UserDetails..model');
+const payment = require('../models/Payments.model');
 const router = express.Router();
 router.post('/create-checkout-session', verifyToken, async (req, res) => {
   try {
@@ -44,7 +45,7 @@ router.get('/checkout-session/:sessionId', async (req, res) => {
     try {
       const userId = req.userId
       const {courseId} = req.query
-
+      console.log("hi da")
       const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
       res.json(session);
       // console.log(session);
@@ -58,9 +59,18 @@ router.get('/checkout-session/:sessionId', async (req, res) => {
         await data.save()
         await data1.save()
       }
-     
-      console.log(data);
+      const PaymentData = {
+          userId,
+          courseId,
+          sessionId: session.id,
+          paymentIntentId: session.payment_intent,
+          amount: session.amount_total / 100, 
+          currency: session.currency,
+          paymentStatus: session.payment_status,
+        
+      }
       
+      await payment.create(PaymentData)
       await sendReciptEmail(session.customer_details.name,session.customer_details.email,session.id,session.amount_total)
       
     } catch (error) {

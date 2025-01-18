@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../Common/CustomButton";
 import CustomDonut from "../Common/CustomDonut";
 import { GET } from "../ApiFunction/ApiFunction";
+import CountUp from 'react-countup';
 import CourseProfile from "./CourseProfile";
 import { Progress } from "antd";
 
@@ -13,6 +14,7 @@ const AdminProfile = () => {
   const [userData, setUserData] = useState([]);
   const [courseData, setCourseData] = useState([]);
   const [active, setActive] = useState(0);
+  const [adminstats , setAdminstats] = useState({})
   const url = "http://localhost:3000";
   const courseImg = userData.map((v) => v.imagePath);
   console.log(courseImg);
@@ -21,19 +23,18 @@ const AdminProfile = () => {
     {
       title: "Courses",
       count: userData?.length,
-      data: courseData,
     },
     {
       title: "Enrolled",
-      count: 100,
+      count: adminstats.totalStudents,
     },
     {
-      title: "View Lecture",
-      count: 100,
+      title: "Instructors",
+      count: adminstats.totalInstructors,
     },
     {
-      title: "View Lecture",
-      count: 100,
+      title: "Revenue",
+      count: adminstats.totalRevenue,
     },
   ];
   const fetchData = async () => {
@@ -65,32 +66,42 @@ const AdminProfile = () => {
     setCourseData(course);
   };
 
+  const fetchadmin = async()=>{
+    try {
+      const stats = await GET("http://localhost:3000/adminstats");
+      setAdminstats(stats)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    fetchData();
+    fetchData()
+    fetchadmin()
   }, []);
   return (
     <div className="text-gray-700 flex flex-col gap-4 h-full lg:overflow-hidden">
       <p>Admin Profile</p>
-      <div className="grid md:grid-cols-4 grid-cols-2 items-center gap-4">
+      <div className="grid md:grid-cols-4 md:h-[200px] p-2 grid-cols-2 items-center border gap-4 bg-slate-50 rounded-lg box-border">
         {adminData.map((v, i) => (
           <div
             key={i}
             onClick={() => setActive(i)}
-            className="w-full rounded-lg shadow gap-2 text-xs text-center flex"
+            className=" bg-gradient-to-r from- md:w-full md:h-[130px] rounded-lg text-xs text-center flex flex-col hover:bg-white hover:shadow ease-in-out transition-all"
           >
-            <div className="grid gap-2 flex-1 p-2 text-left">
-              <p className=" sm:text-base">
-                Total no of <strong>{v.title}</strong>
+            <div className="p-2 text-left">
+              <p className="text-base ml-3 mb-2 text-gray-500 hover:text-gray-500">
+                <strong>{v.title}</strong>
               </p>
-              <div className="border-t flex gap-2 flex-wrap pt-2">
+              {/* <div className="border-t flex gap-2 flex-wrap pt-2">
                 {v.data?.map((v) => (
                   <small style={{ color: v.color }}>{v.name}</small>
                 ))}
-              </div>
+              </div> */}
               {/* <Progress percent={v.count} strokeColor={twoColors} /> */}
             </div>
-            <strong className="sm:text-base p-2 text-Primary min-w-9 md:min-w-16 items-center flex justify-center bg-Primary/10">
-              {v.count}
+            <strong className="text-base md:text-4xl text-Primary min-w-9 md:min-w-16 items-center flex justify-center">
+              <CountUp start={0} end={v.count} duration={2}/>
             </strong>
           </div>
         ))}

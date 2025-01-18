@@ -3,6 +3,7 @@ const register = require("../models/Register.model");
 const jwt = require("jsonwebtoken");
 const userDetails = require("../models/UserDetails..model");
 const instDetails = require("../models/instructorDetails.model");
+const admindetails = require("../models/Admin.model");
 
 // Verifies email of User
 
@@ -33,7 +34,7 @@ const verifyEmail = async (req, res) => {
       await instDetails.create(data)
     }
     else {
-      await adminDetails.create(data)
+      await admindetails.create(data)
     }
 
     res.redirect("http://localhost:3001/verify");

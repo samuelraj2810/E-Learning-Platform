@@ -9,14 +9,14 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { GET } from "../ApiFunction/ApiFunction";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [userData, setUserData] = useState("- - -");
 
   const fetchData = async () => {
-    const result = await GET("http://localhost:3000/getinsdata");
+    const result = await GET("http://localhost:3000/admindetails");
     setUserData(result[0]);
   };
   console.log(userData);
@@ -29,29 +29,20 @@ const Dashboard = () => {
   const navList = [
     {
       id: 1,
-      to:
-        userData.designation === "Admin"
-          ? "/adminpanel"
-          : "/instructordashboard",
+      to: "/adminpanel",
       title:
-        userData.designation === "Admin" ? "Profile" : "Instructor Profile",
+        "Profile" ,
       icon: <UserOutlined className="mr-2" />,
     },
     {
       id: 2,
-      to:
-        userData.designation === "Admin"
-          ? "/adminpanel/course"
-          : "/instructordashboard/instructorcourse",
+      to: "/adminpanel/course",
       title: "Courses",
       icon: <ContainerOutlined className="mr-2" />,
     },
     {
       id: 3,
-      to:
-        userData.designation === "Admin"
-          ? "/adminpanel/instructor"
-          : "/instructordashboard/instructorcourse",
+      to: "/adminpanel/instructor",
       title: "Instructors",
       icon: <ContainerOutlined className="mr-2" />,
     },
@@ -141,7 +132,7 @@ const Dashboard = () => {
       <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
           <h1 className="mr-auto capitalize text-Primary text-xs tracking-widest rounded-lg bg-gray-50 p-1">
-            {userData.name}
+            {userData.username}
           </h1>
           <LogoutOutlined
             className="text-white hidden lg:block bg-red-500 p-1 rounded-full"
@@ -156,4 +147,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

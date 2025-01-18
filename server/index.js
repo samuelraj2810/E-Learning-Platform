@@ -7,6 +7,7 @@ const insrouter = require("./src/routes/instrutor.route")
 const filerouter = require("./src/middleware/file.route")
 const courserouter = require("./src/routes/course.routes")
 const paymentrouter = require("./src/routes/payment.routes")
+const adminroute = require("./src/routes/admin.route")
 const cors = require("cors")
 
 app.use(cors('*'))
@@ -19,6 +20,7 @@ app.use(insrouter)
 app.use(filerouter)
 app.use(courserouter)
 app.use(paymentrouter)
+app.use(adminroute)
 
 app.listen(3000, () => {
     try {

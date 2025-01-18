@@ -3,7 +3,7 @@ const { v4 } = require("uuid");
 
 const InstSch = new mongoose.Schema(
   {
-    name: String,
+    username: String,
     phonenumber: Number,
     age: Number,
     gender: String,

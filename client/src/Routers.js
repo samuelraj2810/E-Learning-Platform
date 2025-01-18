@@ -21,6 +21,8 @@ import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
 import AdminProfile from "./Components/Admin/AdminProfile";
 import AdminCourse from "./Components/Admin/AdminCourse";
+import AdminInstructor from "./Components/Admin/AdminInstructor";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
 
 const Routers = () => {
   return (
@@ -65,10 +67,11 @@ const Routers = () => {
             element={<EditCourse />}
           />
         </Route>
-        <Route path="/adminpanel" element={<DashBoard />}>
+        <Route path="/adminpanel" element={<AdminDashboard />}>
           <Route path="/adminpanel" element={<AdminProfile />} />
           <Route path="/adminpanel/course" element={<AdminCourse />} />
           <Route path="/adminpanel/course/addCourse" element={<AddCourse />} />
+          <Route path="/adminpanel/instructor" element={<AdminInstructor />} />
           <Route
             path="/adminpanel/course/editCourse"
             element={<EditCourse />}
