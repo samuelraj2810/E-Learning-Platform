@@ -39,13 +39,13 @@ const Routers = () => {
           />
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
+          <Route path="/mycourse" element={<MyCourse />} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 
         {/* Authentication routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/mycourse" element={<MyCourse />} />
         <Route path="/forgotpass" element={<ForgotPassword />} />
         <Route path="/resetpass/:token" element={<ResetPassword />} />
         <Route path="/verify" element={<VericicationPage />} />

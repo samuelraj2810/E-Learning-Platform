@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import CourseCards from "./CourseCards";
 import { GET } from "../../ApiFunction/ApiFunction";
+import Course from "./Course";
 
 const MyCourse = ({}) => {
   const userId = sessionStorage.getItem("id");
@@ -27,14 +28,7 @@ const MyCourse = ({}) => {
     };
     console.log(coursedata,"del");
   return (
-    <div className="grid gap-4 p-2 md:p-4">
-      <h1 className="lg:text-2xl text-base border-l-8 border-Primary pl-2 font-semibold text-PrimaryDark tracking-widest">
-        My Course
-      </h1>
-      <div>
-        <CourseCards coursedata={coursedata}/>
-      </div>
-    </div>
+    <Course my/>
   );
 };
 

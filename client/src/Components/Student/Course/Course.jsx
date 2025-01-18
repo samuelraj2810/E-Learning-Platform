@@ -3,7 +3,7 @@ import Filter from "./Filter";
 import CourseCards from "./CourseCards";
 import { GET } from "../../ApiFunction/ApiFunction";
 
-const Course = () => {
+const Course = ({my=false}) => {
   const [coursedata, setCoursedata] = useState([]);
   const userId = sessionStorage.getItem("id");
   const [myCourse, setMyCourse] = useState([]);
@@ -18,7 +18,8 @@ const Course = () => {
   const getData = async () => {
     const result = await GET("http://localhost:3000/getallcourse");
     if (result) {
-      setCoursedata(result);
+      setCoursedata(result.filter((course) =>!course.boughtBy.includes(userId)));
+      setMyCourse(result.filter((course) =>course.boughtBy.includes(userId)))
     } else {
       setCoursedata([]);
     }
@@ -65,6 +66,20 @@ const Course = () => {
               });
             }, [coursedata, filterText]);
             
+  const content = !my ? [
+    {
+      id: 1,
+      title: "My Course",
+      content:myCourse,
+    },
+    { id: 2, title: "All Course", content: filteredData },
+  ]:[
+    {
+      id: 1,
+      title: "My Course",
+      content:myCourse,
+    },
+  ]
   return (
     <main className="h-[90vh] md:h-fit flex md:flex-row flex-col gap-2 items-start w-full relative bg-gray-50 ">
       <Filter
@@ -74,10 +89,16 @@ const Course = () => {
         setPrice={(e) => setFilterText((prev) => ({ ...prev, price: e }))}
         setRate={(e) => setFilterText((prev) => ({ ...prev, rate: e }))}
       />
+      <div className="grid">
+      {content.map((v) => 
+        <>
           <h1 className="lg:text-2xl my-4 text-base border-l-8 border-Primary pl-2 font-semibold text-PrimaryDark tracking-widest">
-            All Course
+            {v.title}
           </h1>
-          <CourseCards coursedata={filteredData} />
+          <CourseCards coursedata={v.content} />
+        </>
+      )}
+      </div>
     </main>
   );
 };
