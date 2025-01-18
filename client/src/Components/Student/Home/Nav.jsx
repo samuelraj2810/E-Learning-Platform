@@ -22,7 +22,7 @@ const Nav = () => {
     updatedNavList.push({ id: 7, to: "/login", title: "Login" });
   }
   if (!signOut) {
-    navList.push({ id: 6, to: "/login", title: "Sign out" });
+    navList.push({ id: 8, to: "/mycourse", title: "mycourse" },{ id: 6, to: "/login", title: "Sign out" });
   } else {
     navList.push({ id: 7, to: "/login", title: "Login" });
   }
@@ -92,7 +92,7 @@ const Nav = () => {
               />
             }
             className=""
-            menus={navList.filter((menu) => menu.id === 5 || menu.id === 6)}
+            menus={navList.filter((menu) => menu.id === 5 || menu.id === 6 || menu.id === 8)}
           />
         )}
       </div>
@@ -106,7 +106,7 @@ const Nav = () => {
           <span className="tracking-wider">Menu</span>
           <CloseOutlined onClick={handleMenuClick} className="md:hidden" />
         </h1>
-        <ul className="flex justify-center gap-4 p-4 border-t flex-col w-full">
+        <ul className="flex justify-center gap-4 p-4 border-t z-40 flex-col w-full">
           {navList.map((each) => (
             <li key={each.id}>
               <Link

@@ -32,7 +32,7 @@ const Filter = ({
 
   return (
     <div
-      className={`flex z-40 flex-col md:justify-start border gap-4 md:gap-8 justify-between drop-shadow md:h-[90vh] px-2 py-4 w-full md:w-fit md:px-4 lg:px-8 bg-white h-fit sticky top-[10vh] left-0 ${className}`}
+      className={`flex z-30 flex-col md:justify-start border gap-4 md:gap-8 justify-between drop-shadow md:h-[90vh] px-2 py-4 w-full md:w-fit md:px-4 lg:px-8 bg-white h-fit sticky top-[10vh] left-0 ${className}`}
     >
       <div className="grid gap-4 w-full grid-flow-col md:grid-flow-row justify-between md:justify-normal">
         <CustomInput

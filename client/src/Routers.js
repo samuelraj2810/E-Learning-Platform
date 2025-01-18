@@ -40,6 +40,7 @@ const Routers = () => {
           />
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
+          <Route path="/mycourse" element={<MyCourse />} />
           <Route path="/profiledetails" element={<ProfileDetails />} />
         </Route>
 

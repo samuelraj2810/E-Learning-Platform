@@ -1,4 +1,5 @@
 import {
+  ContactsOutlined,
   ContainerOutlined,
   DashboardOutlined,
   LogoutOutlined,

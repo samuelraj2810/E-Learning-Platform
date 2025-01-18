@@ -49,7 +49,7 @@ const CourseDetails = () => {
       ),
     }));
   };
-  //   console.log(temp);
+
   return (
         <>
         {temp.length > 0 &&
