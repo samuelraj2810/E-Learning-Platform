@@ -20,7 +20,7 @@ import Cancel from "./Components/Student/Course/CancelPage";
 import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
 import AdminProfile from "./Components/Admin/AdminProfile";
-import AdminCourse from "./Components/Admin/AdminCourse";
+import AdminCourse from "./Components/Admin/Course/AdminCourse";
 import MyCourse from "./Components/Student/Course/MyCourse";
 
 const Routers = () => {

@@ -1,4 +1,5 @@
 import {
+  ContactsOutlined,
   ContainerOutlined,
   DashboardOutlined,
   LogoutOutlined,
@@ -46,6 +47,12 @@ const Dashboard = () => {
       title: "Courses",
       icon: <ContainerOutlined className="mr-2" />,
     },
+    userData.designation === "Admin" && {
+      id: 3,
+      to: "/adminpanel/Lectures",
+      title: "Lectures",
+      icon:<ContactsOutlined className="mr-2" />,
+    }
   ];
 
   // Animation variants for the sidebar
