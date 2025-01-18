@@ -55,7 +55,7 @@ const loginPost = async(req,res) => {
         if(!checkpass){
             return res.status(404).json({message:"Invalid Password"})
         }
-
+        const userId = await checkmail.userId
         const token =await tokenGen(checkmail.userId)
         // console.log(token)
         let navigate
@@ -65,7 +65,8 @@ const loginPost = async(req,res) => {
         res.json({
             message:"Login Successfully",
             token,
-            navigate
+            navigate,
+            userId
         })
 
     } catch (error) {

@@ -21,6 +21,7 @@ import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
 import AdminProfile from "./Components/Admin/AdminProfile";
 import AdminCourse from "./Components/Admin/AdminCourse";
+import MyCourse from "./Components/Student/Course/MyCourse";
 
 const Routers = () => {
   return (
@@ -44,6 +45,7 @@ const Routers = () => {
         {/* Authentication routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mycourse" element={<MyCourse />} />
         <Route path="/forgotpass" element={<ForgotPassword />} />
         <Route path="/resetpass/:token" element={<ResetPassword />} />
         <Route path="/verify" element={<VericicationPage />} />
