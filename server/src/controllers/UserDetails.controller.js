@@ -1,3 +1,4 @@
+const register = require("../models/Register.model")
 const userDetails = require("../models/UserDetails..model")
 const bcrypt = require("bcrypt")
 
@@ -41,6 +42,7 @@ const deleteData = async(req,res) =>{
     try{
         const {userId} = req.body
         const data = await userDetails.findOneAndDelete({userId})
+        const data1 = await register.findOneAndDelete({userId})
         res.json({message : 'user Deleted'})
     }
     catch(error){
