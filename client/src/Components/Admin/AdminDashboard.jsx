@@ -1,4 +1,5 @@
 import {
+  AliwangwangOutlined,
   ContainerOutlined,
   DashboardOutlined,
   LogoutOutlined,
@@ -17,7 +18,9 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     const result = await GET("http://localhost:3000/admindetails");
-    setUserData(result[0]);
+    if (result.length > 0) {
+      setUserData(result[0]);
+    }
   };
   console.log(userData);
 
@@ -30,8 +33,7 @@ const AdminDashboard = () => {
     {
       id: 1,
       to: "/adminpanel",
-      title:
-        "Profile" ,
+      title: "Profile",
       icon: <UserOutlined className="mr-2" />,
     },
     {
@@ -44,7 +46,13 @@ const AdminDashboard = () => {
       id: 3,
       to: "/adminpanel/instructor",
       title: "Instructors",
-      icon: <ContainerOutlined className="mr-2" />,
+      icon: <AliwangwangOutlined className="mr-2" />,
+    },
+    {
+      id: 4,
+      to: "/adminpanel/student",
+      title: "Students",
+      icon: <UserOutlined className="mr-2" />,
     },
   ];
 
