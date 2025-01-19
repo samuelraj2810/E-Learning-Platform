@@ -14,6 +14,7 @@ import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
+import MyCourse from "./Components/Student/Course/MyCourse"
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";

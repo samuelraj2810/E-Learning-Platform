@@ -37,6 +37,17 @@ const editData = async(req,res) =>{
     }
 }
 
+const deleteData = async(req,res) =>{
+    try{
+        const {userId} = req.body
+        const data = await userDetails.findOneAndDelete({userId})
+        res.json({message : 'user Deleted'})
+    }
+    catch(error){
+        res.json(error.message)
+    }
+}
+
 module.exports = {
-    getData,editData
+    getData,editData,deleteData
 }
