@@ -20,6 +20,19 @@ const getData = async(req,res) =>{
         res.json(error.message)
     }
 }
+const getallData = async(req,res) =>{
+    try{ 
+        const data = await userDetails.find()
+        if(!data ){
+            return res.status(404).json({message:"data not found"})
+        }
+        // console.log(datas)
+        res.json(data)
+    }
+    catch(error){
+        res.json(error.message)
+    }
+}
 
 // Edit User Data
 const editData = async(req,res) =>{
@@ -51,5 +64,5 @@ const deleteData = async(req,res) =>{
 }
 
 module.exports = {
-    getData,editData,deleteData
+    getData,editData,deleteData,getallData
 }
