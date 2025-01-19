@@ -1,3 +1,4 @@
+const register = require("../models/Register.model")
 const userDetails = require("../models/UserDetails..model")
 const bcrypt = require("bcrypt")
 
@@ -14,6 +15,19 @@ const getData = async(req,res) =>{
         }
         // console.log(datas)
         res.json(datas)
+    }
+    catch(error){
+        res.json(error.message)
+    }
+}
+const getallData = async(req,res) =>{
+    try{ 
+        const data = await userDetails.find()
+        if(!data ){
+            return res.status(404).json({message:"data not found"})
+        }
+        // console.log(datas)
+        res.json(data)
     }
     catch(error){
         res.json(error.message)
@@ -41,6 +55,7 @@ const deleteData = async(req,res) =>{
     try{
         const {userId} = req.body
         const data = await userDetails.findOneAndDelete({userId})
+        const data1 = await register.findOneAndDelete({userId})
         res.json({message : 'user Deleted'})
     }
     catch(error){
@@ -49,5 +64,5 @@ const deleteData = async(req,res) =>{
 }
 
 module.exports = {
-    getData,editData,deleteData
+    getData,editData,deleteData,getallData
 }

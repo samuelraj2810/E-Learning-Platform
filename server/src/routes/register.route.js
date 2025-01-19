@@ -17,5 +17,6 @@ router.post("/resetpass/:token", resetPassword);
 router.get("/getdata",verifyToken,UserDetails.getData)
 router.put("/editdata",verifyToken,UserDetails.editData)
 router.delete("/deletedata",verifyToken,UserDetails.deleteData)
+router.get("/getalldata",verifyToken,UserDetails.getallData)
 
 module.exports = router
