@@ -14,7 +14,7 @@ import InstructorCourse from "./Components/Instructor/InstructorCourse";
 import AddCourse from "./Components/Instructor/AddCourse";
 import EditCourse from "./Components/Instructor/EditCourse";
 import Course from "./Components/Student/Course/Course";
-import MyCourse from "./Components/Student/Course/MyCourse"
+import MyCourse from "./Components/Student/Course/MyCourse";
 import CourseContent from "./Components/Student/Course/CourseContent";
 import Success from "./Components/Student/Course/SuccessPage";
 import Cancel from "./Components/Student/Course/CancelPage";
@@ -24,6 +24,7 @@ import AdminProfile from "./Components/Admin/AdminProfile";
 import AdminCourse from "./Components/Admin/AdminCourse";
 import AdminInstructor from "./Components/Admin/AdminInstructor";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
+import AdminStudent from "./Components/Admin/AdminStudent";
 
 const Routers = () => {
   return (
@@ -74,6 +75,7 @@ const Routers = () => {
           <Route path="/adminpanel/course" element={<AdminCourse />} />
           <Route path="/adminpanel/course/addCourse" element={<AddCourse />} />
           <Route path="/adminpanel/instructor" element={<AdminInstructor />} />
+          <Route path="/adminpanel/student" element={<AdminStudent />} />
           <Route
             path="/adminpanel/course/editCourse"
             element={<EditCourse />}
