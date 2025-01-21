@@ -14,7 +14,7 @@ const InstSch = new mongoose.Schema(
     expertise: String,
     title: {
       type: [String],
-      default: ["name", "phonenumber", "age", "email", "experience"],
+      default: ["username", "phonenumber", "age", "email", "experience"],
     },
     _id: {
       type: String,

@@ -63,7 +63,7 @@ const inseditData = async(req,res) =>{
 const insdeleteData =async (req,res) =>{
 try {
     const {userId} = req.body
-    console.log(userId);
+    console.log(req.body);
     
     const data = await instructorDetails.find({userId})
     if(!data){

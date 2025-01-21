@@ -44,11 +44,14 @@ const AdminStudent = () => {
 
   const deleteData = async (params) => {
     const { userId } = params;
+    // console.log(userId);
+    
     try {
-      await axios.delete(`http://localhost:3000/deletedata/${userId}`, {
+      await axios.delete("http://localhost:3000/deletedata",{
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        data:{userId}
       });
       getData();
     } catch (error) {
