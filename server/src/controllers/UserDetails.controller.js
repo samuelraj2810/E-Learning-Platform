@@ -54,6 +54,7 @@ const editData = async(req,res) =>{
 const deleteData = async(req,res) =>{
     try{
         const {userId} = req.body
+        // console.log(userId)
         const data = await userDetails.find({userId})
         const data1 = await register.find({userId})
         if(!data || !data1){
