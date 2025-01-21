@@ -81,9 +81,12 @@ export const PUTFILE = async (action, params) => {
 export const DELETE = async (action ,data) => {
   try {
     const token = sessionStorage.getItem("token");
+    console.log(token);
+
     if (token) {
-      const result = await axios.put(action, data ,{
-        headers: { Authorization: `Bearer ${token}` },
+      const result = await axios.delete(action,{
+        headers: { Authorization: `Bearer ${token}`,
+      },data 
       });
       if (result.status === 200) {
         return result;
