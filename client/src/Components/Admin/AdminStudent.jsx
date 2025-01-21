@@ -3,6 +3,8 @@ import InstructorTable from "../Instructor/InstructorTable";
 import { useNavigate } from "react-router-dom";
 import { useCustomMessage } from "../Common/CustomMessage";
 import axios from "axios";
+import CustomButton from "../Common/CustomButton";
+import { message, Popconfirm } from "antd";
 
 const AdminStudent = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -12,10 +14,10 @@ const AdminStudent = () => {
   useEffect(() => {
     getData();
   }, []);
+  const token = sessionStorage.getItem("token");
 
   const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await axios.get("http://localhost:3000/getallcourse", {
+    const result = await axios.get("http://localhost:3000/getalldata", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -27,11 +29,42 @@ const AdminStudent = () => {
       setCoursedata([]);
     }
   };
-
+  const columns = [
+    {
+      title: "Student Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Email Id",
+      dataIndex: "email",
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phonenumber",
+    },
+    {
+      title: "Action",
+      key: "action",
+      align: "center",
+      width: 100,
+      render: (_, record) => (
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={() => deleteData(record)}
+            onCancel={()=> message.error("Click on No")}
+            okText="Yes"
+            cancelText="No"
+          >
+            <CustomButton type="delete" />
+          </Popconfirm>
+      ),
+    },
+  ];
   const deleteData = async (params) => {
     const { _id } = params;
     try {
-      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
+      await axios.delete(`http://localhost:3000/deletedata/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,16 +80,9 @@ const AdminStudent = () => {
     <div className="grid gap-6">
       <div className="flex items-center justify-between">
         <h1 className="lg:text-lg font-semibold text-gray-700">All Courses</h1>
-        <CustomButton
-          title="Create new"
-          onClick={handleaddcourse}
-          icon={<PlusOutlined />}
-          variant="default"
-          className="bg-Primary py-5 font-bold tracking-wider text-white capitalize hover:bg-Primary/80"
-        />
       </div>
       <div className="flex flex-row-reverse justify-end items-center flex-wrap gap-4">
-        {filterOption.map((v, i) => (
+        {/* {filterOption.map((v, i) => (
           <button
             key={i}
             className={`p-2 rounded text-xs border duration-500 transition-all`}
@@ -69,11 +95,11 @@ const AdminStudent = () => {
           >
             {v.name}
           </button>
-        ))}
+        ))} */}
       </div>
       <InstructorTable
-        data={filteredData}
-        deleteFunction={(paeams) => deleteData(paeams)}
+      columns={columns}
+      data={coursedata}
       />
     </div>
   );
