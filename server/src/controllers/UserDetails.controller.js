@@ -54,9 +54,18 @@ const editData = async(req,res) =>{
 const deleteData = async(req,res) =>{
     try{
         const {userId} = req.body
-        const data = await userDetails.findOneAndDelete({userId})
-        const data1 = await register.findOneAndDelete({userId})
-        res.json({message : 'user Deleted'})
+        const data = await userDetails.find({userId})
+        const data1 = await register.find({userId})
+        if(!data || !data1){
+            return res.json({message:"no such data"})
+        }
+        await userDetails.deleteOne({userId})
+        await register.deleteOne({userId})
+        res.json({
+            message:"User Deleted ",
+            id:data,
+            uid:data1
+        })
     }
     catch(error){
         res.json(error.message)

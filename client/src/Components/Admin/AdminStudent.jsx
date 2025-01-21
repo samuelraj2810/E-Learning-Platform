@@ -12,10 +12,10 @@ const AdminStudent = () => {
   useEffect(() => {
     getData();
   }, []);
+  const token = sessionStorage.getItem("token");
 
   const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await axios.get("http://localhost:3000/getallcourse", {
+    const result = await axios.get("http://localhost:3000/getalldata", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -27,11 +27,25 @@ const AdminStudent = () => {
       setCoursedata([]);
     }
   };
+  const columns = [
+    {
+      title: "Student Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Email Id",
+      dataIndex: "email",
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phonenumber",
+    },
+  ];
 
   const deleteData = async (params) => {
-    const { _id } = params;
+    const { userId } = params;
     try {
-      await axios.delete(`http://localhost:3000/deletecourse/${_id}`, {
+      await axios.delete(`http://localhost:3000/deletedata/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,35 +59,17 @@ const AdminStudent = () => {
 
   return (
     <div className="grid gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="lg:text-lg font-semibold text-gray-700">All Courses</h1>
-        <CustomButton
-          title="Create new"
-          onClick={handleaddcourse}
-          icon={<PlusOutlined />}
-          variant="default"
-          className="bg-Primary py-5 font-bold tracking-wider text-white capitalize hover:bg-Primary/80"
-        />
+      <div className="flex items-center gap-2">
+        <h1 className="lg:text-lg font-semibold text-gray-700">Student List</h1>
+        <p className="flex items-center justify-center h-6 w-6 border border-Primary text-xs bg-Primary/10 text-Primary rounded-full">{coursedata.length}</p>
       </div>
       <div className="flex flex-row-reverse justify-end items-center flex-wrap gap-4">
-        {filterOption.map((v, i) => (
-          <button
-            key={i}
-            className={`p-2 rounded text-xs border duration-500 transition-all`}
-            style={{
-              borderColor: v.color,
-              color: active === i ? "white" : v.color,
-              backgroundColor: active === i && v.color,
-            }}
-            onClick={() => setActive(i)}
-          >
-            {v.name}
-          </button>
-        ))}
       </div>
       <InstructorTable
-        data={filteredData}
-        deleteFunction={(paeams) => deleteData(paeams)}
+      columns={columns}
+      data={coursedata}
+      deleteFunction={(record)=>deleteData(record)}
+      editBtn={false}
       />
     </div>
   );
