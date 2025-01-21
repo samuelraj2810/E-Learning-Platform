@@ -11,11 +11,34 @@ const InstructorTable = ({
   columns,
   deleteFunction = (data) => {},
   editFunction = (data) => {},
+  editBtn=true,
 }) => {
   const [open, setOpen] = useState(false);
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
   const navigate = useNavigate();
+  const mod = [...columns, {
+    title: "Action",
+    key: "action",
+    align: "center",
+    width: 100,
+    render: (_, record) => (
+      <div className="flex gap-2 justify-evenly">
+        {editBtn === true &&
+        <CustomButton type="edit" onClick={() => handleEdit(record)} />}
+        <Popconfirm
+          title="Delete the task"
+          description="Are you sure to delete this task?"
+          onConfirm={() => handleDelete(record)}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <CustomButton type="delete" />
+        </Popconfirm>
+      </div>
+    ),
+  }]
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -33,7 +56,7 @@ const InstructorTable = ({
     width: 120,
   }));
 
-  const defaultColumn = [
+  const defaultColumn = columns ? mod :[
     {
       title: "Course Name",
       dataIndex: "courseName",
@@ -120,7 +143,7 @@ const InstructorTable = ({
         bordered
         size="small"
         className=""
-        columns={columns ? columns : defaultColumn}
+        columns={defaultColumn}
         dataSource={updatedDataSource}
         pagination={{
           pageSize: 10,

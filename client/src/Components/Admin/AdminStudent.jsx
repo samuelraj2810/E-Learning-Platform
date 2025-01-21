@@ -3,8 +3,6 @@ import InstructorTable from "../Instructor/InstructorTable";
 import { useNavigate } from "react-router-dom";
 import { useCustomMessage } from "../Common/CustomMessage";
 import axios from "axios";
-import CustomButton from "../Common/CustomButton";
-import { message, Popconfirm } from "antd";
 
 const AdminStudent = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -42,29 +40,12 @@ const AdminStudent = () => {
       title: "Phone Number",
       dataIndex: "phonenumber",
     },
-    {
-      title: "Action",
-      key: "action",
-      align: "center",
-      width: 100,
-      render: (_, record) => (
-          <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
-            onConfirm={() => deleteData(record)}
-            onCancel={()=> message.error("Click on No")}
-            okText="Yes"
-            cancelText="No"
-          >
-            <CustomButton type="delete" />
-          </Popconfirm>
-      ),
-    },
   ];
+
   const deleteData = async (params) => {
-    const { _id } = params;
+    const { userId } = params;
     try {
-      await axios.delete(`http://localhost:3000/deletedata/${_id}`, {
+      await axios.delete(`http://localhost:3000/deletedata/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -100,6 +81,8 @@ const AdminStudent = () => {
       <InstructorTable
       columns={columns}
       data={coursedata}
+      deleteFunction={(record)=>deleteData(record)}
+      editBtn={false}
       />
     </div>
   );
