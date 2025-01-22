@@ -59,24 +59,11 @@ const AdminStudent = () => {
 
   return (
     <div className="grid gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="lg:text-lg font-semibold text-gray-700">All Courses</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="lg:text-lg font-semibold text-gray-700">Student List</h1>
+        <p className="flex items-center justify-center h-6 w-6 border border-Primary text-xs bg-Primary/10 text-Primary rounded-full">{coursedata.length}</p>
       </div>
       <div className="flex flex-row-reverse justify-end items-center flex-wrap gap-4">
-        {/* {filterOption.map((v, i) => (
-          <button
-            key={i}
-            className={`p-2 rounded text-xs border duration-500 transition-all`}
-            style={{
-              borderColor: v.color,
-              color: active === i ? "white" : v.color,
-              backgroundColor: active === i && v.color,
-            }}
-            onClick={() => setActive(i)}
-          >
-            {v.name}
-          </button>
-        ))} */}
       </div>
       <InstructorTable
       columns={columns}
