@@ -1,8 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import CustomInput from "../Common/CustomInput";
-import CustomButton from "../Common/CustomButton";
-import axios from "axios";
+import CustomButton from "../../Common/CustomButton";
+import CustomInput from "../../Common/CustomInput";
 import {
   DeleteOutlined,
   MinusCircleOutlined,
@@ -10,11 +8,14 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { Button, Upload } from "antd";
-import { useCustomMessage } from "../Common/CustomMessage";
-import { PUTFILE } from "../ApiFunction/ApiFunction";
-import CustomDropdown from "../Common/CustomDropdown";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useCustomMessage } from "../../Common/CustomMessage";
+import { POST, POSTFILE } from "../../ApiFunction/ApiFunction";
+import CustomDropdown from "../../Common/CustomDropdown";
 
-function EditCourse() {
+function AddCourse() {
+  const showMessage = useCustomMessage();
   const expertiseLists = [
     {
       label: "Select",
@@ -41,28 +42,23 @@ function EditCourse() {
       value: "Personal Development",
     },
   ];
-  const location = useLocation();
-  const data = location.state;
-  const showMessage = useCustomMessage();
-  const [editdata, setEditdata] = useState({
-    courseName: data.courseName,
-    courseType: data.courseType,
-    subTopic: data.subTopic,
-    duration: data.duration,
-    rating: data.rating || "",
-    price: data.price || "",
-    rows: data.rows || "",
-    requirements: data.requirements,
-    instructorName: data.instructorName,
-    instructorId: data.instructorId,
-    imagePath: data.imagePath,
-    imageName: data.imageName,
-    videoName: data.videoName,
-    videoPath: data.videoPath,
+  const [courseData, setCourseData] = useState({
+    courseName: "",
+    subTopic: "",
+    duration: "",
+    courseType: "select",
+    rating: "",
+    price: "",
+    rows: [{ title: "", lectureDuration: "", description: "", learn: "" }],
+    requirements: [""],
+    instructorName: "",
+    instructorId: "",
   });
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const inputFields = [
     {
@@ -81,17 +77,11 @@ function EditCourse() {
     { label: "Duration", placeholder: "Enter duration", key: "duration" },
   ];
 
-  const baseurl = "http://localhost:3000";
-  console.log("rating", editdata.imagePath);
-
-  const navigate = useNavigate();
-  let formData = new FormData();
-
   const handleInputChange = (key, value) => {
-    setEditdata((prevData) => ({ ...prevData, [key]: value }));
+    setCourseData((prevData) => ({ ...prevData, [key]: value }));
   };
   const handleArrayChange = (index, key, value) => {
-    setEditdata((prevData) => ({
+    setCourseData((prevData) => ({
       ...prevData,
       rows: prevData.rows.map((row, idx) =>
         idx === index ? { ...row, [key]: value } : row
@@ -100,7 +90,7 @@ function EditCourse() {
   };
 
   const addNewRow = () => {
-    setEditdata((prevData) => ({
+    setCourseData((prevData) => ({
       ...prevData,
       rows: [
         ...prevData.rows,
@@ -108,40 +98,14 @@ function EditCourse() {
       ],
     }));
   };
-  const handleRequirementChange = (field, index, value) => {
-    setEditdata({
-      ...editdata,
-      [field]: editdata[field].map((item, idx) =>
-        idx === index ? value : item
-      ),
-    });
-    console.log(editdata);
-  };
-
-  const handleDelete = (index, text) => {
-    if (text === "requirement") {
-      const updatedRequirements = [...editdata.requirements]; // Create a copy of the array
-      updatedRequirements.pop(); // Remove the last item from the array
-      setEditdata({
-        ...editdata,
-        requirements: updatedRequirements, // Update the requirements array by removing the item at the specified index
-      });
-    } else {
-      const updatedRows = [...editdata.rows]; // Create a copy of the array
-      updatedRows.pop(); // Remove the last item from the array
-      setEditdata({
-        ...editdata,
-        rows: updatedRows, // Update the requirements array by removing the item at the specified index
-      });
-    }
-  };
 
   const handleSubmit = async () => {
-    if (editdata.courseType === "select") {
-      return showMessage("info", "course Type is required");
+    // Check if all rows and all fields inside rows have values
+    if (courseData.courseType === "select") {
+      return showMessage("info", "course type is required");
     }
     let allRowsValid = false;
-    allRowsValid = editdata.rows.every((row) => {
+    allRowsValid = courseData.rows.every((row) => {
       return ["title", "lectureDuration", "description", "learn"].every(
         (key) => row[key] && row[key].trim() !== "" // Ensure field is not empty or just spaces
       );
@@ -150,45 +114,49 @@ function EditCourse() {
     if (!allRowsValid) {
       return showMessage("info", "Please enter all content fields.");
     }
-    setLoading(true);
+    if (image === null) {
+      return showMessage("info", "image is required");
+    } else if (video === null) {
+      return showMessage("info", "video is required");
+    }
     const token = sessionStorage.getItem("token");
+    let formData = new FormData();
 
-    Object.keys(editdata).forEach((key) => {
+    Object.keys(courseData).forEach((key) => {
       if (key === "rows") {
         // Handle rows separately
-        editdata.rows.forEach((row, index) => {
+        courseData.rows.forEach((row, index) => {
           Object.keys(row).forEach((field) => {
             formData.append(`rows[${index}][${field}]`, row[field]);
           });
         });
-      } else if (Array.isArray(editdata[key])) {
-        editdata[key].forEach((item) => formData.append(key, item));
+      } else if (Array.isArray(courseData[key])) {
+        courseData[key].forEach((item) => formData.append(key, item));
       } else {
-        formData.append(key, editdata[key]);
+        formData.append(key, courseData[key]);
       }
     });
 
     if (image) formData.append("image", image);
     if (video) formData.append("video", video);
-    const _id = data._id;
 
     try {
-      const result = await PUTFILE(
-        `http://localhost:3000/editcourse/${_id}`,
-        formData
+      const response = await POSTFILE(
+        "http://localhost:3000/addcourse",
+        formData,
+        token
       );
-
-      if (result.status === 200) {
+      if (response.status === 200) {
         setLoading(false);
-
-        showMessage("success", "Course updated successfully!");
+        showMessage("success", "Course added successfully");
         navigate(-1);
+      } else {
+        setLoading(false);
+        showMessage("error", "Course addition failed");
       }
     } catch (error) {
       setLoading(false);
-
-      showMessage("error", "Error updating course. Please try again.");
-      console.error("Error updating course:", error);
+      console.error("Error uploading course", error);
     }
   };
 
@@ -212,14 +180,43 @@ function EditCourse() {
       onRemove: () => {
         setVideo(null);
       },
+      fileList: video ? [video] : [],
     },
   };
-  console.log(editdata, "edit");
+
+  const handleRequirementChange = (field, index, value) => {
+    setCourseData({
+      ...courseData,
+      [field]: courseData[field].map((item, idx) =>
+        idx === index ? value : item
+      ),
+    });
+    console.log(courseData);
+  };
+
+  const handleDelete = (index, text) => {
+    if (text === "requirement") {
+      const updatedRequirements = [...courseData.requirements]; // Create a copy of the array
+      updatedRequirements.pop(); // Remove the last item from the array
+      setCourseData({
+        ...courseData,
+        requirements: updatedRequirements, // Update the requirements array by removing the item at the specified index
+      });
+    } else {
+      const updatedRows = [...courseData.rows]; // Create a copy of the array
+      updatedRows.pop(); // Remove the last item from the array
+      setCourseData({
+        ...courseData,
+        rows: updatedRows, // Update the requirements array by removing the item at the specified index
+      });
+    }
+  };
+
   return (
     <div className="grid gap-4 md:gap-6 lg:gap-8">
-      <span className="text-xl border-b pb-4">Edit Course</span>
-      <table className="table-auto w-fit ">
-        <tbody className="">
+      <span className="text-xl">Add Course</span>
+      <table className="table-auto w-fit">
+        <tbody>
           {inputFields.map(({ label, placeholder, key, type = "text" }) => (
             <tr key={key} className="grid grid-cols-1 md:grid-cols-2">
               <td className="px-4 py-2 font-medium">{label}</td>
@@ -229,7 +226,6 @@ function EditCourse() {
                   className="w-full"
                   containerClassName="p-2 flex items-center gap-4"
                   type={type}
-                  value={editdata[key] || ""}
                   onChange={(e) =>
                     handleInputChange(
                       key,
@@ -253,13 +249,15 @@ function EditCourse() {
               <CustomDropdown
                 type="select"
                 className="w-full"
-                value={editdata.courseType}
+                value={courseData.courseType}
                 menus={expertiseLists}
-                onChange={(e) => setEditdata({ ...editdata, courseType: e })}
+                onChange={(e) =>
+                  setCourseData({ ...courseData, courseType: e })
+                }
               />
             </td>
           </tr>
-          {editdata.requirements.map((requirement, index) => (
+          {courseData.requirements.map((requirement, index) => (
             <tr
               key={index}
               className="grid grid-cols-1 md:grid-cols-2 items-center"
@@ -275,9 +273,9 @@ function EditCourse() {
                     <PlusOutlined
                       className="p-2 bg-green-400 text-white rounded-lg"
                       onClick={() =>
-                        setEditdata({
-                          ...editdata,
-                          requirements: [...editdata.requirements, ""],
+                        setCourseData({
+                          ...courseData,
+                          requirements: [...courseData.requirements, ""],
                         })
                       }
                     />
@@ -312,17 +310,17 @@ function EditCourse() {
             </tr>
           ))}
 
-          {editdata.rows?.map((row, rowIndex) => (
+          {courseData.rows?.map((row, rowIndex) => (
             <div className="p-4">
-              <div className="flex gap-2 ">
-                Content {rowIndex + 1}
+              <p>
+                Content <small>{rowIndex + 1}</small>
                 <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">
                   required
                 </span>
-              </div>
+              </p>
               <tr
                 key={rowIndex}
-                className="bg-gray-50 border grid grid-cols-1 rounded-lg md:grid-cols-2 my-4 text-gray-600 p-4 pt-8 capitalize items-center relative"
+                className="bg-gray-50 border grid grid-cols-1 rounded-lg md:grid-cols-2 my-4 text-gray-600 p-4 capitalize items-center relative"
               >
                 {rowIndex !== 0 && (
                   <MinusCircleOutlined
@@ -336,7 +334,6 @@ function EditCourse() {
                       <td>{key}</td>
                       <td key={key} className="pr-4 py-2 ">
                         <CustomInput
-                          key={key}
                           placeholder={`Enter ${key}`}
                           className="w-full p-2"
                           containerClassName="p-2"
@@ -364,29 +361,32 @@ function EditCourse() {
           </tr>
         </tbody>
       </table>
-      <div className=" flex gap-5 text-base p-2">
+      <div className="flex gap-5 text-base p-2">
         <label>Image</label>
         <Upload {...props.image}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <CustomButton
+            icon={<UploadOutlined />}
+            title="Upload"
+            variant="filled"
+          />
         </Upload>
-        {editdata.imageName && (
-          <div className="text-gray-500 text-sm">
-            FileName: <span className="font-medium">{editdata.imageName}</span>
-          </div>
-        )}
+        <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md h-fit p-1">
+          required
+        </span>
       </div>
-      <div className=" flex gap-5 text-base p-2">
+      <div className="flex gap-5 text-base p-2">
         <label>Video</label>
         <Upload {...props.video}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <CustomButton
+            icon={<UploadOutlined />}
+            title="Upload"
+            variant="filled"
+          />
         </Upload>
-        {editdata.videoName && (
-          <div className="text-gray-500 text-sm">
-            FileName: <span className="font-medium">{editdata.videoName}</span>
-          </div>
-        )}
+        <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md h-fit p-1">
+          required
+        </span>
       </div>
-
       <div className="flex items-center gap-4">
         {["submit", "cancel"].map((v) => (
           <CustomButton
@@ -403,4 +403,5 @@ function EditCourse() {
     </div>
   );
 }
-export default EditCourse;
+
+export default AddCourse;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import InstructorTable from "../Instructor/InstructorTable";
+import InstructorTable from "../../Common/CustomTable";
 import { useNavigate } from "react-router-dom";
-import { useCustomMessage } from "../Common/CustomMessage";
+import { useCustomMessage } from "../../Common/CustomMessage";
 import axios from "axios";
 
 const AdminStudent = () => {

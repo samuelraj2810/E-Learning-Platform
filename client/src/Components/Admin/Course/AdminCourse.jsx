@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CustomButton from "../../Common/CustomButton";
 import { PlusOutlined } from "@ant-design/icons";
-import InstructorTable from "../../Instructor/InstructorTable";
+import CustomTable from "../../Common/CustomTable";
 
 const AdminCourse = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -60,7 +60,7 @@ const AdminCourse = () => {
   };
 
   const filteredData = useMemo(() => {
-    let filter = coursedata;
+    let filter
     if (active === 0) {
       return (filter = coursedata.filter((v) => v.courseType === "Technology"));
     } else if (active === 1) {
@@ -114,7 +114,7 @@ const AdminCourse = () => {
           </button>
         ))}
       </div>
-      <InstructorTable
+      <CustomTable
         data={filteredData}
         deleteFunction={(paeams) => deleteData(paeams)}
         editFunction={(paeams) => editData(paeams)}

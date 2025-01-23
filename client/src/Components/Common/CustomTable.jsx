@@ -1,14 +1,14 @@
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
-import CustomButton from "../Common/CustomButton";
+import CustomButton from "./CustomButton";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useCustomMessage } from "../Common/CustomMessage";
+import { useCustomMessage } from "./CustomMessage";
 import { message, Popconfirm } from "antd";
 
-const InstructorTable = ({
-  data,
-  columns,
+const CustomTable = ({
+  data = [],
+  columns = [],
   deleteFunction = (data) => {},
   editFunction = (data) => {},
   editBtn=true,
@@ -56,7 +56,7 @@ const InstructorTable = ({
     width: 120,
   }));
 
-  const defaultColumn = columns ? mod :[
+  const defaultColumn = columns.length > 0 ? mod :[
     {
       title: "Course Name",
       dataIndex: "courseName",
@@ -98,6 +98,17 @@ const InstructorTable = ({
       title: "price",
       dataIndex: "price",
       key: "price",
+      align: "center",
+      render: (text) => (
+        <small className={text ? "text-green-600" : "text-gray-700"}>
+          {text ? text : "- - -"}
+        </small>
+      ),
+    },
+    {
+      title: "course Type",
+      dataIndex: "courseType",
+      key: "courseType",
       align: "center",
       render: (text) => (
         <small className={text ? "text-green-600" : "text-gray-700"}>
@@ -153,4 +164,4 @@ const InstructorTable = ({
   );
 };
 
-export default InstructorTable;
+export default CustomTable;

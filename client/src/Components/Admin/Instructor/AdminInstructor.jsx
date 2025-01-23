@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { DELETE, GET } from "../ApiFunction/ApiFunction";
-import { message, Popconfirm, Table } from "antd";
-import CustomButton from "../Common/CustomButton";
+import { DELETE, GET } from "../../ApiFunction/ApiFunction";
+import { message, Popconfirm } from "antd";
+import CustomButton from "../../Common/CustomButton";
+import CustomTable from "../../Common/CustomTable";
 
 function AdminInstructor() {
   const [insdata, setInsData] = useState([]);
@@ -28,9 +29,9 @@ function AdminInstructor() {
     message.error("Click on No");
   };
 
-
+  
   const filteredData = useMemo(() => {
-    let filter 
+    let filter = null;
     if (active === 0) {
       return (filter = insdata.filter((v) => v.expertise === "Technology"));
     } else if (active === 1) {
@@ -38,17 +39,14 @@ function AdminInstructor() {
     } else if (active === 2) {
       return (filter = insdata.filter((v) => v.expertise === "Design"));
     } else if (active === 3) {
-      return (filter = insdata.filter(
-        (v) => v.expertise === "Programming"
-      ));
+      return (filter = insdata.filter((v) => v.expertise === "Programming"));
     } else if (active === 4) {
-      return (filter = insdata.filter(
-        (v) => v.expertise === "Personal Development"
-      ));
+      return (filter = insdata.filter( (v) => v.expertise === "Personal Development"));
     } else {
       return insdata;
     }
   }, [active, insdata]);
+  console.log(filteredData);
 
 
   const columns = [
@@ -63,30 +61,12 @@ function AdminInstructor() {
       title: <span className="text-base font-semibold">Age</span>,
       dataIndex: "age",
       key: "age",
-      render:(text) =>text?text:"-----"
+      render:(text) =>text?text:"---"
     },
     {
       title: <span className="text-base font-semibold">Expertise</span>,
       dataIndex: "expertise",
       key: "expertise",
-    },
-    {
-      title: <span className="text-base font-semibold">Action</span>,
-      width: "100px",
-      render: (_, record) => (
-        <div>
-          <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
-            onConfirm={() => deleteInstructor(record.userId)}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <CustomButton type="delete" />
-          </Popconfirm>
-        </div>
-      ),
     },
   ];
 
@@ -95,6 +75,7 @@ function AdminInstructor() {
     const response = await DELETE("http://localhost:3000/deleteinsdata", {
       userId,
     });
+    getallInstructors();
     console.log(response.message);
   };
   useEffect(() => {
@@ -102,9 +83,9 @@ function AdminInstructor() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <h1 className="self-start text-xl p-10">Instructor Table</h1>
-      <div className="flex flex-row-reverse self-start ml-16 p-5 justify-end items-center flex-wrap gap-4">
+    <div className="w-full grid gap-8 lg:gap-12 ">
+      <h1 className="lg:text-lg font-semibold text-gray-700">Instructor Table</h1>
+      <div className="flex flex-row-reverse justify-end items-center flex-wrap gap-4">
         {filterOption.map((v, i) => (
           <button
             key={i}
@@ -120,7 +101,7 @@ function AdminInstructor() {
           </button>
         ))}
       </div>
-      <Table className="w-[90%]" columns={columns} dataSource={filteredData} />
+      <CustomTable columns={columns} data={filteredData} deleteFunction={(params) => deleteInstructor(params)}/>
     </div>
   );
 }

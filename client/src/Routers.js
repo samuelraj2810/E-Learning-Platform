@@ -10,9 +10,9 @@ import ProfileDetails from "./Components/Student/Home/ProfileDetails";
 import MainLayout from "./Components/Student/Home/MainLayout";
 import DashBoard from "./Components/Instructor/Dashboard";
 import InstructorProfile from "./Components/Instructor/InstructorProfile";
-import InstructorCourse from "./Components/Instructor/InstructorCourse";
-import AddCourse from "./Components/Instructor/AddCourse";
-import EditCourse from "./Components/Instructor/EditCourse";
+import InstructorCourse from "./Components/Instructor/Course/InstructorCourse";
+import AddCourse from "./Components/Instructor/Course/AddCourse";
+import EditCourse from "./Components/Instructor/Course/EditCourse";
 import Course from "./Components/Student/Course/Course";
 import MyCourse from "./Components/Student/Course/MyCourse";
 import CourseContent from "./Components/Student/Course/CourseContent";
@@ -21,10 +21,10 @@ import Cancel from "./Components/Student/Course/CancelPage";
 import Aboutus from "./Components/Student/Home/Aboutus";
 import Contact from "./Components/Student/Home/Contact";
 import AdminProfile from "./Components/Admin/AdminProfile";
-import AdminCourse from "./Components/Admin/AdminCourse";
-import AdminInstructor from "./Components/Admin/AdminInstructor";
+import AdminCourse from "./Components/Admin/Course/AdminCourse";
+import AdminInstructor from "./Components/Admin/Instructor/AdminInstructor";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
-import AdminStudent from "./Components/Admin/AdminStudent";
+import AdminStudent from "./Components/Admin/Student/AdminStudent";
 
 const Routers = () => {
   return (

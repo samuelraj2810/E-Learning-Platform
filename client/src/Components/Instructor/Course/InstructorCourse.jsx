@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import InstructorTable from "./InstructorTable";
-import CustomButton from "../Common/CustomButton";
+import CustomTable from "../../Common/CustomTable";
+import CustomButton from "../../Common/CustomButton";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useCustomMessage } from "../Common/CustomMessage";
+import { useCustomMessage } from "../../Common/CustomMessage";
 
 const InstructorCourse = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -66,7 +66,7 @@ const InstructorCourse = () => {
           className="bg-Primary py-5 font-bold tracking-wider text-white capitalize hover:bg-Primary/80"
         />
       </div>
-      <InstructorTable
+      <CustomTable
         data={coursedata}
         deleteFunction={(paeams) => deleteData(paeams)}
         editFunction={(paeams) => editData(paeams)}
