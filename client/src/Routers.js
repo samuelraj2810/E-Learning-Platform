@@ -54,10 +54,9 @@ const Routers = () => {
             element={<EditCourse />}
           />
           <Route path="/instructordashboard" element={<InstructorProfile />} />
-          
         </Route>
 
-        <Route path="/admin" element={<AdminPanel />} />
+        {/* <Route path="/admin" element={<AdminPanel />} /> */}
       </Routes>
     </main>
   );
