@@ -82,7 +82,7 @@ const CourseDetails = () => {
       {temp.length > 0 &&
         temp.map((item, index) => (
           <div className="sm:flex h-full md:h-[90vh] w-full border relative">
-            <div className="sm:w-fit bg-white border flex gap-4 p-4 flex-col">
+            <div className="sm:w-[25%] bg-white border flex gap-4 p-4 flex-col">
               <h1 className="lg:text-xl font-semibold pb-2 ">
                 <DoubleLeftOutlined
                   onClick={() => navigate(-1)}
@@ -94,7 +94,7 @@ const CourseDetails = () => {
                 {item.courseName}
               </p>
               <p className="text-xs md:text-sm text-Primary">Requirements</p>
-              <div className="text-xs max-w-96 p-2 min-h-40 ">
+              <div className="text-xs p-2 min-h-40 ">
                 {item.title.map((v) => (
                   <ol className="list-disc list-inside leading-relaxed">
                     <li>{v}</li>
