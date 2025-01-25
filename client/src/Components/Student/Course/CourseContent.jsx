@@ -56,7 +56,7 @@ const CourseDetails = () => {
       ),
     }));
   };
-
+  const id = sessionStorage.getItem("id");
   // Function to handle the buy button click
   const handleBuyClick = async (item) => {
     const token = sessionStorage.getItem("token");
@@ -107,13 +107,13 @@ const CourseDetails = () => {
                 video <VideoCameraOutlined className="ml-2" />
               </p>
               <div className="p-4 gap-1 mx-2 bg-white relative ">
-                {item.boughtBy.length == 0 && (
+                {!item.boughtBy.includes(id) && (
                   <div
                     className={`h-full backdrop-grayscale w-full top-0 left-0 absolute`}
                   />
                 )}
                 <video
-                  controls={item.boughtBy.length !== 0 ? true : false}
+                  controls={item.boughtBy.includes(id) ? true : false}
                   muted
                   className="h-full bg-gray-100 w-full mx-auto"
                 >
@@ -144,7 +144,9 @@ const CourseDetails = () => {
                 items={subItems(item, index)}
                 className="bg-white lg:px-4 py-4 mx-2"
               />
-              {item.boughtBy.length == 0 && (
+              {item.boughtBy.includes(id) ? (
+                ""
+              ) : (
                 <div className="drop-shadow-lg flex items-center justify-between p-2 bg-gradient-to-r from-white to-transparent backdrop-blur-sm w-full border-t sticky left-0 bottom-0 ">
                   <p className="font-bold font-Poppins !tracking-wider">
                     Price
