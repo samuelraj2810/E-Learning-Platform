@@ -20,7 +20,7 @@ const CourseDetails = () => {
 
   // Load Stripe outside of a component’s render to avoid reloading the Stripe object
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-  const userId = sessionStorage.getItem("id");
+
   const getCourse = async () => {
     const data = await GET(`http://localhost:3000/getcourse/${_id}`);
     setTemp(data);
@@ -144,7 +144,9 @@ const CourseDetails = () => {
                 items={subItems(item, index)}
                 className="bg-white lg:px-4 py-4 mx-2"
               />
-              {item.boughtBy.length == 0 && (
+              {item.boughtBy.includes(id) ? (
+                ""
+              ) : (
                 <div className="drop-shadow-lg flex items-center justify-between p-2 bg-gradient-to-r from-white to-transparent backdrop-blur-sm w-full border-t sticky left-0 bottom-0 ">
                   <p className="font-bold font-Poppins !tracking-wider">
                     Price
