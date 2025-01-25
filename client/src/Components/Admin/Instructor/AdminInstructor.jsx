@@ -101,7 +101,7 @@ function AdminInstructor() {
           </button>
         ))}
       </div>
-      <CustomTable columns={columns} data={filteredData} deleteFunction={(params) => deleteInstructor(params)}/>
+      <CustomTable columns={columns} data={filteredData} deleteFunction={(params) => deleteInstructor(params.userId)}/>
     </div>
   );
 }

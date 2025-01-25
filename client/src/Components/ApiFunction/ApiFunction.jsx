@@ -82,7 +82,8 @@ export const DELETE = async (action ,data) => {
   try {
     const token = sessionStorage.getItem("token");
     console.log(token);
-
+    console.log(data);
+    
     if (token) {
       const result = await axios.delete(action,{
         headers: { Authorization: `Bearer ${token}`,
