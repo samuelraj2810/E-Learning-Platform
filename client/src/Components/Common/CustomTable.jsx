@@ -7,56 +7,15 @@ import { useCustomMessage } from "./CustomMessage";
 import { message, Popconfirm } from "antd";
 
 const CustomTable = ({
-  data = [],
+  data,
   columns = [],
   deleteFunction = (data) => {},
   editFunction = (data) => {},
   editBtn=true,
 }) => {
-  const [open, setOpen] = useState(false);
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
-  const navigate = useNavigate();
-  const mod = [...columns, {
-    title: "Action",
-    key: "action",
-    align: "center",
-    width: 100,
-    render: (_, record) => (
-      <div className="flex gap-2 justify-evenly">
-        {editBtn === true &&
-        <CustomButton type="edit" onClick={() => handleEdit(record)} />}
-        <Popconfirm
-          title="Delete the task"
-          description="Are you sure to delete this task?"
-          onConfirm={() => handleDelete(record)}
-          onCancel={cancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <CustomButton type="delete" />
-        </Popconfirm>
-      </div>
-    ),
-  }]
-
-  useEffect(() => {
-    if (data?.length > 0) {
-      setCoursedata(data);
-    }
-  }, [data]);
-
-  const cancel = (e) => {
-    console.log(e);
-    message.error("Click on No");
-  };
-
-  const updatedDataSource = coursedata.map((item) => ({
-    ...item,
-    width: 120,
-  }));
-
-  const defaultColumn = columns.length > 0 ? mod :[
+  const [defaultColumn,setDefaultColumn] = useState([
     {
       title: "Course Name",
       dataIndex: "courseName",
@@ -137,7 +96,44 @@ const CustomTable = ({
         </div>
       ),
     },
-  ];
+  ])
+
+  useEffect(()=>{
+    if(columns.length > 0){
+      setDefaultColumn([...columns, {
+        title: "Action",
+        key: "action",
+        align: "center",
+        width: 100,
+        render: (_, record) => (
+          <div className="flex gap-2 justify-evenly">
+            {editBtn === true &&
+            <CustomButton type="edit" onClick={() => handleEdit(record)} />}
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this task?"
+              onConfirm={() => handleDelete(record)}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <CustomButton type="delete" />
+            </Popconfirm>
+          </div>
+        ),
+      }])
+    }
+    setCoursedata(data.map((item) => ({
+      ...item,
+      width: 120,
+    })));
+
+  },[columns])
+
+  const cancel = (e) => {
+    console.log(e);
+    message.error("Click on No");
+  };
 
   const handleDelete = async (data) => {
     deleteFunction(data);
@@ -155,7 +151,7 @@ const CustomTable = ({
         size="small"
         className=""
         columns={defaultColumn}
-        dataSource={updatedDataSource}
+        dataSource={coursedata}
         pagination={{
           pageSize: 10,
         }}
