@@ -8,11 +8,13 @@ import CustomSkeleton from "../Common/CustomSkeleton";
 import CustomInput from "../Common/CustomInput";
 import { GET, PUT } from "../ApiFunction/ApiFunction";
 import { useCustomMessage } from "../Common/CustomMessage";
+import CustomProgressBar from "../Common/CustomProgressBar";
 
 const InstructorProfile = () => {
   const showMessage = useCustomMessage();
 
   const [data, setData] = useState([]);
+  const [pieData, setPieData] = useState([]);
   const [isupdate, setIsupdate] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [checkBoxValue, setCheckBoxValue] = useState("male");
@@ -22,6 +24,29 @@ const InstructorProfile = () => {
   const fetchData = async () => {
     const result = await GET("http://localhost:3000/getinsdata");
     if (result && result.length > 0) {
+      const filteredData = result?.map((user) => ({
+        username: user.username ? 10 : 0,
+        experience: user.experience ? 10 : 0,
+        phonenumber: user.phonenumber ? 10 : 0,
+        designation: user.designation ? 10 : 0,
+        age: user.age ? 10 : 0,
+        gender: user.gender ? 10 : 0,
+        email: user.email ? 10 : 0,
+        address: user.address ? 10 : 0,
+        expertise: user.expertise ? 10 : 0,
+      }));
+      const count =
+        filteredData[0].username +
+        filteredData[0].experience +
+        filteredData[0].phonenumber +
+        filteredData[0].age +
+        filteredData[0].gender +
+        filteredData[0].email +
+        filteredData[0].designation +
+        filteredData[0].address +
+        filteredData[0].expertise +
+        10;
+      setPieData(count);
       setData(result);
       setCheckBoxValue(result[0].gender);
       setAddress(result[0].address);
@@ -52,6 +77,7 @@ const InstructorProfile = () => {
       if (result.status === 200) {
         setIsLoading(false);
         showMessage("success", "Data added Successfully");
+        fetchData();
       }
     } catch (error) {
       showMessage("error", "Something went wrong");
@@ -154,22 +180,35 @@ const InstructorProfile = () => {
 
   return (
     <div className="grid gap-4">
+      {" "}
+      <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide mb-4">
+        Details
+      </h1>
       <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
-      <div className="flex items-center gap-4">
-        <Avatar
-          className="bg-Primary/20 text-Primary"
-        >
-          {data[0].username.charAt(0)}
-        </Avatar>
-        <p>{data[0].username}</p>
+        <div className="flex items-center gap-4">
+          <Avatar className="bg-Primary/20 text-Primary" size={"large"}>
+            {data[0]?.username.charAt(0).toUpperCase()}
+          </Avatar>
+          <p className="grid">
+            {data[0]?.username}
+            <small className="text-xs text-gray-400">
+              {data[0]?.designation}
+            </small>
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 lg:block">
+          <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs w-fit">
+            <MailOutlined className="mr-2" />
+            {data[0]?.email}
+          </small>
+          <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs sm:ml-4 w-fit">
+            <PhoneOutlined className="mr-2" />
+            {data[0]?.phonenumber}
+          </small>
+        </div>
+        <CustomProgressBar percent={pieData || 20} defaultColor active />
       </div>
-      <div className="flex flex-col justify-start lg:block">
-        <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs w-fit"><MailOutlined className="mr-2" />{data[0].email}</small>
-        <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs ml-4 w-fit"><PhoneOutlined className="mr-2" />{data[0].phonenumber}</small>
-      </div>
-      </div>
-      <div className="pb-2 border-b flex items-center justify-between transition-all ">
-        <h1 className="font-semibold tracking-wider lg:text-lg">Details</h1>
+      <div className=" flex items-center justify-between transition-all ">
         <span className="flex items-center">
           <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
           <EditFilled
