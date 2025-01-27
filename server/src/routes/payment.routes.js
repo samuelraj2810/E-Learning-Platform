@@ -1,6 +1,6 @@
 const express = require('express');
 const Stripe = require('stripe');
-const stripe = Stripe("sk_test_51Qg1M4GCzgYKCEZbEgytiEe5CUzjQxDxnZwWsZX0SbjxqzmZ3j6daBfTEY0KyI9YXx0d3gRhfehdqCzZF4yYFZSt00bcEjp21D"); // Replace with your secret key
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Replace with your secret key
 const {verifyToken} = require("../middleware/authToken");
 const { sendVerificationEmail, sendReciptEmail } = require('../utils/verifyemail');
 const courseDetails = require('../models/course.model');
