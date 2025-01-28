@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomDropdown from "../Common/CustomDropdown";
 import TextArea from "antd/es/input/TextArea";
 import { Avatar, Radio } from "antd";
-import { EditFilled } from "@ant-design/icons";
+import { EditFilled, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import CustomButton from "../Common/CustomButton";
 import CustomSkeleton from "../Common/CustomSkeleton";
 import CustomInput from "../Common/CustomInput";
@@ -154,13 +154,19 @@ const InstructorProfile = () => {
 
   return (
     <div className="grid gap-4">
-      <div className="p-2 py-3 flex max-w-96 min-h-24 items-center gap-4 shadow rounded-lg ">
+      <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
+      <div className="flex items-center gap-4">
         <Avatar
           className="bg-Primary/20 text-Primary"
         >
           {data[0].username.charAt(0)}
         </Avatar>
         <p>{data[0].username}</p>
+      </div>
+      <div className="flex flex-col justify-start lg:block">
+        <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs w-fit"><MailOutlined className="mr-2" />{data[0].email}</small>
+        <small className="bg-gray-100 rounded-lg p-1 px-2 text-xs ml-4 w-fit"><PhoneOutlined className="mr-2" />{data[0].phonenumber}</small>
+      </div>
       </div>
       <div className="pb-2 border-b flex items-center justify-between transition-all ">
         <h1 className="font-semibold tracking-wider lg:text-lg">Details</h1>
