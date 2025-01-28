@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomDropdown from "../Common/CustomDropdown";
 import TextArea from "antd/es/input/TextArea";
-import { Radio } from "antd";
+import { Avatar, Radio } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import CustomButton from "../Common/CustomButton";
 import CustomSkeleton from "../Common/CustomSkeleton";
@@ -130,16 +130,15 @@ const InstructorProfile = () => {
       showMessage("error", "Data is missing or not initialized properly");
       return;
     }
-    const phonePattern = /^\d{10}$/;  // Ensures the phone number is exactly 10 digits
-    const agePattern = /^\d{2}$/;     // Ensures the age is exactly 2 digits
+    const phonePattern = /^\d{10}$/; // Ensures the phone number is exactly 10 digits
+    const agePattern = /^\d{2}$/; // Ensures the age is exactly 2 digits
 
     Object.keys(data[0]).forEach((key) => {
       if (typeof data[0][key] === "string") {
         data[0][key] = data[0][key].trim(); // Trim strings
       }
     });
-    
-     
+
     if (!phonePattern.test(data[0].phonenumber)) {
       showMessage("error", "Please enter a valid 10-digit mobile number");
       return;
@@ -150,12 +149,19 @@ const InstructorProfile = () => {
       // Proceed with the data submission
       postData();
       setIsupdate(true);
-    
     }
   };
 
   return (
-    <div>
+    <div className="grid gap-4">
+      <div className="p-2 py-3 flex max-w-96 min-h-24 items-center gap-4 shadow rounded-lg ">
+        <Avatar
+          className="bg-Primary/20 text-Primary"
+        >
+          {data[0].username.charAt(0)}
+        </Avatar>
+        <p>{data[0].username}</p>
+      </div>
       <div className="pb-2 border-b flex items-center justify-between transition-all ">
         <h1 className="font-semibold tracking-wider lg:text-lg">Details</h1>
         <span className="flex items-center">
@@ -168,7 +174,7 @@ const InstructorProfile = () => {
       </div>
       {data.length > 0 ? (
         <form
-          className="grid grid-cols-1 mt-4 md:grid-cols-2
+          className="grid grid-cols-1 md:grid-cols-2
          lg:grid-cols-4 gap-4 rounded-lg shadow border p-8 bg-white"
         >
           {data.map((each) =>
