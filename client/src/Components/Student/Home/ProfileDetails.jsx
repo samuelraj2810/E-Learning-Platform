@@ -192,7 +192,9 @@ const ProfileDetails = () => {
       </div>
       <div className=" flex items-center justify-between transition-all ">
         <span className="flex items-center">
-          <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
+          <span className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">
+            Edit
+          </span>
           <EditFilled
             onClick={() => setIsupdate(!isupdate)}
             className="shadow duration-500 scale-100 bg-white hover:bg-Primary/10 hover:text-Primary p-2 rounded-full"
@@ -201,8 +203,8 @@ const ProfileDetails = () => {
       </div>
       {data.length > 0 ? (
         <div
-          className="grid grid-cols-1 mt-4 md:grid-cols-2
-          lg:grid-cols-4 gap-4 items-center rounded-lg border-2 p-8 bg-white"
+          className="grid grid-cols-1 md:grid-cols-2
+          lg:grid-cols-4 gap-4 items-center rounded-lg p-8 bg-white"
         >
           {data.map((each) =>
             each.title

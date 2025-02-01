@@ -181,8 +181,7 @@ const InstructorProfile = () => {
 
   return (
     <div className="grid gap-4">
-      {" "}
-      <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide mb-4">
+      <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">
         Details
       </h1>
       <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
@@ -209,17 +208,17 @@ const InstructorProfile = () => {
       </div>
       <div className=" flex items-center justify-between transition-all ">
         <span className="flex items-center">
-          <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
+          <span className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">Edit</span>
           <EditFilled
             onClick={() => setIsupdate(!isupdate)}
-            className="shadow duration-500 scale-100 hover:bg-Primary/10 hover:text-Primary p-2 rounded-full"
+            className="shadow duration-500 scale-100 bg-Primary/10 ml-4 text-Primary p-2 rounded-full"
           />
         </span>
       </div>
       {data.length > 0 ? (
         <form
           className="grid grid-cols-1 md:grid-cols-2
-         lg:grid-cols-4 gap-4 rounded-lg shadow border p-8 bg-white"
+         lg:grid-cols-4 gap-4 rounded-lg shadow p-8 bg-white"
         >
           {data.map((each) =>
             each.title
