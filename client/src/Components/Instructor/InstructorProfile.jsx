@@ -9,6 +9,7 @@ import CustomInput from "../Common/CustomInput";
 import { GET, PUT } from "../ApiFunction/ApiFunction";
 import { useCustomMessage } from "../Common/CustomMessage";
 import CustomProgressBar from "../Common/CustomProgressBar";
+import CustomAvatar from "../Common/CustomAvatar";
 
 const InstructorProfile = () => {
   const showMessage = useCustomMessage();
@@ -186,9 +187,7 @@ const InstructorProfile = () => {
       </h1>
       <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
         <div className="flex items-center gap-4">
-          <Avatar className="bg-Primary/20 text-Primary" size={"large"}>
-            {data[0]?.username.charAt(0).toUpperCase()}
-          </Avatar>
+          <CustomAvatar name={data[0]?.username} />
           <p className="grid">
             {data[0]?.username}
             <small className="text-xs text-gray-400">

@@ -10,6 +10,7 @@ import CustomSkeleton from "../../Common/CustomSkeleton";
 import axios from "axios";
 import CustomDropdown from "../../Common/CustomDropdown";
 import { EditFilled, MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import CustomAvatar from "../../Common/CustomAvatar";
 
 const ProfileDetails = () => {
   const showMessage = useCustomMessage();
@@ -163,19 +164,17 @@ const ProfileDetails = () => {
   };
 
   return (
-    <form className=" lg:mx-auto rounded-lg grid gap-2 p-4 lg:p-6">
+    <form className=" lg:mx-auto grid gap-2 p-4 lg:p-6">
       <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide mb-4">
         Details
       </h1>
-      <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
+      <div className="shadow grid gap-4 rounded-lg p-4 min-h-24 bg-white">
         <div className="flex items-center gap-4">
-          <Avatar className="bg-Primary/20 text-Primary" size={"large"}>
-            {data[0]?.username.charAt(0).toUpperCase()}
-          </Avatar>
+          <CustomAvatar name={data[0]?.username} />
           <p className="grid">
             {data[0]?.username}
             <small className="text-xs text-gray-400">
-              {data[0]?.designation}
+              {data[0]?.designation || "Student"}
             </small>
           </p>
         </div>
@@ -196,7 +195,7 @@ const ProfileDetails = () => {
           <span className="mr-2 hidden lg:block text-gray-400">Edit</span>
           <EditFilled
             onClick={() => setIsupdate(!isupdate)}
-            className="shadow duration-500 scale-100 hover:bg-Primary/10 hover:text-Primary p-2 rounded-full"
+            className="shadow duration-500 scale-100 bg-white hover:bg-Primary/10 hover:text-Primary p-2 rounded-full"
           />
         </span>
       </div>
