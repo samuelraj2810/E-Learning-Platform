@@ -8,9 +8,10 @@ import { useCustomMessage } from "../../Common/CustomMessage";
 
 const InstructorCourse = () => {
   const [coursedata, setCoursedata] = useState([]);
+  const [modalData, setModalData] = useState([]);
   const showMessage = useCustomMessage();
   const navigate = useNavigate();
-
+  console.log(modalData);
   const token = sessionStorage.getItem("token");
 
   const handleaddcourse = () => {
@@ -68,6 +69,7 @@ const InstructorCourse = () => {
       </div>
       <CustomTable
         data={coursedata}
+        rowClick={(e) => setModalData(e)}
         deleteFunction={(paeams) => deleteData(paeams)}
         editFunction={(paeams) => editData(paeams)}
       />

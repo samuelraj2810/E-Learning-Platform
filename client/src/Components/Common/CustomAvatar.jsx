@@ -51,7 +51,7 @@ const CustomAvatar = ({ name, src }) => {
       />
       <CameraFilled
         onClick={handleCameraClick}
-        className="text-Primary absolute bottom-0 right-0 scale-100 duration-300 hover:scale-105 hover:text-indigo-700 cursor-pointer"
+        className="text-Primary absolute bottom-0 right-0 scale-105 hover:text-indigo-700 cursor-pointer"
       />
       {preview && image && (
         <AnimatePresence>

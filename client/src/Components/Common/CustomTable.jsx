@@ -7,8 +7,9 @@ import { useCustomMessage } from "./CustomMessage";
 import { message, Popconfirm } from "antd";
 
 const CustomTable = ({
-  data,
+  data = [],
   columns = [],
+  rowClick,
   deleteFunction = (data) => {},
   editFunction = (data) => {},
   editBtn=true,
@@ -144,12 +145,19 @@ const CustomTable = ({
     editFunction(data);
   };
 
+  const handleRowClick = (record) => {
+    rowClick(record)
+  };
+
   return (
     <>
       <Table
         bordered
         size="small"
         className=""
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
         columns={defaultColumn}
         dataSource={coursedata}
         pagination={{
