@@ -14,7 +14,7 @@ import { Modal } from "antd";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const {confirm} = Modal
+  const { confirm } = Modal;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [userData, setUserData] = useState("- - -");
@@ -31,14 +31,20 @@ const Dashboard = () => {
   const navList = [
     {
       id: 1,
-      to:"/instructordashboard",
-      title:"Instructor Profile",
+      to: "/instructordashboard",
+      title: "Instructor Profile",
       icon: <UserOutlined className="mr-2" />,
     },
     {
       id: 2,
-      to:"/instructordashboard/instructorcourse",
+      to: "/instructordashboard/instructorcourse",
       title: "Courses",
+      icon: <ContainerOutlined className="mr-2" />,
+    },
+    {
+      id: 3,
+      to: "/instructordashboard/instructorrequest",
+      title: "My Request",
       icon: <ContainerOutlined className="mr-2" />,
     },
   ];
@@ -71,16 +77,16 @@ const Dashboard = () => {
   };
   const showConfirm = () => {
     confirm({
-      title: 'Are you sure you want to logout ?',
+      title: "Are you sure you want to logout ?",
       icon: null,
       content: null,
       onOk() {
-        handleSignOut()
+        handleSignOut();
       },
-      okButtonProps:{
-        className:"bg-red-500"
+      okButtonProps: {
+        className: "bg-red-500",
       },
-      okText:"Logout",
+      okText: "Logout",
     });
   };
   const handleSignOut = () => {
@@ -115,9 +121,9 @@ const Dashboard = () => {
           animate={isMenuOpen ? "open" : "closed"}
           variants={menuVariants}
           style={{ overflow: "hidden" }}
-          >
+        >
           <h1 className="hidden lg:flex gap-2 justify-center p-4 tracking-widest text-lg font-bold bg-gray-50">
-           Dashboard
+            Dashboard
           </h1>
           <ul className="capitalize flex flex-col m-4">
             {navList.map((each, i) => (
@@ -141,7 +147,7 @@ const Dashboard = () => {
       <div className="w-full shadow-lg h-full grid grid-rows-[7%_93%] bg-Primary/5 overflow-hidden">
         <div className="bg-white border-b-2 flex items-center justify-end gap-2 p-4 sticky top-0 ">
           <h1 className="mr-auto capitalize text-xs tracking-widest rounded-lg p-1">
-           Good to see you again &#128516;
+            Good to see you again &#128516;
           </h1>
           <LogoutOutlined
             className="text-white hidden lg:block bg-red-500 p-1 rounded-full"
