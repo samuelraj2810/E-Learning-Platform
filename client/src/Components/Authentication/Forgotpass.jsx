@@ -15,7 +15,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_FRONTEND_URL}/forgotpassword`,
+        `${process.env.REACT_APP_BACKEND_URL}/forgotpassword`,
         { email }
       );
       if (response.status === 200) {

@@ -16,7 +16,7 @@ const Course = ({my=false}) => {
     getData();
   }, []);
   const getData = async () => {
-    const result = await GET(`${process.env.REACT_APP_FRONTEND_URL}/getallcourse`);
+    const result = await GET(`${process.env.REACT_APP_BACKEND_URL}/getallcourse`);
     if (result) {
       setCoursedata(result.filter((course) =>!course.boughtBy.includes(userId)));
       setMyCourse(result.filter((course) =>course.boughtBy.includes(userId)))

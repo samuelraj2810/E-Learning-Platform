@@ -23,7 +23,7 @@ const InstructorCourse = () => {
 
   const getData = async () => {
     const token = sessionStorage.getItem("token");
-    const result = await axios.get(`${process.env.REACT_APP_FRONTEND_URL}/getinstcourse`, {
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getinstcourse`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -38,7 +38,7 @@ const InstructorCourse = () => {
   const deleteData = async (params) => {
     const { _id } = params;
     try {
-      await axios.delete(`${process.env.REACT_APP_FRONTEND_URL}/deletecourse/${_id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deletecourse/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

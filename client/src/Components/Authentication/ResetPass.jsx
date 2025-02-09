@@ -21,7 +21,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_FRONTEND_URL}/resetpass/${token}`,
+        `${process.env.REACT_APP_BACKEND_URL}/resetpass/${token}`,
         { password })
       showMessage("success", response.data.message)
       setTimeout(() => navigate("/login"), 2000); // Redirect to login after success
