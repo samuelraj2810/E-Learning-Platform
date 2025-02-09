@@ -142,7 +142,7 @@ function AddCourse() {
 
     try {
       const response = await POSTFILE(
-        "http://localhost:3000/addcourse",
+        `${process.env.REACT_APP_BACKEND_URL}/addcourse`,
         formData,
         token
       );

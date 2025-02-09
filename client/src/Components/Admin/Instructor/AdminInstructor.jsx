@@ -17,9 +17,9 @@ function AdminInstructor() {
     { name: "Personal Development", count: 0, color: "#eab308" },
     { name: "View All", count: 0, color: "#334155" },
   ]);
-
+  const url = process.env.REACT_APP_BACKEND_URL
   const getallInstructors = async () => {
-    let response = await GET("http://localhost:3000/getallinsdata");
+    let response = await GET(`${url}/getallinsdata`);
     setInsData(response.data);
   };
 
@@ -97,7 +97,7 @@ function AdminInstructor() {
 
   const deleteInstructor = async (userId) => {
     console.log(userId);
-    const response = await DELETE("http://localhost:3000/deleteinsdata", {
+    const response = await DELETE(`${url}/deleteinsdata`, {
       userId,
     });
     getallInstructors();

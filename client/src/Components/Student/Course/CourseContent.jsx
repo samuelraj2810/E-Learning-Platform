@@ -22,7 +22,7 @@ const CourseDetails = () => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
   const getCourse = async () => {
-    const data = await GET(`http://localhost:3000/getcourse/${_id}`);
+    const data = await GET(`${process.env.REACT_APP_BACKEND_URL}/getcourse/${_id}`);
     setTemp(data);
   };
 
@@ -63,7 +63,7 @@ const CourseDetails = () => {
     console.log(item._id);
 
     const response = await axios.post(
-      "http://localhost:3000/create-checkout-session",
+      `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
       { price: item.price, course: item._id },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -118,7 +118,7 @@ const CourseDetails = () => {
                   className="h-full bg-gray-100 w-full mx-auto"
                 >
                   <source
-                    src={`http://localhost:3000${item.videoPath}`}
+                    src={`${process.env.REACT_APP_BACKEND_URL}${item.videoPath}`}
                     type="video/mp4"
                   />
                   Your browser does not support the video tag.

@@ -17,9 +17,10 @@ const AdminDashboard = () => {
   const [menuId, setMenuId] = useState(0);
   const [userData, setUserData] = useState("- - -");
 
+  const url = process.env.REACT_APP_BACKEND_URL
   const fetchData = async () => {
-    const result = await GET("http://localhost:3000/admindetails");
-    if (result.length > 0) {
+    const result = await GET(`${url}/admindetails`);
+    if (result?.length > 0) {
       setUserData(result[0]);
     }
   };

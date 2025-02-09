@@ -54,7 +54,7 @@ function Signup() {
       return showMessage("warning", "please enter 10 digit number");
     }
     setLoading(true);
-    const result = await POST("http://localhost:3000/register", registerData);
+    const result = await POST(`${process.env.REACT_APP_BACKEND_URL}/register`, registerData);
     try {
       if (result.status === 200) {
         showMessage("success", result.data.message);

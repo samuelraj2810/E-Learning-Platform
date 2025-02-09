@@ -30,10 +30,11 @@ const Login = () => {
       showMessage("error", "Please enter a valid email");
       return;
     }
+    const url = process.env.REACT_APP_BACKEND_URL
     
     setLoading(true);
     try {
-      const result = await POST(`http://localhost:3000/login`,{ email, password });
+      const result = await POST(`${process.env.REACT_APP_BACKEND_URL}/login`,{ email, password });
       setLoading(false);
       if (result?.status === 200) {
         sessionStorage.setItem("token", result?.data?.token);
