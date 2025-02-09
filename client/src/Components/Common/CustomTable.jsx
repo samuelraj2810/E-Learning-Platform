@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Dropdown, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import axios from "axios";
@@ -10,7 +10,8 @@ const CustomTable = ({
   data = [],
   columns = [],
   rowClick,
-  Delete,
+  approveBtn = false,
+  deleteBtn = true,
   deleteFunction = (data) => {},
   editFunction = (data) => {},
   editBtn = true,
@@ -111,19 +112,26 @@ const CustomTable = ({
           width: 100,
           render: (_, record) => (
             <div className="flex gap-2 justify-evenly">
-              {editBtn === true && (
+              {editBtn === true && approveBtn === false && (
                 <CustomButton type="edit" onClick={() => handleEdit(record)} />
               )}
-              <Popconfirm
-                title="Delete the task"
-                description="Are you sure to delete this task?"
-                onConfirm={() => handleDelete(record)}
-                onCancel={cancel}
-                okText="Yes"
-                cancelText="No"
-              >
-                <CustomButton type="delete" />
-              </Popconfirm>
+              {deleteBtn === true && approveBtn === false && (
+                <Popconfirm
+                  title="Delete the task"
+                  description="Are you sure to delete this task?"
+                  onConfirm={() => handleDelete(record)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <CustomButton type="delete" />
+                </Popconfirm>
+              )}
+              {/* {approveBtn === true && (
+                <Dropdown menu={{ items }} placement="bottomRight">
+                  <Button>bottomRight</Button>
+                </Dropdown>
+              )} */}
             </div>
           ),
         },

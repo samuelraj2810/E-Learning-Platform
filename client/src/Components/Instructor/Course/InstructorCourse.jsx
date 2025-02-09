@@ -36,8 +36,8 @@ const InstructorCourse = () => {
   const deleteData = async (params) => {
     const { _id, courseName } = params;
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/deletecourse`,
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/request`,
         { courseid: _id, coursename: courseName },
         {
           headers: {

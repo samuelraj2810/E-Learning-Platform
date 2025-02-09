@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomTable from "../../Common/CustomTable";
-import axios from "axios";
+import { GET } from "../../ApiFunction/ApiFunction";
 const Request = () => {
+  const [request, setRequest] = useState([]);
+  const fetch = async () => {
+    const res = await GET(`${process.env.REACT_APP_BACKEND_URL}/getRequests`);
+    setRequest(res);
+  };
   useEffect(() => {
-    const res = axios.get(`${process.env.REACT_APP_BACKEND_URL}`);
-    console.log(res);
+    fetch();
   }, []);
   const header = [
     {
       title: "Course Name",
-      dataIndex: "courseName",
-      key: "courseName",
+      dataIndex: "coursename",
+      key: "coursename",
     },
     {
       title: "Description",
@@ -28,16 +32,15 @@ const Request = () => {
       key: "status",
       render: (text) => (
         <small
-          className={text ? "text-green-600 bg-green-50" : "text-gray-700"}
+          className={
+            text
+              ? "text-amber-600 bg-amber-50 py-1 rounded-full px-2"
+              : "text-gray-700"
+          }
         >
           {text ? text : "- - -"}
         </small>
       ),
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
     },
   ];
   return (
@@ -45,7 +48,7 @@ const Request = () => {
       <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">
         Request
       </h1>
-      <CustomTable columns={header} />
+      <CustomTable columns={header} data={request} />
     </div>
   );
 };
