@@ -12,7 +12,7 @@ const ReqSchema = new mongoose.Schema({
     default: "Pending",
   },
   description: { type: String, default: "Request To Delete This Course" },
-});
+},{timestamps:true});
 
 const Request = mongoose.model("Requests", ReqSchema);
 
