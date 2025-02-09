@@ -10,6 +10,7 @@ const CustomTable = ({
   data = [],
   columns = [],
   rowClick,
+  Delete,
   deleteFunction = (data) => {},
   editFunction = (data) => {},
   editBtn = true,
@@ -85,8 +86,8 @@ const CustomTable = ({
         <div className="flex gap-2 justify-evenly">
           <CustomButton type="edit" onClick={() => handleEdit(record)} />
           <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
+            title="Raise Delete Request"
+            description="Are you sure ?"
             onConfirm={() => handleDelete(record)}
             onCancel={cancel}
             okText="Yes"
@@ -137,7 +138,6 @@ const CustomTable = ({
   }, [columns]);
 
   const cancel = (e) => {
-    console.log(e);
     message.error("Click on No");
   };
 

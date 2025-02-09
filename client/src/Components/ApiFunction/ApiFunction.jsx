@@ -2,39 +2,39 @@ import axios from "axios";
 
 export const POST = async (action, params) => {
   try {
-      const result = await axios.post(action, params);
-      if (result.status === 200) {
-        return result;
-      }
+    const result = await axios.post(action, params);
+    if (result.status === 200) {
+      return result;
+    }
   } catch (error) {
     console.error(error);
   }
 };
 export const POSTFILE = async (action, params) => {
-  const token = sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
 
   try {
-      const result = await axios.post(action, params,{
-        headers:{
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data"
-        }
-      });
-      if (result.status === 200) {
-        return result;
-      }
+    const result = await axios.post(action, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (result.status === 200) {
+      return result;
+    }
   } catch (error) {
     console.error(error);
   }
 };
 
-export const GET = async (action,params={}) => {
+export const GET = async (action, params = {}) => {
   try {
     const token = sessionStorage.getItem("token");
     if (token) {
-      const result = await axios.get(action,{
+      const result = await axios.get(action, {
         headers: { Authorization: `Bearer ${token}` },
-        params:params
+        params: params,
       });
       if (result.status === 200) {
         return result.data;
@@ -65,9 +65,10 @@ export const PUTFILE = async (action, params) => {
     const token = sessionStorage.getItem("token");
     if (token) {
       const result = await axios.put(action, params, {
-        headers: { Authorization: `Bearer ${token}` ,
-        "Content-Type": "multipart/form-data"
-      },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       });
       if (result.status === 200) {
         return result;
@@ -78,16 +79,16 @@ export const PUTFILE = async (action, params) => {
   }
 };
 
-export const DELETE = async (action ,data) => {
+export const DELETE = async (action, data) => {
   try {
     const token = sessionStorage.getItem("token");
     console.log(token);
     console.log(data);
-    
+
     if (token) {
-      const result = await axios.delete(action,{
-        headers: { Authorization: `Bearer ${token}`,
-      },data 
+      const result = await axios.delete(action, {
+        headers: { Authorization: `Bearer ${token}` },
+        data,
       });
       if (result.status === 200) {
         return result;
@@ -97,4 +98,3 @@ export const DELETE = async (action ,data) => {
     console.error(error);
   }
 };
-

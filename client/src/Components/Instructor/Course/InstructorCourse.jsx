@@ -5,6 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCustomMessage } from "../../Common/CustomMessage";
+import { GET } from "../../ApiFunction/ApiFunction";
 
 const InstructorCourse = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -22,27 +23,28 @@ const InstructorCourse = () => {
   }, []);
 
   const getData = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getinstcourse`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const result = await GET(
+      `${process.env.REACT_APP_BACKEND_URL}/getinstcourse`
+    );
 
-    if (result.data) {
-      setCoursedata(result.data);
+    if (result) {
+      setCoursedata(result);
     } else {
       setCoursedata([]);
     }
   };
   const deleteData = async (params) => {
-    const { _id } = params;
+    const { _id, courseName } = params;
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deletecourse/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/deletecourse`,
+        { courseid: _id, coursename: courseName },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       getData();
     } catch (error) {
       console.error("Error deleting course:", error);

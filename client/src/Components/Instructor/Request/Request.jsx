@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomTable from "../../Common/CustomTable";
+import axios from "axios";
 const Request = () => {
+  useEffect(() => {
+    const res = axios.get(`${process.env.REACT_APP_BACKEND_URL}`);
+    console.log(res);
+  }, []);
   const header = [
     {
       title: "Course Name",
