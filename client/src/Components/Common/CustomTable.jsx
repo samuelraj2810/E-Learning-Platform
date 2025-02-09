@@ -127,11 +127,18 @@ const CustomTable = ({
                   <CustomButton type="delete" />
                 </Popconfirm>
               )}
-              {/* {approveBtn === true && (
-                <Dropdown menu={{ items }} placement="bottomRight">
-                  <Button>bottomRight</Button>
-                </Dropdown>
-              )} */}
+              {approveBtn === true && (
+                <>
+                  <CustomButton
+                    type="approve"
+                    onClick={() => handleApprove(record, 1)}
+                  />
+                  <CustomButton
+                    type="reject"
+                    onClick={() => handleApprove(record, 2)}
+                  />
+                </>
+              )}
             </div>
           ),
         },
@@ -160,6 +167,10 @@ const CustomTable = ({
 
   const handleRowClick = (record) => {
     rowClick(record);
+  };
+
+  const handleApprove = (record, condition) => {
+    console.log(condition);
   };
 
   return (

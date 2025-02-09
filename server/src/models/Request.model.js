@@ -1,19 +1,22 @@
 const mongoose = require("mongoose");
 const { v4 } = require("uuid");
-const ReqSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: v4,
+const ReqSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: String,
+      default: v4,
+    },
+    courseid: String,
+    coursename: String,
+    status: {
+      type: String,
+      default: "Pending",
+    },
+    requestat: String,
+    description: { type: String, default: "Request To Delete This Course" },
   },
-  courseid: String,
-  coursename: String,
-  status: {
-    type: String,
-    default: "Pending",
-  },
-  requestAt:String,
-  description: { type: String, default: "Request To Delete This Course" },
-},{timestamps:true});
+  { timestamps: true }
+);
 
 const Request = mongoose.model("Requests", ReqSchema);
 
