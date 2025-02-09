@@ -8,6 +8,7 @@ const filerouter = require("./src/middleware/file.route")
 const courserouter = require("./src/routes/course.routes")
 const paymentrouter = require("./src/routes/payment.routes")
 const adminroute = require("./src/routes/admin.route")
+const requestrouter = require("./src/routes/request.route")
 const cors = require("cors")
 
 app.use(cors('*'))
@@ -21,6 +22,7 @@ app.use(filerouter)
 app.use(courserouter)
 app.use(paymentrouter)
 app.use(adminroute)
+app.use(requestrouter)
 
 app.listen(3000, () => {
     try {
