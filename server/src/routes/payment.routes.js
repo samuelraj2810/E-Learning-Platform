@@ -28,8 +28,8 @@ router.post('/create-checkout-session', verifyToken, async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.REACT_URL_LINK}/success?session_id={CHECKOUT_SESSION_ID}&courseId=${course}`,
-      cancel_url: `${process.env.REACT_URL_LINK}/cancel`,
+      success_url: `/success?session_id={CHECKOUT_SESSION_ID}&courseId=${course}`,
+      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
     });
 
     // Send session ID to the client

@@ -19,7 +19,7 @@ function AdminInstructor() {
   ]);
 
   const getallInstructors = async () => {
-    let response = await GET("http://localhost:3000/getallinsdata");
+    let response = await GET(`${process.env.REACT_APP_FRONTEND_URL}/getallinsdata`);
     setInsData(response.data);
   };
 
@@ -97,7 +97,7 @@ function AdminInstructor() {
 
   const deleteInstructor = async (userId) => {
     console.log(userId);
-    const response = await DELETE("http://localhost:3000/deleteinsdata", {
+    const response = await DELETE(`${process.env.REACT_APP_FRONTEND_URL}/deleteinsdata`, {
       userId,
     });
     getallInstructors();

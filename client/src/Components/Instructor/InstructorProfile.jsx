@@ -23,7 +23,7 @@ const InstructorProfile = () => {
   const [designation, setDesignation] = useState("");
   const [expertise, setExpertise] = useState("Programming");
   const fetchData = async () => {
-    const result = await GET("http://localhost:3000/getinsdata");
+    const result = await GET(`${process.env.REACT_APP_FRONTEND_URL}/getinsdata`);
     if (result && result.length > 0) {
       const filteredData = result?.map((user) => ({
         username: user.username ? 10 : 0,
@@ -72,7 +72,7 @@ const InstructorProfile = () => {
     convertedObject.expertise = expertise;
     try {
       const result = await PUT(
-        "http://localhost:3000/editinsdata",
+        `${process.env.REACT_APP_FRONTEND_URL}/editinsdata`,
         convertedObject
       );
       if (result.status === 200) {

@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   const [userData, setUserData] = useState("- - -");
 
   const fetchData = async () => {
-    const result = await GET("http://localhost:3000/admindetails");
+    const result = await GET(`${process.env.REACT_APP_FRONTEND_URL}/admindetails`);
     if (result.length > 0) {
       setUserData(result[0]);
     }

@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [userData, setUserData] = useState("- - -");
 
   const fetchData = async () => {
-    const result = await GET("http://localhost:3000/getinsdata");
+    const result = await GET(`${process.env.REACT_APP_FRONTEND_URL}/getinsdata`);
     setUserData(result[0]);
   };
 
