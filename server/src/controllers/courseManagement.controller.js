@@ -2,6 +2,7 @@ const { log } = require("console");
 const courseDetails = require("../models/course.model");
 const instructorDetails = require("../models/instructorDetails.model");
 const fs = require("fs");
+const Request = require("../models/Request.model");
 
 
 const addCourse = async (req, res) => {
@@ -136,7 +137,7 @@ const getCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
   try {
-    const { _id } = req.params;
+    const { _id} = req.params;
     const data = await courseDetails.findById({ _id });
     // console.log(data);
 
@@ -144,6 +145,9 @@ const deleteCourse = async (req, res) => {
     res.json({
       message: "course deleted successfully",
     });
+    const data2 = await Request.findOne({courseid:data._id})
+    data2.status="Accepted"
+    data2.save()
     if (data.imageName && data.videoName) {
       fs.unlinkSync(`src/public/coursefiles/${data.imageName}`);
       fs.unlinkSync(`src/public/coursefiles/${data.videoName}`);

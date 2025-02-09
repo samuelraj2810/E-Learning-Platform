@@ -1,15 +1,18 @@
 const express = require("express");
 const Request = require("../models/Request.model");
-const { verifyToken } = require("../middleware/authToken");
 const router = express.Router();
-router.use(verifyToken);
-
+const { format } = require("date-fns");
 router.post("/request", async (req, res) => {
+  const now = new Date();
+  const Date = format(now, "MMM dd yyyy hh:mm a");
+  console.log(formattedDateTime);
+
   try {
     const { courseid, coursename } = req.body;
     const data = {
       courseid,
       coursename,
+      createdAt: Date,
     };
     await Request.create(data);
     res.json({
