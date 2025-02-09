@@ -1,14 +1,13 @@
 const express = require("express")
-const Request = require("../models/Request.model")
+const Request = require("../models/Request.model") 
 const router = express.Router()
 
 router.post("/request",async(req,res)=>{
     try {
-        const {courseid , coursename ,description} = req.body
+        const {courseid , coursename} = req.body
         const data = {
             courseid,
-            coursename,
-            description
+            coursename
         }
         await Request.create(data)
         res.json({
