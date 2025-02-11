@@ -1,6 +1,6 @@
 import {
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
+  CheckOutlined,
+  CloseOutlined,
   DeleteTwoTone,
   EditTwoTone,
 } from "@ant-design/icons";
@@ -9,7 +9,7 @@ import React from "react";
 
 const CustomButton = ({
   type = "default",
-  color = "default",
+  color,
   variant = "solid",
   disabled,
   size = "default",
@@ -46,9 +46,9 @@ const CustomButton = ({
           {type === "edit" ? (
             <EditTwoTone shape="circle" className="absolute" />
           ) : type === "approve" ? (
-            <CheckCircleTwoTone className="absolute" />
+            <CheckOutlined className="absolute p-1 text-green-600" />
           ) : type === "reject" ? (
-            <CloseCircleTwoTone className="absolute" />
+            <CloseOutlined className="absolute p-1 text-red-600" />
           ) : (
             <DeleteTwoTone
               shape="circle"

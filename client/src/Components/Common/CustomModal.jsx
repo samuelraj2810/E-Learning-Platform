@@ -5,23 +5,30 @@ const CustomModal = ({
   open,
   onClose,
   width,
+  title,
   centered,
   classNames,
   showCloseButton = false,
   className,
   children,
+  footer,
 }) => {
   return (
     <Modal
-      title={showTitle ? title : null}
       open={open}
       onCancel={onClose}
       width={width}
       centered={centered}
       className={classNames}
+      footer={footer}
       closeIcon={showCloseButton} // Hide close icon
     >
-      <div className={`${className}`}>{children}</div>
+      <>
+        <p className="text-center font-bold sm:text-xl pb-4 border-b">
+          {title}
+        </p>
+        <div className={`${className}`}>{children}</div>
+      </>
     </Modal>
   );
 };

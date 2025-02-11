@@ -10,6 +10,7 @@ const CustomTable = ({
   data = [],
   columns = [],
   rowClick,
+  viewModal = (data, i) => {},
   approveBtn = false,
   deleteBtn = true,
   deleteFunction = (data) => {},
@@ -131,11 +132,11 @@ const CustomTable = ({
                 <>
                   <CustomButton
                     type="approve"
-                    onClick={() => handleApprove(record, 1)}
+                    onClick={() => viewModal(record, 1)}
                   />
                   <CustomButton
                     type="reject"
-                    onClick={() => handleApprove(record, 2)}
+                    onClick={() => viewModal(record, 2)}
                   />
                 </>
               )}
@@ -169,19 +170,15 @@ const CustomTable = ({
     rowClick(record);
   };
 
-  const handleApprove = (record, condition) => {
-    console.log(condition);
-  };
-
   return (
     <>
       <Table
         bordered
         size="small"
         className=""
-        onRow={(record) => ({
-          onClick: () => handleRowClick(record),
-        })}
+        // onRow={(record) => ({
+        //   onClick: () => handleRowClick(record),
+        // })}
         columns={defaultColumn}
         dataSource={coursedata}
         pagination={{
