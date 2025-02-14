@@ -57,14 +57,15 @@ const Request = () => {
   ];
   console.log(reason);
 
-  const handleRequest = async (condition) => {
-    console.log(condition);
+  const handleRequest = async (reqId, data) => {
+    const { _id } = data;
+    console.log(reqId);
     if (!reason) {
       showMessage("info", "Remark is required");
     }
 
     const res = await DELETE(
-      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/status${condition}`
+      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/${_id}&${reqId}`
     );
     fetch();
   };
@@ -105,7 +106,7 @@ const Request = () => {
                   ? "!bg-green-500/90 hover:!bg-green-500"
                   : "!bg-red-500/90 hover:!bg-red-500"
               }`}
-              onClick={() => handleRequest(modalData.condition)}
+              onClick={() => handleRequest(modalData.condition, modalData.data)}
             >
               {modalData.condition === 1 ? "Approve" : "Reject"}
             </CustomButton>
