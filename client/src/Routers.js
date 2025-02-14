@@ -81,6 +81,7 @@ const Routers = () => {
           <Route path="/adminpanel/course/addCourse" element={<AddCourse />} />
           <Route path="/adminpanel/instructor" element={<AdminInstructor />} />
           <Route path="/adminpanel/student" element={<AdminStudent />} />
+          <Route path="/adminpanel/request" element={<Request />} />
           <Route
             path="/adminpanel/course/editCourse"
             element={<EditCourse />}

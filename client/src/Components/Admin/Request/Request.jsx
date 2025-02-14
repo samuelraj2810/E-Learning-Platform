@@ -42,6 +42,7 @@ const Request = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      width: 100,
       render: (text) => (
         <small
           className={` py-1 rounded-full px-2 text-center ${

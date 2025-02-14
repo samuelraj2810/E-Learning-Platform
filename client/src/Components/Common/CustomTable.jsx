@@ -106,7 +106,7 @@ const CustomTable = ({
   const { action } = columns;
   useEffect(() => {
     if (columns.length > 0) {
-      validate === "admin" || action === true
+      validate === "Admin" || action === true
         ? setDefaultColumn([
             ...columns,
             {

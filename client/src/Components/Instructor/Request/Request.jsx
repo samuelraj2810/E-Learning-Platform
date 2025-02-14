@@ -42,6 +42,7 @@ const Request = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      width: 100,
       render: (text) => (
         <small
           className={` py-1 rounded-full px-2 text-center ${
@@ -64,7 +65,7 @@ const Request = () => {
       return;
     }
     const res = await DELETE(
-      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/${courseid}/${reqid}`
+      `${process.env.REACT_APP_BACKEND_URL}/deleterequest/${courseid}/${reqid}`
     );
     if (res.status === 200) {
       showMessage("success", res.data.message);
