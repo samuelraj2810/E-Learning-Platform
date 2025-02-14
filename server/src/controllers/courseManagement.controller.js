@@ -130,7 +130,7 @@ const deleteCourse = async (req, res) => {
     if (reqid == 1) {
       var data = await courseDetails.findById({_id : courseid });
       if (!data) {
-        return res.json({ message: "Id doesnt match" });
+        return res.status(404).json({ message: "Id doesnt match" });
       }
       const data1 = await courseDetails.findByIdAndDelete({_id:courseid});
       res.json({
