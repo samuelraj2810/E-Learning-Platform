@@ -5,7 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCustomMessage } from "../../Common/CustomMessage";
-import { GET } from "../../ApiFunction/ApiFunction";
+import { GET, POST } from "../../ApiFunction/ApiFunction";
 
 const InstructorCourse = () => {
   const [coursedata, setCoursedata] = useState([]);
@@ -35,19 +35,19 @@ const InstructorCourse = () => {
   };
   const deleteData = async (params) => {
     const { _id, courseName } = params;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/request`;
     try {
-      await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/request`,
-        { courseid: _id, coursename: courseName },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await POST(url, {
+        courseid: _id,
+        coursename: courseName,
+      });
+      if (res.status === 200) {
+        showMessage("success", res.data.message);
+      } else {
+        showMessage("error", res.data.message);
+      }
       getData();
     } catch (error) {
-      console.error("Error deleting course:", error);
       showMessage("error", "Failed to delete course. Please try again.");
     }
   };
