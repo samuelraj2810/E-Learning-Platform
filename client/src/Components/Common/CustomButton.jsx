@@ -36,7 +36,7 @@ const CustomButton = ({
               : "hover:bg-red-100"
           }`}
           color={color}
-          variant={"default"}
+          variant={type === "approve" || type === "reject" ? "link" : "default"}
           disabled={disabled}
           size={"small"}
           shape={"circle"}

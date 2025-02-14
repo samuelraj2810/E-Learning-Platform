@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import CustomTable from "../../Common/CustomTable";
-import { GET } from "../../ApiFunction/ApiFunction";
+import { DELETE, GET } from "../../ApiFunction/ApiFunction";
 import CustomModal from "../../Common/CustomModal";
 import CustomButton from "../../Common/CustomButton";
 import CustomInput from "../../Common/CustomInput";
 import { useCustomMessage } from "../../Common/CustomMessage";
+import TextArea from "antd/es/input/TextArea";
 const Request = () => {
   const [request, setRequest] = useState([]);
-  const [reason, setReason] = useState(null);
+  const [reason, setReason] = useState("");
   const showMessage = useCustomMessage();
   const [modalData, setModalData] = useState({ data: null, condition: null });
   const fetch = async () => {
     const res = await GET(`${process.env.REACT_APP_BACKEND_URL}/getRequests`);
     setRequest(res);
   };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -30,8 +32,11 @@ const Request = () => {
     },
     {
       title: "Requested",
-      dataIndex: "requested",
-      key: "requested",
+      dataIndex: "requestat",
+      key: "requestat",
+      render: (text) => (
+        <small className="text-gray-500">{text ? text : "- - -"}</small>
+      ),
     },
     {
       title: "Status",
@@ -50,11 +55,18 @@ const Request = () => {
       ),
     },
   ];
+  console.log(reason);
 
-  const handleRequest = (condition) => {
+  const handleRequest = async (condition) => {
+    console.log(condition);
     if (!reason) {
       showMessage("info", "Remark is required");
     }
+
+    const res = await DELETE(
+      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/status${condition}`
+    );
+    fetch();
   };
 
   return (
@@ -79,14 +91,20 @@ const Request = () => {
         footer={
           <div className="flex gap-2">
             <CustomButton
-              color="danger"
               className="flex-1"
-              onClick={() => setModalData({})}
+              onClick={() => {
+                setModalData({});
+                setReason("");
+              }}
             >
               Cancel
             </CustomButton>
             <CustomButton
-              className="flex-1 bg-Primary/90 !text-white hover:!bg-Primary"
+              className={`flex-1 !text-white ${
+                modalData.condition === 1
+                  ? "!bg-green-500/90 hover:!bg-green-500"
+                  : "!bg-red-500/90 hover:!bg-red-500"
+              }`}
               onClick={() => handleRequest(modalData.condition)}
             >
               {modalData.condition === 1 ? "Approve" : "Reject"}
@@ -94,13 +112,12 @@ const Request = () => {
           </div>
         }
       >
-        <div className="min-h-4 grid gap-2 my-4">
-          <CustomInput
-            title={"Reason"}
-            required
-            onChange={(e) => setReason(e)}
-            placeholder="Enter Reason"
-            className="!h-20"
+        <div className="min-h-32 grid gap-2 my-4">
+          <TextArea
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="Enter Comment"
+            className=""
           />
         </div>
       </CustomModal>
