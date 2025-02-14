@@ -90,9 +90,7 @@ export const DELETE = async (action, data) => {
         headers: { Authorization: `Bearer ${token}` },
         data,
       });
-      if (result.status === 200) {
-        return result;
-      }
+      return result;
     }
   } catch (error) {
     console.error(error);

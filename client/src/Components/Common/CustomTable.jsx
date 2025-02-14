@@ -19,6 +19,7 @@ const CustomTable = ({
 }) => {
   const [updateId, setUpdateId] = useState(false);
   const [coursedata, setCoursedata] = useState([]);
+  const validate = sessionStorage.getItem("designation");
   const [defaultColumn, setDefaultColumn] = useState([
     {
       title: "Course Name",
@@ -102,48 +103,54 @@ const CustomTable = ({
     },
   ]);
 
+  const { action } = columns;
   useEffect(() => {
     if (columns.length > 0) {
-      setDefaultColumn([
-        ...columns,
-        {
-          title: "Action",
-          key: "action",
-          align: "center",
-          width: 100,
-          render: (_, record) => (
-            <div className="flex gap-2 justify-evenly">
-              {editBtn === true && approveBtn === false && (
-                <CustomButton type="edit" onClick={() => handleEdit(record)} />
-              )}
-              {deleteBtn === true && approveBtn === false && (
-                <Popconfirm
-                  title="Delete the task"
-                  description="Are you sure to delete this task?"
-                  onConfirm={() => handleDelete(record)}
-                  onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <CustomButton type="delete" />
-                </Popconfirm>
-              )}
-              {approveBtn === true && (
-                <>
-                  <CustomButton
-                    type="approve"
-                    onClick={() => viewModal(record, 1)}
-                  />
-                  <CustomButton
-                    type="reject"
-                    onClick={() => viewModal(record, 2)}
-                  />
-                </>
-              )}
-            </div>
-          ),
-        },
-      ]);
+      validate === "admin" || action === true
+        ? setDefaultColumn([
+            ...columns,
+            {
+              title: "Action",
+              key: "action",
+              align: "center",
+              width: 100,
+              render: (_, record) => (
+                <div className="flex gap-2 justify-evenly">
+                  {editBtn === true && approveBtn === false && (
+                    <CustomButton
+                      type="edit"
+                      onClick={() => handleEdit(record)}
+                    />
+                  )}
+                  {deleteBtn === true && approveBtn === false && (
+                    <Popconfirm
+                      title="Delete the task"
+                      description="Are you sure to delete this task?"
+                      onConfirm={() => handleDelete(record)}
+                      onCancel={cancel}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <CustomButton type="delete" />
+                    </Popconfirm>
+                  )}
+                  {approveBtn === true && (
+                    <>
+                      <CustomButton
+                        type="approve"
+                        onClick={() => viewModal(record, 1)}
+                      />
+                      <CustomButton
+                        type="reject"
+                        onClick={() => viewModal(record, 2)}
+                      />
+                    </>
+                  )}
+                </div>
+              ),
+            },
+          ])
+        : setDefaultColumn(columns);
     }
     setCoursedata(
       data.map((item) => ({
