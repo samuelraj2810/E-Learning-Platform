@@ -45,9 +45,11 @@ const Request = () => {
       render: (text) => (
         <small
           className={
-            text
+            text === "Pending"
               ? "text-amber-600 bg-amber-50 py-1 rounded-full px-2"
-              : "text-gray-700"
+              : text === "Approved"
+              ? "text-green-600 bg-green-50 py-1 rounded-full px-2"
+              : "text-red-600 bg-red-50 py-1 rounded-full px-2"
           }
         >
           {text ? text : "- - -"}
@@ -57,15 +59,15 @@ const Request = () => {
   ];
   console.log(reason);
 
-  const handleRequest = async (reqId, data) => {
-    const { _id } = data;
-    console.log(reqId);
+  const handleRequest = async (reqid, data) => {
+    const { courseid } = data;
+    console.log(reqid);
     if (!reason) {
       showMessage("info", "Remark is required");
     }
 
     const res = await DELETE(
-      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/${_id}&${reqId}`
+      `${process.env.REACT_APP_BACKEND_URL}/deletecourse/${courseid}/${reqid}`
     );
     fetch();
   };
