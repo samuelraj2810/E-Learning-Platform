@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs")
 const Request = require("../models/Request.model");
+const courseDetails = require("../models/course.model")
 const router = express.Router();
 const { format } = require("date-fns");
 router.post("/request", async (req, res) => {
