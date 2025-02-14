@@ -125,30 +125,20 @@ const getCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
   try {
-    const { courseid, reqid } = req.params;
-    console.log(courseid)
-    if (reqid == 1) {
-      var data = await courseDetails.findById({_id : courseid });
-      if (!data) {
-        return res.status(404).json({ message: "Id doesnt match" });
-      }
-      const data1 = await courseDetails.findByIdAndDelete({_id:courseid});
-      res.json({
-        message: "course deleted successfully",
-      });
-      if (data.imageName && data.videoName) {
-        fs.unlinkSync(`src/public/coursefiles/${data.imageName}`);
-        fs.unlinkSync(`src/public/coursefiles/${data.videoName}`);
-      }
-      const data2 = await Request.findOne({ courseid });
-      data2.status = "Approved";
-      await data2.save();
-    } else {
-      const data2 = await Request.findOne({ courseid});
-      data2.status = "Rejected";
-      await data2.save();
-      res.json({message:"Course request Rejected"})
+    const { _id } = req.params;
+    var data = await courseDetails.findById(_id);
+    if (!data) {
+      return res.status(404).json({ message: "Id doesnt match" });
     }
+    const data1 = await courseDetails.findByIdAndDelete(_id);
+
+    if (data.imageName && data.videoName) {
+      fs.unlinkSync(`src/public/coursefiles/${data.imageName}`);
+      fs.unlinkSync(`src/public/coursefiles/${data.videoName}`);
+    }
+    res.json({
+      message: "course deleted successfully",
+    });
   } catch (error) {
     res.json(error.message);
   }

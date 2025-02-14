@@ -7,6 +7,6 @@ router.use(verifyToken); // Middleware to verify token
 router.get("/getinstcourse", courseCtrl.getCoursebyId); // Gets Course created by Instructor
 router.get("/getallcourse", courseCtrl.getAllCourse); // Gets all Courses
 router.get("/getcourse/:_id", courseCtrl.getCourse); // Gets Particular Course
-router.delete("/deletecourse/:courseid/:reqid", courseCtrl.deleteCourse); //Delete Course
+router.delete("/deletecourse/:_id", courseCtrl.deleteCourse); //Delete Course
 
 module.exports = router;
