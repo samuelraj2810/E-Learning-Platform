@@ -4,6 +4,10 @@ const Request = require("../models/Request.model");
 const courseDetails = require("../models/course.model")
 const router = express.Router();
 const { format } = require("date-fns");
+const { verifyToken } = require("../middleware/authToken");
+
+
+router.use(verifyToken)
 router.post("/request", async (req, res) => {
   const now = new Date();
   const Date1 = format(now, "MMM dd yyyy");
