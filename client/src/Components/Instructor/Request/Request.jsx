@@ -61,16 +61,18 @@ const Request = () => {
 
   const handleRequest = async (reqid, data) => {
     const { courseid } = data;
-    console.log(courseid);
-
-    console.log(reqid);
     if (!reason) {
-      showMessage("info", "Remark is required");
+      return;
     }
 
     const res = await DELETE(
       `${process.env.REACT_APP_BACKEND_URL}/deletecourse/${courseid}/${reqid}`
     );
+    if (res.status === 200) {
+      showMessage("success", res.data.message);
+    } else {
+      showMessage("error", res.data.message);
+    }
     fetch();
   };
 
@@ -118,11 +120,17 @@ const Request = () => {
         }
       >
         <div className="min-h-32 grid gap-2 my-4">
+          <p className={`text-base font-normal capitalize text-gray-700`}>
+            Comment
+            <span className="text-red-500 mx-1 text-xs bg-red-50 rounded-md p-1">
+              required
+            </span>
+          </p>
           <TextArea
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="Enter Comment"
-            className=""
+            className={!reason && "!border-red-500"}
           />
         </div>
       </CustomModal>
