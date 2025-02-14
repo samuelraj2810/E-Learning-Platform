@@ -61,6 +61,8 @@ const Request = () => {
 
   const handleRequest = async (reqid, data) => {
     const { courseid } = data;
+    console.log(courseid);
+
     console.log(reqid);
     if (!reason) {
       showMessage("info", "Remark is required");
