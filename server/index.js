@@ -16,6 +16,7 @@ app.use(cors('*'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use("/upload",express.static("src/public/coursefiles/"))
+app.use("/uploadimage",express.static("src/public/profilephotos/"))
 Connection()
 app.use(router)
 app.use(insrouter)

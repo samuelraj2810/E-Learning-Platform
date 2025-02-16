@@ -4,7 +4,10 @@ import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { POSTFILE } from "../ApiFunction/ApiFunction";
 
-const CustomAvatar = ({ name, src }) => {
+const CustomAvatar = ({ name, imagepath }) => {
+  const imageurl = `${process.env.REACT_APP_BACKEND_URL}${imagepath}`
+  console.log(imageurl);
+  
   const [image, setImage] = useState([]);
   const [preview, setPreview] = useState(false);
   // Create a ref for the hidden file input
@@ -26,17 +29,15 @@ const CustomAvatar = ({ name, src }) => {
     formData.append("profilepicture", file);
 
     if (file) {
-      const response = await POSTFILE("http://localhost:3000/upload", formData);
+      const response = await POSTFILE("http://localhost:3000/uploadimage", formData);
       // Create a local URL of the selected file and update image state
-      const imageUrl = URL.createObjectURL(file);
-
-      setImage(imageUrl);
+      
     }
   };
   return (
     <div className="relative">
       <Avatar
-        src={image}
+        src={imageurl}
         className={`bg-Primary/20 text-Primary text-2xl size-16 border-4 border-white shadow-gray-400 shadow ${
           image.length > 0 && "cursor-pointer"
         }`}

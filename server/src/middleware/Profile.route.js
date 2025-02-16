@@ -7,6 +7,7 @@ const userDetails = require("../models/UserDetails..model");
 const register = require("../models/Register.model");
 const admindetails = require("../models/Admin.model");
 const instructorDetails = require("../models/instructorDetails.model");
+const { log } = require("console");
 
 const storage = multer.diskStorage({
   destination: "src/public/profilephotos/",
@@ -28,6 +29,8 @@ router.post("/uploadimage", uploadimage, async (req, res) => {
   try {
     const imagefile = req.file;
     const userId = req.userId;
+    console.log(imagefile.filename);
+    
 
     if (!imagefile) {
       return res.status(400).json({ message: "No image file provided" });
@@ -47,7 +50,9 @@ router.post("/uploadimage", uploadimage, async (req, res) => {
         fs.unlinkSync(`src/public/profilephotos/${admindata.imagename}`);
       }
       admindata.imagename = imagefile.filename;
-      admindata.imagepath = `/upload/${imagefile.filename}`;
+      admindata.imagepath = `/uploadimage/${imagefile.filename}`;
+      console.log("success");
+      
       await admindata.save();
     } else if (data.designation === "Instructor") {
       const insdata = await instructorDetails.findOne({ userId });
@@ -57,7 +62,7 @@ router.post("/uploadimage", uploadimage, async (req, res) => {
       if(insdata.imagename){
         fs.unlinkSync(`src/public/profilephotos/${insdata.imagename}`);      }
       insdata.imagename = imagefile.filename;
-      insdata.imagepath = `/upload/${imagefile.filename}`;
+      insdata.imagepath = `/uploadimage/${imagefile.filename}`;
       await insdata.save();
     } else {
       const userdata = await userDetails.findOne({ userId });
@@ -67,7 +72,7 @@ router.post("/uploadimage", uploadimage, async (req, res) => {
       if(userdata.imagename){
         fs.unlinkSync(`src/public/profilephotos/${userdata.imagename}`);      }
       userdata.imagename = imagefile.filename;
-      userdata.imagepath = `/upload/${imagefile.filename}`;
+      userdata.imagepath = `/uploadimage/${imagefile.filename}`;
       await userdata.save();
     }
     res.json({ message: "Image uploaded successfully" });

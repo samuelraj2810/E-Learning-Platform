@@ -186,7 +186,7 @@ const InstructorProfile = () => {
       </h1>
       <div className="shadow grid gap-4 rounded-lg p-4 min-h-24 bg-gradient-to-tl from-Primary/10 to-transparent">
         <div className="flex items-center gap-4">
-          <CustomAvatar name={data[0]?.username} />
+          <CustomAvatar name={data[0]?.username} imagepath={data[0]?.imagepath} />
           <p className="grid">
             {data[0]?.username}
             <small className="text-xs text-gray-400">
