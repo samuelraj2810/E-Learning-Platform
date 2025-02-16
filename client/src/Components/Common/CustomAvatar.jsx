@@ -2,6 +2,7 @@ import { CameraFilled, CloseOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { POSTFILE } from "../ApiFunction/ApiFunction";
 
 const CustomAvatar = ({ name, src }) => {
   const [image, setImage] = useState([]);
@@ -19,11 +20,16 @@ const CustomAvatar = ({ name, src }) => {
   };
 
   // Handle file selection
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("profilepicture", file);
+
     if (file) {
+      const response = await POSTFILE("http://localhost:3000/upload", formData);
       // Create a local URL of the selected file and update image state
       const imageUrl = URL.createObjectURL(file);
+
       setImage(imageUrl);
     }
   };
