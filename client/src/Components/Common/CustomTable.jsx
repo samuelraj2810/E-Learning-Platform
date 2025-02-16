@@ -1,4 +1,4 @@
-import { Dropdown, Table } from "antd";
+import { Dropdown, Rate, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import axios from "axios";
@@ -25,8 +25,19 @@ const CustomTable = ({
       title: "Course Name",
       dataIndex: "courseName",
       key: "courseName",
-      render: (text) => (
-        <span className="!text-gray-500">{text ? text : "- - -"}</span>
+      render: (text, record) => (
+        <div className="flex flex-col lg:flex-row gap-2 items-center">
+          <img
+            src={
+              record.imagePath
+                ? `http://localhost:3000${record.imagePath}`
+                : "default-image.jpg"
+            }
+            alt="Course"
+            className="rounded h-10  object-cover"
+          />
+          <span className="!text-gray-500">{text ? text : "- - -"}</span>
+        </div>
       ),
     },
     {
@@ -53,9 +64,7 @@ const CustomTable = ({
       key: "rating",
       align: "center",
       render: (text) => (
-        <small className={text ? "text-green-600" : "text-gray-700"}>
-          {text ? text : "- - -"}
-        </small>
+        <Rate className="text-xs" disabled defaultValue={text} />
       ),
     },
     {

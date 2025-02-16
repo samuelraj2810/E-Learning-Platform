@@ -1,8 +1,13 @@
 import axios from "axios";
 
 export const POST = async (action, params) => {
+  const token = sessionStorage.getItem("token");
   try {
-    const result = await axios.post(action, params);
+    const result = await axios.post(action, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (result.status === 200) {
       return result;
     }

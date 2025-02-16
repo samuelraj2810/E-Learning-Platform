@@ -184,7 +184,7 @@ const InstructorProfile = () => {
       <h1 className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">
         Details
       </h1>
-      <div className="shadow grid gap-4 rounded-lg p-4 min-h-24">
+      <div className="shadow grid gap-4 rounded-lg p-4 min-h-24 bg-gradient-to-tl from-Primary/10 to-transparent">
         <div className="flex items-center gap-4">
           <CustomAvatar name={data[0]?.username} />
           <p className="grid">
@@ -208,7 +208,9 @@ const InstructorProfile = () => {
       </div>
       <div className=" flex items-center justify-between transition-all ">
         <span className="flex items-center">
-          <span className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">Edit</span>
+          <span className="lg:text-2xl text-base font-light text-gray-500 tracking-wide">
+            Edit
+          </span>
           <EditFilled
             onClick={() => setIsupdate(!isupdate)}
             className="shadow duration-500 scale-100 bg-Primary/10 ml-4 text-Primary p-2 rounded-full"

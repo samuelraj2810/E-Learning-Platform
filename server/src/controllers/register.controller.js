@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 // Registers the user data
 const regPost = async (req, res) => {
   try {
+    console.log(req.body);
     const { email, password, username } = req.body;
     const checkmail = await register.findOne({ email });
     if (checkmail) {
@@ -20,6 +21,7 @@ const regPost = async (req, res) => {
       password: encpass,
     };
     const userdata = await register.create(data);
+    console.log(userdata, "created");
     const verificationToken = jwt.sign(
       { userId: userdata.userId },
       process.env.JWT_KEY,

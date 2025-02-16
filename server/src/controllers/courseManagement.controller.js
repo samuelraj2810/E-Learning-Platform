@@ -9,7 +9,7 @@ const addCourse = async (req, res) => {
     const instructorId = req.userId;
     const insdata = await instructorDetails.findOne({ userId: instructorId });
     // console.log(insdata);
-    const instructorName = insdata.name;
+    const instructorName = insdata.username;
 
     const imagefile = req.files["image"] ? req.files["image"][0] : null;
     const videofile = req.files["video"] ? req.files["video"][0] : null;

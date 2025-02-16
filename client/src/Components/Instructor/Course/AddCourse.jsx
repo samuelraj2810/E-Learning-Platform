@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomButton from "../../Common/CustomButton";
 import CustomInput from "../../Common/CustomInput";
 import {
+  ClockCircleOutlined,
   DeleteOutlined,
   MinusCircleOutlined,
   PlusOutlined,
@@ -226,6 +227,11 @@ function AddCourse() {
                   className="w-full"
                   containerClassName="p-2 flex items-center gap-4"
                   type={type}
+                  suffix={
+                    key === "duration" && (
+                      <ClockCircleOutlined className="text-Primary" />
+                    )
+                  }
                   onChange={(e) =>
                     handleInputChange(
                       key,
