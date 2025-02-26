@@ -18,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/upload",express.static("src/public/coursefiles/"))
 app.use("/uploadimage",express.static("src/public/profilephotos/"))
 Connection()
+app.get("/",(req,res)=>{
+    res.json("Welcome to backend api")
+})
 app.use(router)
 app.use(insrouter)
 app.use(filerouter)
@@ -26,6 +29,8 @@ app.use(courserouter)
 app.use(paymentrouter)
 app.use(adminroute)
 app.use(requestrouter)
+
+
 
 app.listen(3000, () => {
     try {
